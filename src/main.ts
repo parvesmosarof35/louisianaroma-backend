@@ -9,8 +9,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
 
-  // Global prefix for all API endpoints
-  app.setGlobalPrefix('api/v1');
+  // Global prefix for all API endpoints, excluding root dashboard
+  app.setGlobalPrefix('api/v1', { exclude: ['/'] });
 
   // Enable CORS with luxury domain settings (and localhost fallback)
   app.enableCors({
