@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.gitignore
+.env
+Dockerfile
+.dockerignore
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+.pnpm-store
+README.md
+louisianaroma-backend.json
