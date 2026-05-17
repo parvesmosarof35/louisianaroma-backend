@@ -35,7 +35,7 @@ model User {
   isVerify                Boolean       @default(false)
   verificationCode        Int?
   verificationCodeExpires DateTime?
-  role                    String        @default("user") // superadmin, admin, user, driver, etc.
+  role                    String        @default("user") // superadmin, admin, user
   gender                  String? // Male, Female
   address                 String?
   status                  String        @default("isProgress") // isProgress, active, blocked
