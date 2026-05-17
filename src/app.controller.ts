@@ -5,7 +5,7 @@ import { MetricsService } from './common/services/metrics.service';
 export class AppController {
   constructor(private readonly metricsService: MetricsService) {}
 
-  @Get('api/v1/monitor/metrics')
+  @Get('monitor/metrics')
   async getMetrics() {
     return this.metricsService.getMetrics();
   }
