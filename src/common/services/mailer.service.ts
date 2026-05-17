@@ -7,8 +7,8 @@ export class MailerService {
   private transporter: nodemailer.Transporter;
 
   constructor(private configService: ConfigService) {
-    const email = this.configService.get<string>('NODEMAILER_EMAIL') || 'parvesmosarof2@gmail.com';
-    const password = this.configService.get<string>('NODEMAILER_PASSWORD') || 'ymlddthkyqzdljvs';
+    const email = this.configService.get<string>('NODEMAILER_EMAIL') || '';
+    const password = this.configService.get<string>('NODEMAILER_PASSWORD') || '';
 
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
