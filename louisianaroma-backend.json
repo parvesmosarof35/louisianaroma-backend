@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "f9dee5df-b427-47f2-baff-93e5960ccf49",
-    "name": "WalkerQ Luggage",
+    "name": "Maison Louisianaroma Backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "51610931",
     "_collection_link": "https://go.postman.co/collection/51610931-f9dee5df-b427-47f2-baff-93e5960ccf49?source=collection_link"
@@ -1761,6 +1761,48 @@
                 "v1",
                 "orders",
                 "65edd4decf2ec0cf59f71fda"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "monitoring",
+      "item": [
+        {
+          "name": "root_dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "monitor_metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/monitor/metrics",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "metrics"
               ]
             }
           },
