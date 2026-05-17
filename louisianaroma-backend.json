@@ -1,0 +1,1782 @@
+{
+  "info": {
+    "_postman_id": "f9dee5df-b427-47f2-baff-93e5960ccf49",
+    "name": "WalkerQ Luggage",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51610931",
+    "_collection_link": "https://go.postman.co/collection/51610931-f9dee5df-b427-47f2-baff-93e5960ccf49?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "create_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullname\": \"new parves\",\r\n    \"email\": \"parvesmosarof32@gmail.com\",\r\n    \"phoneNumber\": \"01522305059\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/create_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "create_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullname\": \"new parves\",\r\n    \"email\": \"parvesmosarof32@gmail.com\",\r\n    \"phoneNumber\": \"01522305059\",\r\n    \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/create_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "create_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:11:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd1ea3ae5f86d6-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7c-iD7jHWdVkCrwpGJpnFaqbPLTsHo\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "93"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "192"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Change Onboarding Status\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Check your email inbox\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "user_verification",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"verificationCode\":333959\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/user_verification",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user_verification"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "user_verification",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"verificationCode\":333959\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/user_verification",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "user_verification"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:12:38 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd206e1d7e0584-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"16f-jJWcgGf0y9MEZb9r0i6VB3cKS0E\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "92"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "118"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Varified Your Account\",\n    \"data\": {\n        \"message\": \"User verification successful\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGQ0ZGVjZjJlYzBjZjU5ZjcxZmQzNCIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMzJAZ21haWwuY29tIiwiaWF0IjoxNzc2MTExMTU4LCJleHAiOjE3NzYyODM5NTh9.4JMTOh4Z8hTJIuccVt3BVsmicrHN_TOtBnI1rvSb6r4\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "change_password",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newpassword\":\"123456789\",\r\n    \"oldpassword\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/change_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "change_password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "forgot_password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"email\": \"parvesmosarof32@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/forgot_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "forgot_password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verification_forgot_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"verificationCode\":478727\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/verification_forgot_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "verification_forgot_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "verification_forgot_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"verificationCode\":779412\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{mandhirhothiUrl}}/api/v1/user/verification_forgot_user",
+                  "host": [
+                    "{{mandhirhothiUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "verification_forgot_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 23 Aug 2025 17:20:23 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "973c47c19e5c25a4-DEL"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12c-3y6m1ZKDIHe8E76v6DnyVEB6GIY\""
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Verify User\",\n    \"data\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTlhYzk2MTZmNjg3NGY5MzU3YTI3NCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoicGFydmVzbW9zYXJvZjJAZ21haWwuY29tIiwiaWF0IjoxNzU1OTY5NjIyLCJleHAiOjE3NTY4MzM2MjJ9.wZ76vCNx7UrpeT4JuN47tIkVLc3opLTVpXCi4p9ppD4\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "reset_password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\":\"69dd4decf2ec0cf59f71fd34\", // optional\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/reset_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "reset_password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof32@gmail.com\", // user\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/login_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof3@gmail.com\", // buyer\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/login_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 12 Apr 2026 22:29:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9eb5ac326cd47071-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"243-7Nb0AP5baKXZAzSQcB/j3gxL/3o\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU; Path=/; HttpOnly"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "99"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "300"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Login\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3Njg5Njk5NH0.qicyhgkWRuhwSL2Awl0UNUj4mClxGOZbdGG-KJw2JJU\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "refresh-token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/refresh-token",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "myprofile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/myprofile",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "myprofile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_my_profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n    \"fullname\": \"Ali Mohammad\",\n    \"male\": \"Male\",\n    \"phoneNumber\": \"01516502364\",\n    \"address\": \"123 Main Street, New York, NY, USA\"\n  }",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "STWdYvMkm/alex_1_homepage_EBK - Copy.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/update_my_profile",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "update_my_profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update_my_profile",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{buyerToken}}",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n    \"fullname\": \"Ali Mohammad\",\n    \"male\": \"Male\",\n    \"phoneNumber\": \"\",\n    \"address\": \"123 Main Street, New York, NY, USA\"\n  }",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Parves Mosarof new/Pictures/Screenshots/Screenshot 2025-12-09 053029.png"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/update_my_profile",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "update_my_profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "123"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7b-0FcU/DHse1B5bHjsg+EMyY5+Njc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 22 Dec 2025 16:44:25 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Change My Profile\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Successfully updated profile\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete account self",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/delete_account",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "delete_account"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof3@gmail.com\", // buyer\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/login_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 12 Apr 2026 22:29:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9eb5ac326cd47071-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"243-7Nb0AP5baKXZAzSQcB/j3gxL/3o\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU; Path=/; HttpOnly"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "99"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "300"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Login\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3Njg5Njk5NH0.qicyhgkWRuhwSL2Awl0UNUj4mClxGOZbdGG-KJw2JJU\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "undo delete acc by user and admin",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/undo_delete_account/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "undo_delete_account",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "undo delete acc by user and admin",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/undo_delete_account/:id",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "undo_delete_account",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "69dd4decf2ec0cf59f71fd34"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:34:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd4026e8df5b41-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"80-1JCqI0C9QcHu3o3YkKbaO5/6IDw\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "98"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "289"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Restore your account \",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Account restored successfully\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Google Login",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "item": [
+        {
+          "name": "AboutUs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"aboutUs\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG  asdf\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/about",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "about"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_by_about_us",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"aboutUs\":\"jkhsadfjkhasdfh dsakjgfgdfjsdg\"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_about_us",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_about_us"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "privacy_policys",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"PrivacyPolicy\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system \"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/privacy_policys",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "privacy_policys"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_by_privacy_policyss",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"PrivacyPolicy\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG \"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_privacy_policyss",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_privacy_policyss"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "terms_conditions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"TermsConditions\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG trams and condition section \"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/terms_conditions",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "terms_conditions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_by_terms_conditions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_terms_conditions",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_terms_conditions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "item": [
+        {
+          "name": "create_faq",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\r\n    \"question\": \"Can I return a product?\",\r\n    \"answer\": \"Yes, we offer a 30-day return policy. You can initiate a return by visiting your order history and selecting the item you'd like to return.\",\r\n    \"question_type\": \"general\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/create_faq",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "create_faq"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "findB_by_all_faq",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/findB_by_all_faq?searchTerm=general&page=1&limit=10",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "findB_by_all_faq"
+              ],
+              "query": [
+                {
+                  "key": "searchTerm",
+                  "value": "general"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_by_specific_faq",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/find_by_specific_faq/693f0c94db7591aaf7363614",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "find_by_specific_faq",
+                "693f0c94db7591aaf7363614"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_faq",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\r\n    \"question\": \"How do I contact customer support?\",\r\n    \"answer\": \"You can contact customer support by visiting the 'Contact Us' page and filling out the form or by reaching out via email or phone.\",\r\n    \"question_type\": \"general\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/update_faq/693f0c94db7591aaf7363614",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "update_faq",
+                "693f0c94db7591aaf7363614"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_faq",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/delete_faq/693f0caadb7591aaf7363616",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "delete_faq",
+                "693f0caadb7591aaf7363616"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "get_all_products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/65edd4decf2ec0cf59f71fd3",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "65edd4decf2ec0cf59f71fd3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ingredients",
+      "item": [
+        {
+          "name": "get_all_ingredients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/ingredients",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_ingredient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/ingredients/65edd4decf2ec0cf59f71fd2",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ingredients",
+                "65edd4decf2ec0cf59f71fd2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "custom-blends",
+      "item": [
+        {
+          "name": "create_custom_blend",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bespoke Elixir\",\n  \"bottleColor\": \"#1a0f00\",\n  \"capColor\": \"#d4af37\",\n  \"labelColor\": \"#ffffff\",\n  \"labelTextColor\": \"#000000\",\n  \"labelTextSize\": 16,\n  \"labelTextAlignment\": \"center\",\n  \"notes\": [\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd2\",\n      \"percentage\": 40\n    },\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"percentage\": 30\n    },\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd4\",\n      \"percentage\": 30\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_custom_blends",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends/my-blends",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends",
+                "my-blends"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_custom_blend",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends/65edd4decf2ec0cf59f71fd7",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends",
+                "65edd4decf2ec0cf59f71fd7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "create_order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"quantity\": 1\n    },\n    {\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentMethod\": \"STRIPE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/my-orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "my-orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/65edd4decf2ec0cf59f71fda",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "65edd4decf2ec0cf59f71fda"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "mandhirhothiUrl",
+      "value": "https://appearing-sunrise-compression-inspiration.trycloudflare.com"
+    },
+    {
+      "key": "localUrl",
+      "value": "http://localhost:5000"
+    }
+  ]
+}
