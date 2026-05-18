@@ -10,30 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
+      - name: Deploy to Lightsail
+        uses: appleboy/ssh-action@v1.0.3
 
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          debug: true
 
           script: |
+            set -e
+
             export PATH=$PATH:/home/ubuntu/.npm-global/bin
 
             cd /home/ubuntu/louisianaroma-backend
 
-            echo "Pulling latest code..."
+            echo "=== PULLING CODE ==="
             git pull origin main
 
-            echo "Installing deps..."
+            echo "=== INSTALL ==="
             pnpm install
 
-            echo "Generating Prisma..."
+            echo "=== PRISMA ==="
             pnpm prisma generate
 
-            echo "Building project..."
+            echo "=== BUILD ==="
             pnpm build
 
-            echo "Restarting PM2..."
+            echo "=== PM2 RELOAD ==="
             pm2 reload louisiana-api || pm2 restart louisiana-api
