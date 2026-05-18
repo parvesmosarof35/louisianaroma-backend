@@ -1,37 +1,91 @@
 import { PrismaClient, NoteType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Zero-dependency .env loader (avoids requiring the dotenv package)
+(function loadEnv() {
+  const envPath = path.resolve(__dirname, '../.env');
+  if (!fs.existsSync(envPath)) return;
+  const lines = fs.readFileSync(envPath, 'utf-8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const value = trimmed.slice(eqIdx + 1).trim();
+    if (!(key in process.env)) process.env[key] = value;
+  }
+})();
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Clearing database...');
+  // ─── Super Admin (upsert — safe to re-run) ──────────────────────────────
+  const superAdminEmail = process.env.SUPER_ADMIN_EMAIL;
+  const superAdminPass  = process.env.SUPER_ADMIN_PASS;
+
+  if (!superAdminEmail || !superAdminPass) {
+    throw new Error(
+      'SUPER_ADMIN_EMAIL and SUPER_ADMIN_PASS must be set in .env',
+    );
+  }
+
+  const superAdminHash = await bcrypt.hash(superAdminPass, 12);
+
+  await prisma.user.upsert({
+    where: { email: superAdminEmail },
+    update: {
+      password: superAdminHash,
+      role: 'superadmin',
+      isVerify: true,
+      status: 'active',
+    },
+    create: {
+      email: superAdminEmail,
+      name: 'Super Admin',
+      password: superAdminHash,
+      role: 'superadmin',
+      isVerify: true,
+      status: 'active',
+    },
+  });
+
+  console.log(`✅ Super admin upserted: ${superAdminEmail}`);
+
+  // ─── Clear remaining data ────────────────────────────────────────────────
+  console.log('Clearing database (non-user collections)...');
   await prisma.orderItem.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.blendIngredient.deleteMany({});
   await prisma.customBlend.deleteMany({});
   await prisma.ingredient.deleteMany({});
   await prisma.product.deleteMany({});
-  await prisma.user.deleteMany({});
 
   console.log('Seeding administrative and test users...');
   const adminPassword = await bcrypt.hash('LouisianaromaAdmin2026!', 10);
   const userPassword = await bcrypt.hash('LouisianaromaUser2026!', 10);
 
-  const admin = await prisma.user.create({
-    data: {
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@louisianaroma.com' },
+    update: { password: adminPassword, role: 'admin' },
+    create: {
       email: 'admin@louisianaroma.com',
       name: 'Maison Louisianaroma',
       password: adminPassword,
-      role: 'ADMIN',
+      role: 'admin',
     },
   });
 
-  const user = await prisma.user.create({
-    data: {
+  const user = await prisma.user.upsert({
+    where: { email: 'customer@louisianaroma.com' },
+    update: { password: userPassword, role: 'user' },
+    create: {
       email: 'customer@louisianaroma.com',
       name: 'Jean-Luc Godard',
       password: userPassword,
-      role: 'USER',
+      role: 'user',
     },
   });
 

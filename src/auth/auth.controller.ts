@@ -22,6 +22,7 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
+  // https://api.louisianaroma.com/api/v1/auth/login_user
   @Post('login_user')
   @UsePipes(new ZodValidationPipe(LoginSchema))
   async loginUser(@Body() dto: LoginDto) {

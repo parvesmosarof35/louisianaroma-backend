@@ -24,8 +24,7 @@ async function bootstrap() {
   app.useGlobalFilters(new LuxuryExceptionFilter());
 
   await app.listen(port);
-  console.log(`\n⚜️ Maison Louisianaroma Backend Active ⚜️`);
-  console.log(`Olfactory Chambers Listening at: http://localhost:${port}/api\n`);
+  console.log(`\n⚜️Louisianaroma Backend Active ⚜️`);
+  console.log(`Olfactory Chambers Listening at: http://localhost:${port}\n`);
 }
 bootstrap();
-
