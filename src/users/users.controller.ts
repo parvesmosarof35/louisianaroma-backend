@@ -27,14 +27,14 @@ export class UsersController {
   @UsePipes(new ZodValidationPipe(UserVerificationSchema))
   async verify(@Body() dto: UserVerificationDto) {
     return this.usersService.user_verification(dto);
-  }
+  } 
 
   @Patch('change_password')
+  @Post('change_password')
   @UseGuards(JwtAuthGuard)
-  @UsePipes(new ZodValidationPipe(ChangePasswordSchema))
   async changePassword(
     @CurrentUser() user: any,
-    @Body() dto: ChangePasswordDto,
+    @Body(new ZodValidationPipe(ChangePasswordSchema)) dto: ChangePasswordDto,
   ) {
     return this.usersService.change_password(user.id, dto);
   }

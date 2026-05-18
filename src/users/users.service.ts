@@ -47,10 +47,10 @@ export class UsersService {
 
     return {
       success: true,
-      message: 'Successfully Change Onboarding Status',
+      message: 'Successfully Register New User',
       data: {
         status: true,
-        message: 'Check your email inbox',
+        message: 'Check your email inbox', 
       },
     };
   }
@@ -92,6 +92,10 @@ export class UsersService {
   }
 
   async change_password(userId: string, dto: ChangePasswordDto) {
+    if (!userId) {
+      throw new BadRequestException('Unable to identify your account. Please log in again.');
+    }
+
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
@@ -102,7 +106,7 @@ export class UsersService {
 
     const matched = await bcrypt.compare(dto.oldpassword, user.password);
     if (!matched) {
-      throw new BadRequestException('Your current signature password does not match.');
+      throw new BadRequestException('Your current password is incorrect. Please try again.');
     }
 
     const saltRounds = 12;

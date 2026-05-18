@@ -8,7 +8,7 @@ export const CreateUserSchema = z.object({
 });
 
 export const UserVerificationSchema = z.object({
-  verificationCode: z.number().int().min(100000).max(999999, 'Verification code must be exactly 6 digits.'),
+  verificationCode: z.coerce.number().int().positive('Invalid verification code.'),
 });
 
 export const ChangePasswordSchema = z.object({
@@ -21,7 +21,7 @@ export const ForgotPasswordSchema = z.object({
 });
 
 export const VerificationForgotUserSchema = z.object({
-  verificationCode: z.number().int().min(100000).max(999999, 'Verification code must be exactly 6 digits.'),
+  verificationCode: z.coerce.number().int().positive('Invalid verification code.'),
 });
 
 export const ResetPasswordSchema = z.object({

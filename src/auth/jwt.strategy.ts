@@ -11,15 +11,26 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private prisma: PrismaService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: (req: any) => {
+        const authHeader = req?.headers?.['authorization'];
+        if (!authHeader) return null;
+        // Support both "Bearer <token>" and raw "<token>"
+        return authHeader.startsWith('Bearer ')
+          ? authHeader.slice(7)
+          : authHeader;
+      },
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_ACCESS_SECRET') || '0ab803014b805f51442b4909e5b90e44068499c71ab85cbee51d96911cfae4e2',
+      secretOrKey: configService.get<string>('JWT_ACCESS_SECRET') || '',
     });
   }
 
-  async validate(payload: { sub: string; email: string }) {
+  async validate(payload: { sub?: string; id?: string; email: string }) {
+    const userId = payload.sub || payload.id;
+    if (!userId) {
+      throw new UnauthorizedException('Token payload is missing user identification.');
+    }
     const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
+      where: { id: userId },
       select: {
         id: true,
         email: true,
