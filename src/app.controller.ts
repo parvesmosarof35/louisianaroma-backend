@@ -225,7 +225,7 @@ export class AppController {
 <body>
     <header>
         <div class="brand-subtitle">Maison Louisianaroma</div>
-        <h1>Telemetry & Real-Time Diagnostics now</h1>
+        <h1>Telemetry & Real-Time Diagnostics nows</h1>
         <div class="status-badge-container">
             <div class="status-dot"></div>
             <div class="status-text">Server Active & Healthy</div>
