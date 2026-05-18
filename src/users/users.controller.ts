@@ -53,10 +53,9 @@ export class UsersController {
 
   @Post('reset_password')
   @UseGuards(OptionalJwtAuthGuard)
-  @UsePipes(new ZodValidationPipe(ResetPasswordSchema))
   async resetPassword(
     @CurrentUser() user: any,
-    @Body() dto: ResetPasswordDto,
+    @Body(new ZodValidationPipe(ResetPasswordSchema)) dto: ResetPasswordDto,
   ) {
     const authUserId = user ? user.id : undefined;
     return this.usersService.reset_password(dto, authUserId);

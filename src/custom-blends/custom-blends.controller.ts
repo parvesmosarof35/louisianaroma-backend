@@ -12,10 +12,9 @@ export class CustomBlendsController {
 
   @Post()
   @UseGuards(OptionalJwtAuthGuard)
-  @UsePipes(new ZodValidationPipe(CreateCustomBlendSchema))
   async create(
     @CurrentUser() user: any,
-    @Body() dto: CreateCustomBlendDto,
+    @Body(new ZodValidationPipe(CreateCustomBlendSchema)) dto: CreateCustomBlendDto,
   ) {
     const userId = user ? user.id : null;
     return this.customBlendsService.create(userId, dto);

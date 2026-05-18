@@ -13,8 +13,7 @@ export class FaqController {
   @Post('create_faq')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
-  @UsePipes(new ZodValidationPipe(CreateFaqSchema))
-  async create(@Body() dto: CreateFaqDto) {
+  async create(@Body(new ZodValidationPipe(CreateFaqSchema)) dto: CreateFaqDto) {
     return this.faqService.create(dto);
   }
  
@@ -37,8 +36,10 @@ export class FaqController {
   @Patch('update_faq/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
-  @UsePipes(new ZodValidationPipe(UpdateFaqSchema))
-  async update(@Param('id') id: string, @Body() dto: UpdateFaqDto) {
+  async update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateFaqSchema)) dto: UpdateFaqDto,
+  ) {
     return this.faqService.update(id, dto);
   }
 

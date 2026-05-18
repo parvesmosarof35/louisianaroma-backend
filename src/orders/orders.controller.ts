@@ -11,10 +11,9 @@ export class OrdersController {
   constructor(private ordersService: OrdersService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(CreateOrderSchema))
   async createOrder(
     @CurrentUser() user: any,
-    @Body() dto: CreateOrderDto,
+    @Body(new ZodValidationPipe(CreateOrderSchema)) dto: CreateOrderDto,
   ) {
     return this.ordersService.createOrder(user.id, dto);
   }

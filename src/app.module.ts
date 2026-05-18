@@ -12,6 +12,8 @@ import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { SettingModule } from './setting/setting.module';
 import { FaqModule } from './faq/faq.module';
+import { CollectionsModule } from './collections/collections.module';
+import { ReviewsModule } from './reviews/reviews.module';
 import { MetricsService } from './common/services/metrics.service';
 import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 
@@ -29,6 +31,8 @@ import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
     UsersModule,
     SettingModule,
     FaqModule,
+    CollectionsModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [

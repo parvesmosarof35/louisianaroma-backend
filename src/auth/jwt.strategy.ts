@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { sub?: string; id?: string; email: string }) {
+  async validate(payload: { sub?: string; id?: string; email: string; iat?: number }) {
     const userId = payload.sub || payload.id;
     if (!userId) {
       throw new UnauthorizedException('Token payload is missing user identification.');
@@ -37,11 +37,20 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         name: true,
         image: true,
         role: true,
+        passwordChangedAt: true,
       },
     });
 
     if (!user) {
       throw new UnauthorizedException('The noble signature corresponding to this token is no longer recognized.');
+    }
+
+    // Invalidate tokens issued before the last password change
+    if (user.passwordChangedAt && payload.iat) {
+      const passwordChangedTime = Math.floor(user.passwordChangedAt.getTime() / 1000);
+      if (passwordChangedTime > payload.iat) {
+        throw new UnauthorizedException('The noble credentials have been altered. Please authenticate again.');
+      }
     }
 
     return user;

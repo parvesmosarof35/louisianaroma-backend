@@ -48,7 +48,26 @@ export class LuxuryExceptionFilter implements ExceptionFilter {
       return 'The olfactory silhouette you are searching for cannot be found in our current collections.';
     }
     if (status === 400) {
-      return `Formulation inputs require refinement: ${message}`;
+      let cleanMessage = message;
+      try {
+        const trimmed = message.trim();
+        if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+          const parsed = JSON.parse(trimmed);
+          if (Array.isArray(parsed)) {
+            cleanMessage = parsed
+              .map((err: any) => {
+                const path = Array.isArray(err.path) ? err.path.join('.') : (err.path || '');
+                return `${path ? path + ': ' : ''}${err.message}`;
+              })
+              .join(', ');
+          } else if (parsed.message) {
+            cleanMessage = parsed.message;
+          }
+        }
+      } catch (e) {
+        // Not a JSON string or failed parsing, fallback to original message
+      }
+      return `Formulation inputs require refinement: ${cleanMessage}`;
     }
     return message;
   }
