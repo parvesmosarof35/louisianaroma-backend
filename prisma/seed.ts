@@ -55,19 +55,21 @@ async function main() {
   console.log(`✅ Super admin upserted: ${superAdminEmail}`);
 
   // ─── Clear remaining data ────────────────────────────────────────────────
-  console.log('Clearing database (non-user collections)...');
+  console.log('Clearing database...');
+  await prisma.review.deleteMany({});
   await prisma.orderItem.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.blendIngredient.deleteMany({});
   await prisma.customBlend.deleteMany({});
   await prisma.ingredient.deleteMany({});
   await prisma.product.deleteMany({});
+  await prisma.collection.deleteMany({});
 
   console.log('Seeding administrative and test users...');
   const adminPassword = await bcrypt.hash('LouisianaromaAdmin2026!', 10);
   const userPassword = await bcrypt.hash('LouisianaromaUser2026!', 10);
 
-  const admin = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: 'admin@louisianaroma.com' },
     update: { password: adminPassword, role: 'admin' },
     create: {
@@ -78,7 +80,7 @@ async function main() {
     },
   });
 
-  const user = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: 'customer@louisianaroma.com' },
     update: { password: userPassword, role: 'user' },
     create: {
@@ -172,48 +174,163 @@ async function main() {
     await prisma.ingredient.create({ data: ingredient });
   }
 
+  console.log('Seeding standard luxury collections...');
+  const privateReserveCollection = await prisma.collection.create({
+    data: {
+      name: 'Private Reserve',
+      image: '/images/collections/private-reserve.jpg',
+      numberOfProducts: 0,
+    },
+  });
+
+  const lesEphemeresCollection = await prisma.collection.create({
+    data: {
+      name: 'Les Ephemeres',
+      image: '/images/collections/les-ephemeres.jpg',
+      numberOfProducts: 0,
+    },
+  });
+
+  const elixirDeParfumCollection = await prisma.collection.create({
+    data: {
+      name: 'Elixir de Parfum',
+      image: '/images/collections/elixir-de-parfum.jpg',
+      numberOfProducts: 0,
+    },
+  });
+
   console.log('Seeding standard luxury products for the Shop...');
-  const products = [
+  const productsData = [
     {
+      label: 'Private Reserve',
       name: "L'Ombre du Désert",
-      category: 'Private Reserve',
-      notes: 'Cambodian Oud, Frankincense, Damask Rose, Amber',
+      collectionName: 'Private Reserve',
       price: 295.0,
-      image: '/images/products/ombre-desert.jpg',
+      images: [
+        { image: '/images/products/ombre-desert.jpg', position: 0 }
+      ],
+      sizes: ['50ml', '100ml'],
+      tags: ['Oud', 'Frankincense', 'Rose', 'Amber', 'Woody', 'Oriental'],
       description: 'An enigmatic journey into the heart of the desert, where warm oriental notes blend with rich, smoke-kissed oud.',
       isAvailable: true,
+      hasfreedelivery: true,
+      isfeatured: true,
+      faqs: [
+        { question: 'Is this fragrance suitable for evening wear?', answer: 'Yes, its rich blend of oud and amber makes it perfect for sophisticated evenings.' }
+      ],
+      sectiontwo: {
+        show: true,
+        title: 'Anatomy of L\'Ombre du Désert',
+        description: 'A deep look at the ingredients of this desert masterpiece.',
+        cards: [
+          { image: '/images/ingredients/oud.jpg', slogan: 'Sacred Woods', title: 'Cambodian Oud', description: 'Deep, mysterious, and warm resin.' }
+        ]
+      }
     },
     {
+      label: 'Les Ephemeres',
       name: 'Éphémère N°5',
-      category: 'Les Ephemeres',
-      notes: 'Florentine Iris, Violet Leaf, Sandalwood, White Musk',
+      collectionName: 'Les Ephemeres',
       price: 220.0,
-      image: '/images/products/ephemere-5.jpg',
+      images: [
+        { image: '/images/products/ephemere-5.jpg', position: 0 }
+      ],
+      sizes: ['50ml', '100ml'],
+      tags: ['Iris', 'Violet', 'Sandalwood', 'Musk', 'Powdery', 'Floral'],
       description: 'A fleeting moment of pure powdery iris, grounded in creamy Mysore sandalwood and soft, enveloping white musk.',
       isAvailable: true,
+      hasfreedelivery: false,
+      isfeatured: false,
+      faqs: [
+        { question: 'Does this scent have high longevity?', answer: 'Yes, the white musk and sandalwood base provides a long-lasting gentle skin scent.' }
+      ],
+      sectiontwo: {
+        show: true,
+        title: 'Anatomy of Éphémère N°5',
+        description: 'A botanical exploration of powdery iris and creamy woods.',
+        cards: [
+          { image: '/images/ingredients/iris.jpg', slogan: 'Powdery Elegance', title: 'Florentine Iris', description: 'Noble, powdery, and soft floral.' }
+        ]
+      }
     },
     {
+      label: 'Elixir de Parfum',
       name: 'Nectar Sauvage',
-      category: 'Elixir de Parfum',
-      notes: 'Calabrian Bergamot, Jasmine Sambac, Honey, Patchouli',
+      collectionName: 'Elixir de Parfum',
       price: 340.0,
-      image: '/images/products/nectar-sauvage.jpg',
+      images: [
+        { image: '/images/products/nectar-sauvage.jpg', position: 0 }
+      ],
+      sizes: ['50ml', '100ml'],
+      tags: ['Bergamot', 'Jasmine', 'Honey', 'Patchouli', 'Citrus', 'Sweet'],
       description: 'A wild, intoxicating blend of golden honey and nocturnal jasmine, energized with a burst of zesty bergamot.',
       isAvailable: true,
+      hasfreedelivery: true,
+      isfeatured: true,
+      faqs: [
+        { question: 'Is this a sweet fragrance?', answer: 'It is a rich honeyed floral balanced beautifully with vibrant citrus bergamot.' }
+      ],
+      sectiontwo: {
+        show: true,
+        title: 'Anatomy of Nectar Sauvage',
+        description: 'An exploration of honeyed florals and sparkling citrus.',
+        cards: [
+          { image: '/images/ingredients/jasmine.jpg', slogan: 'Floral Absolute', title: 'Jasmine Sambac', description: 'Opulent jasmine absolute harvested at dawn.' }
+        ]
+      }
     },
     {
+      label: 'Private Reserve',
       name: 'Le Crépuscule',
-      category: 'Private Reserve',
-      notes: 'Saffron, Cardamom, Leather, Tonka Bean',
+      collectionName: 'Private Reserve',
       price: 310.0,
-      image: '/images/products/crepuscule.jpg',
+      images: [
+        { image: '/images/products/crepuscule.jpg', position: 0 }
+      ],
+      sizes: ['50ml', '100ml'],
+      tags: ['Saffron', 'Cardamom', 'Leather', 'Tonka', 'Spicy', 'Warm'],
       description: 'The warmth of a golden hour captured in precious spices, rich leather, and sweet tonka bean.',
       isAvailable: true,
+      hasfreedelivery: true,
+      isfeatured: false,
+      faqs: [
+        { question: 'What are the main base notes?', answer: 'Rich leather and sweet warm tonka bean constitute the lingering base.' }
+      ],
+      sectiontwo: {
+        show: true,
+        title: 'Anatomy of Le Crépuscule',
+        description: 'A sunset-hued study of fine leather and exotic spices.',
+        cards: [
+          { image: '/images/ingredients/vanilla.jpg', slogan: 'Warm Balsamic', title: 'Bourbon Vanilla', description: 'Dark, warm vanilla to enrich spices.' }
+        ]
+      }
     },
   ];
 
-  for (const product of products) {
-    await prisma.product.create({ data: product });
+  for (const item of productsData) {
+    let categoryId = '';
+    if (item.collectionName === 'Private Reserve') {
+      categoryId = privateReserveCollection.id;
+    } else if (item.collectionName === 'Les Ephemeres') {
+      categoryId = lesEphemeresCollection.id;
+    } else {
+      categoryId = elixirDeParfumCollection.id;
+    }
+
+    const { collectionName, ...data } = item;
+
+    await prisma.product.create({
+      data: {
+        ...data,
+        category: categoryId,
+      },
+    });
+
+    // Increment numberOfProducts for that collection
+    await prisma.collection.update({
+      where: { id: categoryId },
+      data: { numberOfProducts: { increment: 1 } },
+    });
   }
 
   console.log('Database seeding finished successfully!');
