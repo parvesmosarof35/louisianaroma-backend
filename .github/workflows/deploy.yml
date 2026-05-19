@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy NestJS Backend
 
 on:
   push:
@@ -10,33 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to Lightsail
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: SSH and Deploy to Lightsail
         uses: appleboy/ssh-action@v1.0.3
-
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          debug: true
-
+          port: 22
+          script_stop: true
           script: |
-            set -e
+            # ১. আপনার সঠিক প্রোজেক্ট ফোল্ডারে প্রবেশ
+            cd ~/louisianaroma-backend
 
-            export PATH=$PATH:/home/ubuntu/.npm-global/bin
+            # ২. গিট থেকে লেটেস্ট কোড নিয়ে আসা
+            git reset --hard origin/main
+            git pull origin/main
 
-            cd /home/ubuntu/louisianaroma-backend
+            # ৩. Node.js এবং pnpm এনভায়রনমেন্ট সচল করা
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            echo "=== PULLING CODE ==="
-            git pull origin main
-
-            echo "=== INSTALL ==="
-            pnpm install
-
-            echo "=== PRISMA ==="
+            # ৪. ডিপেনডেন্সি ইনস্টল, প্রিজমা জেনারেট এবং বিল্ড করা
+            pnpm install --frozen-lockfile
             pnpm prisma generate
-
-            echo "=== BUILD ==="
             pnpm build
 
-            echo "=== PM2 RELOAD ==="
-            pm2 reload louisiana-api || pm2 restart louisiana-api
+            # ৫. PM2 প্রসেস রিস্টার্ট (PM2-তে আপনার প্রসেসের নাম 'backend' ধরে নেওয়া হয়েছে, প্রয়োজনে পরিবর্তন করুন)
+            pm2 describe backend > /dev/null 2>&1
+            if [ $? -ne 0 ]; then
+              pm2 start dist/main.js --name "backend"
+            else
+              pm2 restart backend --update-env
+            fi
+
+            # ৬. কনফিগারেশন সেভ
+            pm2 save
