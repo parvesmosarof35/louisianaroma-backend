@@ -212,7 +212,6 @@ export class UsersService {
       where: { id: targetUserId },
       data: { 
         password: hashedPassword,
-        passwordChangedAt: new Date(),
       },
     });
 
