@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto } from './setting.dto';
+import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto } from './setting.dto';
 
 @Injectable()
 export class SettingService {
@@ -11,9 +11,28 @@ export class SettingService {
     if (setting) return setting;
     return this.prisma.setting.create({
       data: {
-        aboutUs: '',
+        aboutus: '',
+        aboutusimage: '',
+        adminmessage: '',
+        adminimage: '',
         privacyPolicy: '',
         termsConditions: '',
+        navbarLogo: '',
+        footerLogo: '',
+        facebook: { url: '', isActive: false },
+        instagram: { url: '', isActive: false },
+        twitter: { url: '', isActive: false },
+        linkedin: { url: '', isActive: false },
+        youtube: { url: '', isActive: false },
+        tiktok: { url: '', isActive: false },
+        whatsapp: { url: '', isActive: false },
+        telegram: { url: '', isActive: false },
+        snapchat: { url: '', isActive: false },
+        address: { url: '', isActive: false },
+        phone: { url: '', isActive: false },
+        email: { url: '', isActive: false },
+        website: { url: '', isActive: false },
+        appName: { url: '', isActive: false },
       },
     });
   }
@@ -22,7 +41,12 @@ export class SettingService {
     const setting = await this.getOrCreateSetting();
     const updated = await this.prisma.setting.update({
       where: { id: setting.id },
-      data: { aboutUs: dto.aboutUs },
+      data: {
+        aboutus: dto.aboutus,
+        aboutusimage: dto.aboutusimage,
+        adminmessage: dto.adminmessage,
+        adminimage: dto.adminimage,
+      },
     });
 
     return {
@@ -37,7 +61,67 @@ export class SettingService {
     return {
       success: true,
       data: {
-        aboutUs: setting?.aboutUs || '',
+        aboutus: setting?.aboutus || '',
+        aboutusimage: setting?.aboutusimage || '',
+        adminmessage: setting?.adminmessage || '',
+        adminimage: setting?.adminimage || '',
+      },
+    };
+  }
+
+  async saveBrandingSocials(dto: BrandingSocialsDto) {
+    const setting = await this.getOrCreateSetting();
+    const updated = await this.prisma.setting.update({
+      where: { id: setting.id },
+      data: {
+        navbarLogo: dto.navbarLogo,
+        footerLogo: dto.footerLogo,
+        facebook: dto.facebook ? { url: dto.facebook.url || '', isActive: dto.facebook.isActive ?? true } : undefined,
+        instagram: dto.instagram ? { url: dto.instagram.url || '', isActive: dto.instagram.isActive ?? true } : undefined,
+        twitter: dto.twitter ? { url: dto.twitter.url || '', isActive: dto.twitter.isActive ?? true } : undefined,
+        linkedin: dto.linkedin ? { url: dto.linkedin.url || '', isActive: dto.linkedin.isActive ?? true } : undefined,
+        youtube: dto.youtube ? { url: dto.youtube.url || '', isActive: dto.youtube.isActive ?? true } : undefined,
+        tiktok: dto.tiktok ? { url: dto.tiktok.url || '', isActive: dto.tiktok.isActive ?? true } : undefined,
+        whatsapp: dto.whatsapp ? { url: dto.whatsapp.url || '', isActive: dto.whatsapp.isActive ?? true } : undefined,
+        telegram: dto.telegram ? { url: dto.telegram.url || '', isActive: dto.telegram.isActive ?? true } : undefined,
+        snapchat: dto.snapchat ? { url: dto.snapchat.url || '', isActive: dto.snapchat.isActive ?? true } : undefined,
+        address: dto.address ? { url: dto.address.url || '', isActive: dto.address.isActive ?? true } : undefined,
+        phone: dto.phone ? { url: dto.phone.url || '', isActive: dto.phone.isActive ?? true } : undefined,
+        email: dto.email ? { url: dto.email.url || '', isActive: dto.email.isActive ?? true } : undefined,
+        website: dto.website ? { url: dto.website.url || '', isActive: dto.website.isActive ?? true } : undefined,
+        appName: dto.appName ? { url: dto.appName.url || '', isActive: dto.appName.isActive ?? true } : undefined,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Successfully updated branding and social configurations.',
+      data: updated,
+    };
+  }
+
+  async getBrandingSocials() {
+    const setting = await this.prisma.setting.findFirst();
+    const defaultField = { url: '', isActive: false };
+    return {
+      success: true,
+      data: {
+        navbarLogo: setting?.navbarLogo || '',
+        footerLogo: setting?.footerLogo || '',
+        facebook: setting?.facebook || defaultField,
+        instagram: setting?.instagram || defaultField,
+        twitter: setting?.twitter || defaultField,
+        linkedin: setting?.linkedin || defaultField,
+        youtube: setting?.youtube || defaultField,
+        tiktok: setting?.tiktok || defaultField,
+        whatsapp: setting?.whatsapp || defaultField,
+        telegram: setting?.telegram || defaultField,
+        snapchat: setting?.snapchat || defaultField,
+        address: setting?.address || defaultField,
+        phone: setting?.phone || defaultField,
+        email: setting?.email || defaultField,
+        website: setting?.website || defaultField,
+        appName: setting?.appName || defaultField,
       },
     };
   }

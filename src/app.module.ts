@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
@@ -14,8 +14,10 @@ import { SettingModule } from './setting/setting.module';
 import { FaqModule } from './faq/faq.module';
 import { CollectionsModule } from './collections/collections.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { CustomAtelierModule } from './custom-atelier/custom-atelier.module';
 import { MetricsService } from './common/services/metrics.service';
 import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
+import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
     FaqModule,
     CollectionsModule,
     ReviewsModule,
+    CustomAtelierModule,
   ],
   controllers: [AppController],
   providers: [
@@ -44,4 +47,11 @@ import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RequestLoggerMiddleware)
+      .forRoutes('*');
+  }
+}
+

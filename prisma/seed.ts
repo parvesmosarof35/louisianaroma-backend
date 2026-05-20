@@ -333,6 +333,52 @@ async function main() {
     });
   }
 
+  // ─── Seed Essence Mediums ──────────────────────────────────────────
+  console.log('Seeding essence mediums...');
+  const mediums = [
+    { code: 'F', name: 'Fragrance', description: 'Premium spray in denatured alcohol.' },
+    { code: 'E', name: 'Essence Oil', description: 'Pure botanical roll-on oil concentrate.' },
+    { code: 'A', name: 'Artisanal Soap', description: 'Handcrafted luxury cold-pressed soap bar.' },
+    { code: 'S', name: 'Shower Gel', description: 'Nourishing, fragrant body wash absolute.' },
+  ];
+  for (const medium of mediums) {
+    await prisma.essenceMedium.upsert({
+      where: { code: medium.code },
+      update: {},
+      create: medium,
+    });
+  }
+
+  // ─── Seed Sizing Pricing ───────────────────────────────────────────
+  console.log('Seeding size pricing tables...');
+  const sizes = [
+    { size: '30ml', label: '30mL', price: 25.00 },
+    { size: '50ml', label: '50mL', price: 45.00 },
+    { size: '100ml', label: '100mL', price: 70.00 },
+  ];
+  for (const s of sizes) {
+    await prisma.sizePricing.upsert({
+      where: { size: s.size },
+      update: { price: s.price },
+      create: s,
+    });
+  }
+
+  // ─── Seed Concentration Levels ──────────────────────────────────────
+  console.log('Seeding concentration markups...');
+  const concentrations = [
+    { percentage: '20%', name: 'EDP', additionalPrice: 0.00 },
+    { percentage: '30%', name: 'Extrait', additionalPrice: 10.00 },
+    { percentage: '40%', name: 'Parfum', additionalPrice: 20.00 },
+  ];
+  for (const c of concentrations) {
+    await prisma.concentrationLevel.upsert({
+      where: { percentage: c.percentage },
+      update: { additionalPrice: c.additionalPrice },
+      create: c,
+    });
+  }
+
   console.log('Database seeding finished successfully!');
 }
 

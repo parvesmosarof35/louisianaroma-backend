@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CreateCustomBlendSchema, CreateCustomBlendDto } from '../custom-blends/custom-blends.dto';
+import { CreateCustomBlendSchema, CreateCustomBlendDto } from '../custom-atelier/custom-atelier.dto';
 
 export const OrderItemInputSchema = z.object({
   productId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Product reference must be a valid 24-character hex ObjectId signature.').optional(),

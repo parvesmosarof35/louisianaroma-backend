@@ -23,6 +23,9 @@ async function bootstrap() {
   // Apply the brand-aligned Exception Filter globally
   app.useGlobalFilters(new LuxuryExceptionFilter());
 
+  // Enable graceful shutdown hooks to clean up resources like database connections on termination
+  app.enableShutdownHooks();
+
   await app.listen(port);
   console.log(`\n⚜️Louisianaroma Backend Active ⚜️`);
   console.log(`Olfactory Chambers Listening at: http://localhost:${port}\n`);

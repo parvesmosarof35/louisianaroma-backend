@@ -64,8 +64,9 @@ type ProductImage {
 }
 
 type ProductFaq {
-  question String
-  answer   String
+  question  String
+  answer    String
+  isvisible Boolean @default(true)
 }
 
 type SectionTwoCard {
@@ -130,17 +131,78 @@ model CustomBlend {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   userId        String?  @db.ObjectId
   user          User?    @relation(fields: [userId], references: [id])
-  name          String // Fragrance Name from Labeling step
-  price         Float    @default(450.00)
-  labelBg       String // Hex color
-  textColor     String // Hex color
+  name          String   // Name printed on the physical label
+  
+  // Dynamic pricing components saved at the time of blend generation
+  price         Float    @default(70.00)
+  bottleSize    String   @default("100ml") // e.g. "30ml", "50ml", "100ml"
+  concentration String   @default("20%")   // e.g. "20%", "30%", "40%"
+  mediumId      String?  @db.ObjectId      // Reference to the essence medium
+  medium        EssenceMedium? @relation(fields: [mediumId], references: [id])
+  // Custom physical label styling parameters
+  labelBg       String   @default("#F2CA50") // Hex code
+  textColor     String   @default("#000000") // Hex code
   textAlign     String   @default("center")
   labelFontSize Float    @default(1.0)
-  productType   String   @default("Fragrance")
+  productType   String   @default("Fragrance") // Can represent medium or custom label header
   createdAt     DateTime @default(now())
+  ingredients   BlendIngredient[]
+  orderItems    OrderItem[]
+}
 
-  ingredients BlendIngredient[]
-  orderItems  OrderItem[]
+model EssenceMedium {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  code        String   @unique // e.g., "F", "E", "A", "S"
+  name        String   // e.g., "Fragrance", "Essence Oil", "Artisanal Soap", "Shower Gel"
+  description String   // Descriptive subtext (e.g. "Alcohol-free botanical oil blend")
+  icon        String?  // SVG path or character representation
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  blends      CustomBlend[]
+}
+
+model SizePricing {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  size        String   @unique // e.g., "30ml", "50ml", "100ml"
+  label       String   // e.g., "30mL", "50mL", "100mL"
+  price       Float    // Base price (e.g., 25.00, 45.00, 70.00)
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ConcentrationLevel {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  percentage      String   @unique // e.g. "20%", "30%", "40%"
+  name            String   // e.g. "EDP", "Extrait", "Parfum"
+  additionalPrice Float    // Pricing add-on (e.g. 0.00, 10.00, 20.00)
+  isAvailable     Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model CuratedProduct {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String   // e.g., "Royal Oud Intense"
+  category      String   // e.g., "Private Reserve", "Les Ephemeres", "L'Heritage"
+  image         String   // Path to asset (e.g. "/product (1).png")
+  description   String   // Poetic fragrance description
+  
+  // Stored static recipe parameters for admin designs
+  formulaIds    String[] // Array of Ingredient database ObjectIds
+  percentages   Json     // Map of Ingredient ID strings to percentages: { "60ba7c2d...": 50 }
+  
+  bottleSize    String   @default("100ml")
+  concentration String   @default("30%")
+  labelBg       String   @default("#1A1C1C")
+  textColor     String   @default("#F2CA50")
+  textAlign     String   @default("center")
+  labelFontSize Float    @default(1.0)
+  
+  isFeatured    Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model BlendIngredient {
@@ -184,11 +246,40 @@ model OrderItem {
 
 model Setting {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  aboutUs         String?
+  aboutus         String?
+  aboutusimage    String?
+  adminmessage    String?
+  adminimage      String?
   privacyPolicy   String?
   termsConditions String?
+
+  // Brand Logo Information
+  navbarLogo      String?
+  footerLogo      String?
+
+  // Socials and Contact Information
+  facebook        SiteConfigField?
+  instagram       SiteConfigField?
+  twitter         SiteConfigField?
+  linkedin        SiteConfigField?
+  youtube         SiteConfigField?
+  tiktok          SiteConfigField?
+  whatsapp        SiteConfigField?
+  telegram        SiteConfigField?
+  snapchat        SiteConfigField?
+  address         SiteConfigField?
+  phone           SiteConfigField?
+  email           SiteConfigField?
+  website         SiteConfigField?
+  appName         SiteConfigField?
+
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+type SiteConfigField {
+  url      String?
+  isActive Boolean @default(true)
 }
 
 model Faq {

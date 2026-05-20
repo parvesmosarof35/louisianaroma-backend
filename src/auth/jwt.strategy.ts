@@ -45,10 +45,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('The noble signature corresponding to this token is no longer recognized.');
     }
 
-    // Invalidate tokens issued before the last password change
+    // Invalidate tokens issued before the last password change (with a 10-second grace period to account for drift/timing latency)
     if (user.passwordChangedAt && payload.iat) {
       const passwordChangedTime = Math.floor(user.passwordChangedAt.getTime() / 1000);
-      if (passwordChangedTime > payload.iat) {
+      if (passwordChangedTime - 10 > payload.iat) {
         throw new UnauthorizedException('The noble credentials have been altered. Please authenticate again.');
       }
     }

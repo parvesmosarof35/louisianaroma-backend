@@ -1,0 +1,3944 @@
+{
+  "info": {
+    "_postman_id": "4fddfa97-23da-41ca-9415-0e5c58983a36",
+    "name": "Maison Louisianaroma Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51610931",
+    "_collection_link": "https://go.postman.co/collection/51610931-4fddfa97-23da-41ca-9415-0e5c58983a36?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "create_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullname\": \"new parves\",\r\n    \"email\": \"parvesmosarof32@gmail.com\",\r\n    \"phoneNumber\": \"01522305059\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/create_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "create_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullname\": \"new parves\",\r\n    \"email\": \"parvesmosarof32@gmail.com\",\r\n    \"phoneNumber\": \"01522305059\",\r\n    \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/create_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "create_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:11:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd1ea3ae5f86d6-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7c-iD7jHWdVkCrwpGJpnFaqbPLTsHo\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "93"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "192"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Change Onboarding Status\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Check your email inbox\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "user_verification",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"verificationCode\":333959\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/user_verification",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user_verification"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "user_verification",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"verificationCode\":333959\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/user_verification",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "user_verification"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:12:38 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd206e1d7e0584-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"16f-jJWcgGf0y9MEZb9r0i6VB3cKS0E\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "92"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "118"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Varified Your Account\",\n    \"data\": {\n        \"message\": \"User verification successful\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGQ0ZGVjZjJlYzBjZjU5ZjcxZmQzNCIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMzJAZ21haWwuY29tIiwiaWF0IjoxNzc2MTExMTU4LCJleHAiOjE3NzYyODM5NTh9.4JMTOh4Z8hTJIuccVt3BVsmicrHN_TOtBnI1rvSb6r4\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "change_password",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newpassword\":\"123456789\",\r\n    \"oldpassword\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/change_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "change_password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "change_password",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{buyerToken}}",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"newpassword\":\"123456789\",\r\n    \"oldpassword\":\"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/change_password",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "change_password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 17 May 2026 23:39:19 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fd675ebc985868a-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"49-FMd9A+LJwnNdGGlRoQcWc+gi6dY\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully updated your security password.\"\n}"
+            },
+            {
+              "name": "change_password",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{buyerToken}}",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"newpassword\":\"123456789\",\r\n    \"oldpassword\":\"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/change_password",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "change_password"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 00:04:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "325"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fd69b80ec470db7-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"145-cvTwH0NCocFvmUMEjMNTRHu2xv4\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"meta\": {\n        \"brand\": \"Maison Louisianaroma\",\n        \"curator\": \"Atelier Olfactif Support\",\n        \"timestamp\": \"2026-05-18T00:04:57.174Z\"\n    },\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Formulation inputs require refinement: Your current password is incorrect. Please try again.\",\n        \"details\": \"Your current password is incorrect. Please try again.\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "forgot_password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"email\": \"parvesmosarof32@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/forgot_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "forgot_password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "forgot_password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n \"email\": \"parvesmosarof32@gmail.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/forgot_password",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "forgot_password"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 00:06:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "129"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fd69d08b95d8011-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"81-iJIcFBJe0yOP1uVk71tBXx/w6gk\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Verification code dispatched successfully.\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Check your email inbox\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "verification_forgot_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"verificationCode\":678705\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/verification_forgot_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "verification_forgot_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "verification_forgot_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"verificationCode\":779412\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{mandhirhothiUrl}}/api/v1/user/verification_forgot_user",
+                  "host": [
+                    "{{mandhirhothiUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "verification_forgot_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 23 Aug 2025 17:20:23 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "973c47c19e5c25a4-DEL"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12c-3y6m1ZKDIHe8E76v6DnyVEB6GIY\""
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Verify User\",\n    \"data\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTlhYzk2MTZmNjg3NGY5MzU3YTI3NCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoicGFydmVzbW9zYXJvZjJAZ21haWwuY29tIiwiaWF0IjoxNzU1OTY5NjIyLCJleHAiOjE3NTY4MzM2MjJ9.wZ76vCNx7UrpeT4JuN47tIkVLc3opLTVpXCi4p9ppD4\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "reset_password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGE0ZjVkYjJiNTBkYTRmYzlmOTU5MiIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMzJAZ21haWwuY29tIiwiaWF0IjoxNzc5MTI2MTY5LCJleHAiOjE3Nzk5OTAxNjl9.V0Shd7FraK1r04TFQW4wGgl9rVw6-oPy_qQ1JoaE_EE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/user/reset_password",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "reset_password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "reset_password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGE0ZjVkYjJiNTBkYTRmYzlmOTU5MiIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMzJAZ21haWwuY29tIiwiaWF0IjoxNzc5MTI2MTY5LCJleHAiOjE3Nzk5OTAxNjl9.V0Shd7FraK1r04TFQW4wGgl9rVw6-oPy_qQ1JoaE_EE",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"password\":\"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/user/reset_password",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "reset_password"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 17:50:11 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "61"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdcb3d878ba46fd-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3d-8KhvhYbvJzXUQej10DzDkPMN6Dc\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Reset User Password\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n//admin account \r\n// {\r\n//     \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n{\r\n    \"email\":\"parvesmosarof32@gmail.com\", // user\r\n    \"password\": \"123456\"\r\n}\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/login_user",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login_user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof3@gmail.com\", // buyer\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/login_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 12 Apr 2026 22:29:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9eb5ac326cd47071-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"243-7Nb0AP5baKXZAzSQcB/j3gxL/3o\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU; Path=/; HttpOnly"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "99"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "300"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Login\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3Njg5Njk5NH0.qicyhgkWRuhwSL2Awl0UNUj4mClxGOZbdGG-KJw2JJU\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "refresh-token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/refresh-token",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "myprofile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/myprofile",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "myprofile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "myprofile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/myprofile",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "myprofile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 17 May 2026 23:15:53 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fd6539a7a088d9b-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"166-pEiZQHJXlBM7JPlTu7uygEUSL5w\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Find Single User\",\n    \"data\": {\n        \"_id\": \"6a0a44d80eaf5d240d382489\",\n        \"id\": \"6a0a44d80eaf5d240d382489\",\n        \"fullname\": null,\n        \"name\": \"Super Admin\",\n        \"email\": \"parvesmosarof2@gmail.com\",\n        \"phoneNumber\": null,\n        \"isVerify\": true,\n        \"role\": \"superadmin\",\n        \"status\": \"active\",\n        \"photo\": null,\n        \"gender\": null,\n        \"address\": null,\n        \"createdAt\": \"2026-05-17T22:44:40.303Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "update_my_profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n    \"fullname\": \"Ali Mohammad\",\n    \"male\": \"Male\",\n    \"phoneNumber\": \"01516502364\",\n    \"address\": \"123 Main Street, New York, NY, USA\"\n  }",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "STWdYvMkm/alex_1_homepage_EBK - Copy.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/update_my_profile",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "update_my_profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update_my_profile",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{buyerToken}}",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n    \"fullname\": \"Ali Mohammad\",\n    \"male\": \"Male\",\n    \"phoneNumber\": \"\",\n    \"address\": \"123 Main Street, New York, NY, USA\"\n  }",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Parves Mosarof new/Pictures/Screenshots/Screenshot 2025-12-09 053029.png"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/update_my_profile",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "update_my_profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "123"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"7b-0FcU/DHse1B5bHjsg+EMyY5+Njc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 22 Dec 2025 16:44:25 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Change My Profile\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Successfully updated profile\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete account self",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/delete_account",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "delete_account"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login_user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof3@gmail.com\", // buyer\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/login_user",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login_user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 12 Apr 2026 22:29:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9eb5ac326cd47071-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"243-7Nb0AP5baKXZAzSQcB/j3gxL/3o\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU; Path=/; HttpOnly"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "99"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "300"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Login\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3Njg5Njk5NH0.qicyhgkWRuhwSL2Awl0UNUj4mClxGOZbdGG-KJw2JJU\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDlhY2Y4MTExMDEwMmRhMTQyZWEyYiIsInJvbGUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJwYXJ2ZXNtb3Nhcm9mMkBnbWFpbC5jb20iLCJpYXQiOjE3NzYwMzI5OTQsImV4cCI6MTc3ODYyNDk5NH0.qZv9a15dfx9HnYFrOLFIMFGYIavL9SB4FLQxFL9O3xU\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "undo delete acc by user and admin",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/auth/undo_delete_account/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "undo_delete_account",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "undo delete acc by user and admin",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/auth/undo_delete_account/:id",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "undo_delete_account",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "69dd4decf2ec0cf59f71fd34"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 13 Apr 2026 20:34:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9ebd4026e8df5b41-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"80-1JCqI0C9QcHu3o3YkKbaO5/6IDw\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "ratelimit-limit",
+                  "value": "100"
+                },
+                {
+                  "key": "ratelimit-policy",
+                  "value": "100;w=300"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "98"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "289"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully Restore your account \",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"Account restored successfully\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Google Login",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "item": [
+        {
+          "name": "AboutUs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "aboutusimage",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "adminimage",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "data",
+                  "value": "{\n  \"aboutus\": \"<p>Our luxury French perfume house specializes in bespoke olfactory storytelling.</p>\",\n  \"adminmessage\": \"Welcome to Maison Louisianaroma, where we sculpt memories into liquid gems.\"\n}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/about",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "about"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "AboutUs",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "aboutusimage",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "key": "adminimage",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "key": "data",
+                      "value": "{\n  \"aboutus\": \"<p>Our luxury French perfume house specializes in bespoke olfactory storytelling.</p>\",\n  \"adminmessage\": \"Welcome to Maison Louisianaroma, where we sculpt memories into liquid gems.\"\n}",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/about",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "about"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:57:27 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "303"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6e52cad75c5d-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12f-67uz3P9V2cVH5mAVo+RIXjqu99Q\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully updated About Us configuration.\",\n    \"data\": {\n        \"id\": \"6a0b6ed6eb18c2dc0911daef\",\n        \"aboutus\": \"<p>Our luxury French perfume house specializes in bespoke olfactory storytelling.</p>\",\n        \"aboutusimage\": \"/images/about/atelier.jpg\",\n        \"adminmessage\": \"Welcome to Maison Louisianaroma, where we sculpt memories into liquid gems.\",\n        \"adminimage\": \"/images/about/perfumer-portrait.jpg\",\n        \"privacyPolicy\": \"\",\n        \"termsConditions\": \"\",\n        \"createdAt\": \"2026-05-18T19:56:06.402Z\",\n        \"updatedAt\": \"2026-05-18T19:57:26.690Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "find_by_about_us",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_about_us",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_about_us"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "find_by_about_us",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/find_by_about_us",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "find_by_about_us"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:57:30 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6e6a9d2b5c5d-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"60-psePWXVkSiGv+6mY+7xjmDomasY\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"aboutus\": \"<p>Our luxury French perfume house specializes in bespoke olfactory storytelling.</p>\",\n        \"aboutusimage\": \"/images/about/atelier.jpg\",\n        \"adminmessage\": \"Welcome to Maison Louisianaroma, where we sculpt memories into liquid gems.\",\n        \"adminimage\": \"/images/about/perfumer-portrait.jpg\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "privacy_policys",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"PrivacyPolicy\":\"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system </p>\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/privacy_policys",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "privacy_policys"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "privacy_policys",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n    \"PrivacyPolicy\":\"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system </p>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/privacy_policys",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "privacy_policys"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:57:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "396"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6f13bd211ee9-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"18c-NRrOTC/8SN042xrRH4Tw2NEwfV8\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully updated Privacy Policy configuration.\",\n    \"data\": {\n        \"id\": \"6a0b6ed6eb18c2dc0911daef\",\n        \"aboutUs\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG  asdf </p>\",\n        \"privacyPolicy\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system </p>\",\n        \"termsConditions\": \"\",\n        \"createdAt\": \"2026-05-18T19:56:06.402Z\",\n        \"updatedAt\": \"2026-05-18T19:57:57.624Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "find_by_privacy_policyss",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"PrivacyPolicy\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG \"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_privacy_policyss",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_privacy_policyss"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "find_by_privacy_policyss",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n    \"PrivacyPolicy\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG \"\r\n}"
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/find_by_privacy_policyss",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "find_by_privacy_policyss"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:58:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6f5fcb771770-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"83-2zjH1WpT6c5qdryNOc9U9CHFMg0\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"PrivacyPolicy\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system </p>\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "terms_conditions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"TermsConditions\":\"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG trams and condition sections </p>\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/terms_conditions",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "terms_conditions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "terms_conditions",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n    \"TermsConditions\":\"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG trams and condition section </p>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/terms_conditions",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "terms_conditions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:58:33 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "482"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6fed1d92d6fc-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1e2-70c8LSWy8WtxzML32nWpvuo7Vyw\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Successfully updated Terms and Conditions configuration.\",\n    \"data\": {\n        \"id\": \"6a0b6ed6eb18c2dc0911daef\",\n        \"aboutUs\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG  asdf </p>\",\n        \"privacyPolicy\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. here is my privicy policy  system </p>\",\n        \"termsConditions\": \"<p> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG trams and condition section </p>\",\n        \"createdAt\": \"2026-05-18T19:56:06.402Z\",\n        \"updatedAt\": \"2026-05-18T19:58:32.351Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "find_by_terms_conditions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_terms_conditions",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_terms_conditions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "save_branding_socials",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "navbarLogo",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "footerLogo",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "data",
+                  "value": "{\n  \"facebook\": {\n    \"url\": \"https://facebook.com/yourpage\",\n    \"isActive\": true\n  },\n  \"instagram\": {\n    \"url\": \"https://instagram.com/yourpage\",\n    \"isActive\": true\n  },\n  \"twitter\": {\n    \"url\": \"https://twitter.com/yourpage\",\n    \"isActive\": true\n  },\n  \"linkedin\": {\n    \"url\": \"https://linkedin.com/in/yourprofile\",\n    \"isActive\": false\n  },\n  \"youtube\": {\n    \"url\": \"https://youtube.com/c/yourchannel\",\n    \"isActive\": true\n  },\n  \"tiktok\": {\n    \"url\": \"https://tiktok.com/@yourprofile\",\n    \"isActive\": false\n  },\n  \"whatsapp\": {\n    \"url\": \"+1234567890\",\n    \"isActive\": true\n  },\n  \"telegram\": {\n    \"url\": \"https://t.me/yourchannel\",\n    \"isActive\": false\n  },\n  \"snapchat\": {\n    \"url\": \"https://snapchat.com/add/yourprofile\",\n    \"isActive\": false\n  },\n  \"address\": {\n    \"url\": \"123 Main St, City, Country\",\n    \"isActive\": true\n  },\n  \"phone\": {\n    \"url\": \"+1234567890\",\n    \"isActive\": true\n  },\n  \"email\": {\n    \"url\": \"info@example.com\",\n    \"isActive\": true\n  },\n  \"website\": {\n    \"url\": \"https://www.example.com\",\n    \"isActive\": false\n  },\n  \"appName\": {\n    \"url\": \"Maison Louisianaroma\",\n    \"isActive\": true\n  }\n}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/branding_socials",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "branding_socials"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_by_branding_socials",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/setting/find_by_branding_socials",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "setting",
+                "find_by_branding_socials"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "find_by_branding_socials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/setting/find_by_branding_socials",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "setting",
+                    "find_by_branding_socials"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"navbarLogo\": \"/images/brand/logo-gold.svg\",\n    \"footerLogo\": \"/images/brand/logo-footer.svg\",\n    \"facebook\": {\n      \"url\": \"https://facebook.com/yourpage\",\n      \"isActive\": true\n    },\n    \"instagram\": {\n      \"url\": \"https://instagram.com/yourpage\",\n      \"isActive\": true\n    },\n    \"twitter\": {\n      \"url\": \"https://twitter.com/yourpage\",\n      \"isActive\": true\n    },\n    \"linkedin\": {\n      \"url\": \"https://linkedin.com/in/yourprofile\",\n      \"isActive\": false\n    },\n    \"youtube\": {\n      \"url\": \"https://youtube.com/c/yourchannel\",\n      \"isActive\": true\n    },\n    \"tiktok\": {\n      \"url\": \"https://tiktok.com/@yourprofile\",\n      \"isActive\": false\n    },\n    \"whatsapp\": {\n      \"url\": \"+1234567890\",\n      \"isActive\": true\n    },\n    \"telegram\": {\n      \"url\": \"https://t.me/yourchannel\",\n      \"isActive\": false\n    },\n    \"snapchat\": {\n      \"url\": \"https://snapchat.com/add/yourprofile\",\n      \"isActive\": false\n    },\n    \"address\": {\n      \"url\": \"123 Main St, City, Country\",\n      \"isActive\": true\n    },\n    \"phone\": {\n      \"url\": \"+1234567890\",\n      \"isActive\": true\n    },\n    \"email\": {\n      \"url\": \"info@example.com\",\n      \"isActive\": true\n    },\n    \"website\": {\n      \"url\": \"https://www.example.com\",\n      \"isActive\": false\n    },\n    \"appName\": {\n      \"url\": \"Maison Louisianaroma\",\n      \"isActive\": true\n    }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "item": [
+        {
+          "name": "create_faq",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\r\n    \"question\": \"Can I return a product?\",\r\n    \"answer\": \"Yes, we offer a 30-day return policy. You can initiate a return by visiting your order history and selecting the item you'd like to return.\",\r\n    \"question_type\": \"general\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/create_faq",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "create_faq"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create_faq",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "data",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "  {\r\n    \"question\": \"Can I return a product?\",\r\n    \"answer\": \"Yes, we offer a 30-day return policy. You can initiate a return by visiting your order history and selecting the item you'd like to return.\",\r\n    \"question_type\": \"general\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/faq/create_faq",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "faq",
+                    "create_faq"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:51:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "385"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd66394a0033b8-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"181-uF7CuOsLIgO9CoSrJfQZxHO7WfY\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"FAQ created successfully\",\n    \"data\": {\n        \"id\": \"6a0b6dda871c03239f7df5ae\",\n        \"question\": \"Can I return a product?\",\n        \"answer\": \"Yes, we offer a 30-day return policy. You can initiate a return by visiting your order history and selecting the item you'd like to return.\",\n        \"questionType\": \"general\",\n        \"createdAt\": \"2026-05-18T19:51:54.994Z\",\n        \"updatedAt\": \"2026-05-18T19:51:54.994Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "findB_by_all_faq",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/findB_by_all_faq?searchTerm=general&page=1&limit=10",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "findB_by_all_faq"
+              ],
+              "query": [
+                {
+                  "key": "searchTerm",
+                  "value": "general"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "findB_by_all_faq",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "data",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/faq/findB_by_all_faq?searchTerm=general&page=1&limit=10",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "faq",
+                    "findB_by_all_faq"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchTerm",
+                      "value": "general"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:52:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd66591ca7ed69-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"185-AFqEDF16IuCWglShX38n1nthb04\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"meta\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"total\": 1\n    },\n    \"data\": [\n        {\n            \"id\": \"6a0b6dda871c03239f7df5ae\",\n            \"question\": \"Can I return a product?\",\n            \"answer\": \"Yes, we offer a 30-day return policy. You can initiate a return by visiting your order history and selecting the item you'd like to return.\",\n            \"questionType\": \"general\",\n            \"createdAt\": \"2026-05-18T19:51:54.994Z\",\n            \"updatedAt\": \"2026-05-18T19:51:54.994Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "find_by_specific_faq",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/find_by_specific_faq/693f0c94db7591aaf7363614",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "find_by_specific_faq",
+                "693f0c94db7591aaf7363614"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_faq",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\r\n    \"question\": \"How do I contact customer support?\",\r\n    \"answer\": \"You can contact customer support by visiting the 'Contact Us' page and filling out the form or by reaching out via email or phone.\",\r\n    \"question_type\": \"general\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/update_faq/6a0b6dda871c03239f7df5ae",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "update_faq",
+                "6a0b6dda871c03239f7df5ae"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update_faq",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "data",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "  {\r\n    \"question\": \"How do I contact customer support?\",\r\n    \"answer\": \"You can contact customer support by visiting the 'Contact Us' page and filling out the form or by reaching out via email or phone.\",\r\n    \"question_type\": \"general\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/faq/update_faq/6a0b6dda871c03239f7df5ae",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "faq",
+                    "update_faq",
+                    "6a0b6dda871c03239f7df5ae"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:55:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6af1188e582a-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"183-F3WAA55iynLtfuv47Z6R8T3T9oM\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"FAQ updated successfully\",\n    \"data\": {\n        \"id\": \"6a0b6dda871c03239f7df5ae\",\n        \"question\": \"How do I contact customer support?\",\n        \"answer\": \"You can contact customer support by visiting the 'Contact Us' page and filling out the form or by reaching out via email or phone.\",\n        \"questionType\": \"general\",\n        \"createdAt\": \"2026-05-18T19:51:54.994Z\",\n        \"updatedAt\": \"2026-05-18T19:55:08.680Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete_faq",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "data",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/faq/delete_faq/6a0b6dda871c03239f7df5ae",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faq",
+                "delete_faq",
+                "6a0b6dda871c03239f7df5ae"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete_faq",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "data",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/faq/delete_faq/6a0b6dda871c03239f7df5ae",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "faq",
+                    "delete_faq",
+                    "6a0b6dda871c03239f7df5ae"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 19:55:27 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "9fdd6b63fdb18257-IAD"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"35-yok3JyyHc6ynasI4S1CXwfRah8A\""
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"FAQ deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "create_product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Chateau Rose Mist\",\n  \"category\": \"Mist\",\n  \"price\": 85.00,\n  \"description\": \"A delicate and captivating rose mist formulation.\",\n  \"isfeatured\": true,\n  \"stock\": 100\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/create_product",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "create_product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/find_all?category=Mist&isfeatured=true&searchTerm=Rose",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "find_all"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Mist"
+                },
+                {
+                  "key": "isfeatured",
+                  "value": "true"
+                },
+                {
+                  "key": "searchTerm",
+                  "value": "Rose"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_one",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/find_one/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "find_one",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"price\": 90.00\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/update_product/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "update_product",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/products/delete_product/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "delete_product",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "collections",
+      "item": [
+        {
+          "name": "create_collection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Summer Olfactory Collection\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/collections/create_collection",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "collections",
+                "create_collection"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/collections/find_all",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "collections",
+                "find_all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find_one",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/collections/find_one/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "collections",
+                "find_one",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_collection",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Autumn Olfactory Collection\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/collections/update_collection/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "collections",
+                "update_collection",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_collection",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/collections/delete_collection/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "collections",
+                "delete_collection",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65edd4decf2ec0cf59f71fd3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ingredients",
+      "item": [
+        {
+          "name": "get_all_ingredients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/ingredients",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_ingredient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/ingredients/65edd4decf2ec0cf59f71fd2",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ingredients",
+                "65edd4decf2ec0cf59f71fd2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "custom-blends",
+      "item": [
+        {
+          "name": "create_custom_blend",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bespoke Elixir\",\n  \"bottleColor\": \"#1a0f00\",\n  \"capColor\": \"#d4af37\",\n  \"labelColor\": \"#ffffff\",\n  \"labelTextColor\": \"#000000\",\n  \"labelTextSize\": 16,\n  \"labelTextAlignment\": \"center\",\n  \"notes\": [\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd2\",\n      \"percentage\": 40\n    },\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"percentage\": 30\n    },\n    {\n      \"ingredientId\": \"65edd4decf2ec0cf59f71fd4\",\n      \"percentage\": 30\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_custom_blends",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends/my-blends",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends",
+                "my-blends"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_custom_blend",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/custom-blends/65edd4decf2ec0cf59f71fd7",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "custom-blends",
+                "65edd4decf2ec0cf59f71fd7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "create_order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"quantity\": 1\n    },\n    {\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentMethod\": \"STRIPE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/my-orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "my-orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_single_order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/65edd4decf2ec0cf59f71fda",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "65edd4decf2ec0cf59f71fda"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "monitoring",
+      "item": [
+        {
+          "name": "root_dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "monitor_metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/monitor/metrics",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "metrics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "custom-atelier",
+      "item": [
+        {
+          "name": "Client Flow",
+          "item": [
+            {
+              "name": "Get Ingredients",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/atelier/ingredients",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "atelier",
+                    "ingredients"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Mediums",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/atelier/mediums",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "atelier",
+                    "mediums"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Pricing Configurations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/atelier/pricing-configurations",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "atelier",
+                    "pricing-configurations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Curated Products",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/atelier/curated-products",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "atelier",
+                    "curated-products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Custom Blend",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{buyerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Chateau Rose\",\n  \"bottleSize\": \"50ml\",\n  \"concentration\": \"30%\",\n  \"mediumId\": \"6a0cc1dcc02c073ee98a2afb\",\n  \"labelBg\": \"#1B1C1D\",\n  \"textColor\": \"#F1C40F\",\n  \"textAlign\": \"center\",\n  \"labelFontSize\": 1.0,\n  \"productType\": \"Fragrance\",\n  \"ingredients\": [\n    {\n      \"ingredientId\": \"6a0cc1d8c02c073ee98a2aed\",\n      \"percentage\": 50\n    },\n    {\n      \"ingredientId\": \"6a0cc1d9c02c073ee98a2af1\",\n      \"percentage\": 50\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/atelier/create-blend",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "atelier",
+                    "create-blend"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Admin Flow",
+          "item": [
+            {
+              "name": "Create Ingredient",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n  \"name\": \"Madagascar Vanilla\",\n  \"category\": \"Warm & Sweet\",\n  \"type\": \"BASE_NOTE\",\n  \"description\": \"Precious bourbon vanilla absolute from Madagascar.\",\n  \"stock\": 500\n}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/ingredients",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "ingredients"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Ingredient",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n  \"stock\": 450\n}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/ingredients/:id",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "ingredients",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6a0cc1d9c02c073ee98a2af1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Ingredient",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/ingredients/:id",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "ingredients",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6a0cc1d9c02c073ee98a2af1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Upsert Size Pricing",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"200ml\",\n  \"label\": \"200mL\",\n  \"price\": 120.00,\n  \"isAvailable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/size-pricing",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "size-pricing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Upsert Concentration Markup",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"percentage\": \"50%\",\n  \"name\": \"Haute Essence\",\n  \"additionalPrice\": 35.00,\n  \"isAvailable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/concentration-pricing",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "concentration-pricing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Upsert Essence Medium",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"P\",\n  \"name\": \"Premium Solid Perfume\",\n  \"description\": \"Precious beeswax absolute and oil blend solid perfume.\",\n  \"isAvailable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/mediums",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "mediums"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Curated Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n  \"name\": \"Chypre Imperiale\",\n  \"category\": \"Imperial Reserve\",\n  \"description\": \"A masterpiece formulation with Damask Rose, Calabrian Bergamot, and Cambodian Oud.\",\n  \"formulaIds\": [\"6a0cc1d8c02c073ee98a2aed\", \"6a0cc1d7c02c073ee98a2aea\", \"6a0cc1d9c02c073ee98a2af0\"],\n  \"percentages\": {\n    \"6a0cc1d8c02c073ee98a2aed\": 40,\n    \"6a0cc1d7c02c073ee98a2aea\": 30,\n    \"6a0cc1d9c02c073ee98a2af0\": 30\n  },\n  \"bottleSize\": \"100ml\",\n  \"concentration\": \"40%\",\n  \"labelBg\": \"#0E1A1A\",\n  \"textColor\": \"#E5C158\",\n  \"textAlign\": \"center\",\n  \"labelFontSize\": 1.1,\n  \"isFeatured\": true\n}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": []
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/atelier/curated",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "atelier",
+                    "curated"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Admin Order Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/orders/:id",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "65edd4decf2ec0cf59f71fda"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "mandhirhothiUrl",
+      "value": "https://appearing-sunrise-compression-inspiration.trycloudflare.com"
+    },
+    {
+      "key": "localUrl",
+      "value": "http://localhost:5000"
+    }
+  ]
+}

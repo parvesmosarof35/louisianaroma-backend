@@ -1,10 +1,11 @@
-import { Controller, Post, Get, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param, Query, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ProductsService } from './products.service';
 import { CreateProductDto, CreateProductSchema, UpdateProductDto, UpdateProductSchema } from './products.dto';
-import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { uploadBufferToCloudinary } from '../utils/cloudinary';
 
 @Controller('products')
 export class ProductsController {
@@ -13,10 +14,45 @@ export class ProductsController {
   @Post('create_product')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
+  @UseInterceptors(AnyFilesInterceptor())
   async create(
-    @Body(new ZodValidationPipe(CreateProductSchema)) dto: CreateProductDto,
+    @Body() body: any,
+    @UploadedFiles() files?: any[],
   ) {
-    return this.productsService.create(dto);
+    let parsedData: any = {};
+    if (body.data) {
+      try {
+        parsedData = JSON.parse(body.data);
+      } catch (e) {
+        parsedData = body;
+      }
+    } else {
+      parsedData = body;
+    }
+
+    if (files && files.length > 0) {
+      const uploadedImages = await Promise.all(
+        files.map(async (file, idx) => {
+          const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
+          return {
+            image: uploadResult.secure_url,
+            position: idx,
+          };
+        }),
+      );
+      parsedData.images = uploadedImages;
+    }
+
+    try {
+      const validated = CreateProductSchema.parse(parsedData);
+      return this.productsService.create(validated);
+    } catch (error: any) {
+      const issues = error.issues || error.errors;
+      const errorMessages = Array.isArray(issues)
+        ? issues.map((err: any) => `${err.path.join('.')}: ${err.message}`).join(', ')
+        : error.message;
+      throw new BadRequestException(errorMessages);
+    }
   }
 
   @Get('find_all')
@@ -37,11 +73,46 @@ export class ProductsController {
   @Patch('update_product/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
+  @UseInterceptors(AnyFilesInterceptor())
   async update(
     @Param('id') id: string,
-    @Body(new ZodValidationPipe(UpdateProductSchema)) dto: UpdateProductDto,
+    @Body() body: any,
+    @UploadedFiles() files?: any[],
   ) {
-    return this.productsService.update(id, dto);
+    let parsedData: any = {};
+    if (body.data) {
+      try {
+        parsedData = JSON.parse(body.data);
+      } catch (e) {
+        parsedData = body;
+      }
+    } else {
+      parsedData = body;
+    }
+
+    if (files && files.length > 0) {
+      const uploadedImages = await Promise.all(
+        files.map(async (file, idx) => {
+          const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
+          return {
+            image: uploadResult.secure_url,
+            position: idx,
+          };
+        }),
+      );
+      parsedData.images = uploadedImages;
+    }
+
+    try {
+      const validated = UpdateProductSchema.parse(parsedData);
+      return this.productsService.update(id, validated);
+    } catch (error: any) {
+      const issues = error.issues || error.errors;
+      const errorMessages = Array.isArray(issues)
+        ? issues.map((err: any) => `${err.path.join('.')}: ${err.message}`).join(', ')
+        : error.message;
+      throw new BadRequestException(errorMessages);
+    }
   }
 
   @Delete('delete_product/:id')

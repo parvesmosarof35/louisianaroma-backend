@@ -5,6 +5,7 @@ import { RegisterDto, RegisterSchema, LoginDto, LoginSchema } from './auth.dto';
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { uploadBufferToCloudinary } from '../utils/cloudinary';
 
 @Controller('auth')
 export class AuthController {
@@ -64,10 +65,8 @@ export class AuthController {
 
     let fileUrl: string | undefined;
     if (file) {
-      // Intuitively mock build a Cloudinary URL reflecting their credentials!
-      const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'dhxyjdrvr';
-      const cleanFileName = file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
-      fileUrl = `https://res.cloudinary.com/${cloudName}/image/upload/v1776100000/${cleanFileName}`;
+      const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/profiles');
+      fileUrl = uploadResult.secure_url;
     }
 
     return this.authService.updateProfile(user.id, parsedData, fileUrl);

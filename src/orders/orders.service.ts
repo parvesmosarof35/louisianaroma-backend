@@ -77,16 +77,29 @@ export class OrdersService {
             throw new BadRequestException('One or more selected raw materials for the new custom blend are not available.');
           }
 
+          // Calculate price dynamically based on size & concentration configured
+          const sizeConfig = await tx.sizePricing.findUnique({
+            where: { size: item.newCustomBlend.bottleSize },
+          });
+          const concConfig = await tx.concentrationLevel.findUnique({
+            where: { percentage: item.newCustomBlend.concentration },
+          });
+
+          const finalPrice = (sizeConfig?.price || 70.00) + (concConfig?.additionalPrice || 0.00);
+
           const newBlend = await tx.customBlend.create({
             data: {
               userId,
               name: item.newCustomBlend.name,
-              price: 450.0,
+              price: finalPrice,
+              bottleSize: item.newCustomBlend.bottleSize || '100ml',
+              concentration: item.newCustomBlend.concentration || '20%',
+              mediumId: item.newCustomBlend.mediumId,
               labelBg: item.newCustomBlend.labelBg,
               textColor: item.newCustomBlend.textColor,
               textAlign: item.newCustomBlend.textAlign,
               labelFontSize: item.newCustomBlend.labelFontSize,
-              productType: item.newCustomBlend.productType,
+              productType: item.newCustomBlend.productType || 'Fragrance',
             },
           });
 
@@ -241,6 +254,38 @@ export class OrdersService {
 
     if (order.userId !== userId) {
       throw new BadRequestException('This ordered portfolio is linked to another luxury credentials profile.');
+    }
+
+    return {
+      success: true,
+      data: order,
+    };
+  }
+
+  async getAdminOrderDetails(id: string) {
+    const order = await this.prisma.order.findUnique({
+      where: { id },
+      include: {
+        items: {
+          include: {
+            product: true,
+            customBlend: {
+              include: {
+                medium: true,
+                ingredients: {
+                  include: {
+                    ingredient: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      throw new NotFoundException('The ordered collection requested is not cataloged.');
     }
 
     return {

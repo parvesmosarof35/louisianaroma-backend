@@ -8,6 +8,7 @@ export const ProductImageSchema = z.object({
 export const ProductFaqSchema = z.object({
   question: z.string().min(5, 'Question must have at least 5 characters.'),
   answer: z.string().min(5, 'Answer must have at least 5 characters.'),
+  isvisible: z.boolean().default(true),
 });
 
 export const SectionTwoCardSchema = z.object({
@@ -48,7 +49,7 @@ export class CreateProductDto {
   images?: { image: string; position: number }[];
   sizes?: string[];
   tags?: string[];
-  faqs?: { question: string; answer: string }[];
+  faqs?: { question: string; answer: string; isvisible?: boolean }[];
   sectiontwo?: {
     show: boolean;
     title: string;
@@ -67,7 +68,7 @@ export class UpdateProductDto {
   images?: { image: string; position: number }[];
   sizes?: string[];
   tags?: string[];
-  faqs?: { question: string; answer: string }[];
+  faqs?: { question: string; answer: string; isvisible?: boolean }[];
   sectiontwo?: {
     show: boolean;
     title: string;
