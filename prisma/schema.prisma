@@ -85,16 +85,17 @@ type SectionTwo {
 
 model Product {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  label           String 
+  label           String
   name            String
-  category        String         // id of category 
+  category        String         // ObjectId reference to Collection
   price           Float
   images          ProductImage[]
-  sizes           String[]
-  tags            String[] 
+  sizes           String[]       // e.g. ["30ml", "50ml", "100ml"]
+  tags            String[]       // e.g. ["luxury", "floral", "oud"]
   reviews         Review[]
   description     String?
   isAvailable     Boolean        @default(true)
+  stock           Int?           // numeric stock quantity
   orderItems      OrderItem[]
   faqs            ProductFaq[]
   sectiontwo      SectionTwo?

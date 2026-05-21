@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "4fddfa97-23da-41ca-9415-0e5c58983a36",
+    "_postman_id": "1bd8fc4c-2ebc-4644-92c1-d4743dfcd41f",
     "name": "Maison Louisianaroma Backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "51610931",
-    "_collection_link": "https://go.postman.co/collection/51610931-4fddfa97-23da-41ca-9415-0e5c58983a36?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/51610931-1bd8fc4c-2ebc-4644-92c1-d4743dfcd41f?source=collection_link"
   },
   "item": [
     {
@@ -349,7 +349,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -444,7 +444,7 @@
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -553,7 +553,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -787,7 +787,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -851,7 +851,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "\r\n//admin account \r\n// {\r\n//     \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n{\r\n    \"email\":\"parvesmosarof32@gmail.com\", // user\r\n    \"password\": \"123456\"\r\n}\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
+              "raw": "\r\n//admin account \r\n{\r\n    \"email\":\"parvesmosarof2@gmail.com\", // super admin\r\n    \"password\": \"123456\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"parvesmosarof32@gmail.com\", // user\r\n//     \"password\": \"123456\"\r\n// }\r\n\r\n\r\n\r\n\r\n// user  accoutn \r\n// {\r\n//     \"email\":\"info.sohelranaa@gmail.com\",\r\n//     \"password\":\"12345678\"\r\n// }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1044,10 +1044,6 @@
                     "type": "text"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
                 "url": {
                   "raw": "{{localUrl}}/api/v1/auth/myprofile",
                   "host": [
@@ -1063,7 +1059,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -1536,12 +1532,12 @@
                 {
                   "key": "aboutusimage",
                   "type": "file",
-                  "src": []
+                  "value": null
                 },
                 {
                   "key": "adminimage",
                   "type": "file",
-                  "src": []
+                  "value": null
                 },
                 {
                   "key": "data",
@@ -1610,7 +1606,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -1707,10 +1703,6 @@
                     "disabled": true
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
                 "url": {
                   "raw": "{{localUrl}}/api/v1/setting/find_by_about_us",
                   "host": [
@@ -1726,7 +1718,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -1851,7 +1843,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -1946,10 +1938,6 @@
                     "type": "text"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "\r\n{\r\n    \"PrivacyPolicy\":\" THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG \"\r\n}"
-                },
                 "url": {
                   "raw": "{{localUrl}}/api/v1/setting/find_by_privacy_policyss",
                   "host": [
@@ -1965,7 +1953,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2090,7 +2078,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2185,12 +2173,12 @@
                 {
                   "key": "navbarLogo",
                   "type": "file",
-                  "src": []
+                  "value": null
                 },
                 {
                   "key": "footerLogo",
                   "type": "file",
-                  "src": []
+                  "value": null
                 },
                 {
                   "key": "data",
@@ -2346,7 +2334,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2469,10 +2457,6 @@
                     "disabled": true
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"question\": \"How do I list my car for sale?\",\r\n    \"answer\": \"You can list your car by creating an account, navigating to the selling section, and filling out the required details.\",\r\n    \"question_type\": \"valuation\"\r\n}"
-                },
                 "url": {
                   "raw": "{{localUrl}}/api/v1/faq/findB_by_all_faq?searchTerm=general&page=1&limit=10",
                   "host": [
@@ -2502,7 +2486,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2681,7 +2665,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2810,7 +2794,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Date",
@@ -2870,15 +2854,27 @@
     },
     {
       "name": "products",
+      "description": "Product management endpoints. Admin routes require {{adminToken}}. Public listing supports pagination and filtering.",
       "item": [
         {
-          "name": "create_product",
+          "name": "🔐 [ADMIN] create_product",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
                 "key": "Authorization",
                 "value": "{{adminToken}}",
+                "description": "JWT token for admin/superadmin only",
                 "type": "text"
               }
             ],
@@ -2887,11 +2883,13 @@
               "formdata": [
                 {
                   "key": "data",
-                  "value": "{\n  \"name\": \"Chateau Rose Mist\",\n  \"category\": \"Mist\",\n  \"price\": 85.00,\n  \"description\": \"A delicate and captivating rose mist formulation.\",\n  \"isfeatured\": true,\n  \"stock\": 100\n}",
+                  "description": "JSON string containing all product fields. category must be a valid Collection ObjectId.",
+                  "value": "{\n  \"label\": \"Chateau Rose Mist\",\n  \"name\": \"Chateau Rose Mist\",\n  \"category\": \"{{collectionId}}\",\n  \"price\": 85.00,\n  \"description\": \"A delicate and captivating rose mist formulation — inspired by the morning gardens of the Louisianaroma estate.\",\n  \"isfeatured\": true,\n  \"isAvailable\": true,\n  \"stock\": 100,\n  \"hasfreedelivery\": false,\n  \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n  \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\"],\n  \"faqs\": [\n    {\n      \"question\": \"What is the longevity of this mist?\",\n      \"answer\": \"Typically 4-6 hours depending on skin type.\",\n      \"isvisible\": true\n    }\n  ]\n}",
                   "type": "text"
                 },
                 {
                   "key": "images",
+                  "description": "Upload one or more product images (jpeg/png/webp). Each file becomes a ProductImage with its position index.",
                   "type": "file",
                   "src": []
                 }
@@ -2908,79 +2906,274 @@
                 "products",
                 "create_product"
               ]
-            }
+            },
+            "description": "**[ADMIN ONLY]** Creates a new product in the catalog. Accepts multipart/form-data.\n\n`data` (required): JSON string with all product fields.\n`images` (optional): One or more image files uploaded to Cloudinary.\n\nThe `category` field must be a valid Collection ObjectId from `/api/v1/collections/find_all`. Creating a product automatically increments `numberOfProducts` on the linked Collection."
           },
-          "response": []
+          "response": [
+            {
+              "name": "201 - Product Created Successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "data",
+                      "value": "{\n  \"label\": \"Chateau Rose Mist\",\n  \"name\": \"Chateau Rose Mist\",\n  \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n  \"price\": 85.00,\n  \"description\": \"A delicate rose mist formulation.\",\n  \"isfeatured\": true,\n  \"isAvailable\": true,\n  \"stock\": 100,\n  \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n  \"tags\": [\"floral\", \"rose\", \"mist\"]\n}",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/create_product",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "create_product"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"A luxury fragrance has been successfully formulated and cataloged in the House archives.\",\n    \"data\": {\n        \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n        \"label\": \"Chateau Rose Mist\",\n        \"name\": \"Chateau Rose Mist\",\n        \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n        \"price\": 85,\n        \"description\": \"A delicate rose mist formulation.\",\n        \"images\": [],\n        \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n        \"tags\": [\"floral\", \"rose\", \"mist\"],\n        \"faqs\": [],\n        \"sectiontwo\": null,\n        \"isAvailable\": true,\n        \"stock\": 100,\n        \"hasfreedelivery\": false,\n        \"isfeatured\": true,\n        \"createdAt\": \"2026-05-22T04:00:00.000Z\",\n        \"updatedAt\": \"2026-05-22T04:00:00.000Z\"\n    }\n}"
+            },
+            {
+              "name": "400 - Validation Error (Missing Required Fields)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{"key": "Authorization", "value": "{{adminToken}}", "type": "text"}],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [{"key": "data", "value": "{\"name\": \"Chateau Rose Mist\"}", "type": "text"}]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/create_product",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "create_product"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"label: Label must have at least 2 characters., category: Category (Collection ID) is required., price: Price must be greater than zero.\"\n    }\n}"
+            },
+            {
+              "name": "401 - Unauthorized (No Token)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/create_product",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "create_product"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 401,\n        \"message\": \"Unauthorized\"\n    }\n}"
+            }
+          ]
         },
         {
-          "name": "find_all",
+          "name": "🌐 [PUBLIC] find_all (Pagination + Filters)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{localUrl}}/api/v1/products/find_all?category=Mist&isfeatured=true&searchTerm=Rose",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "find_all"
-              ],
+              "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=10&category={{collectionId}}",
+              "host": ["{{localUrl}}"],
+              "path": ["api", "v1", "products", "find_all"],
               "query": [
                 {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page (default: 10)"
+                },
+                {
                   "key": "category",
-                  "value": "Mist"
+                  "value": "{{collectionId}}",
+                  "description": "🗂 COLLECTION FILTER — MongoDB ObjectId of the Collection. Get the ID from GET /api/v1/collections/find_all. Leave empty to return all collections."
                 },
                 {
                   "key": "isfeatured",
-                  "value": "true"
+                  "value": "true",
+                  "description": "true | false — filter by featured flag (homepage highlights etc.)",
+                  "disabled": true
+                },
+                {
+                  "key": "isAvailable",
+                  "value": "true",
+                  "description": "true | false — defaults to true (only in-stock/available products). Set false to include unavailable items.",
+                  "disabled": true
                 },
                 {
                   "key": "searchTerm",
-                  "value": "Rose"
+                  "value": "rose",
+                  "description": "Full-text search across name, label, description, and tags",
+                  "disabled": true
                 }
               ]
-            }
+            },
+            "description": "**[PUBLIC]** Returns a paginated list of products. All filters are **optional and combinable**.\n\n### Filter Reference\n\n| Param | Type | Default | Description |\n|---|---|---|---|\n| `page` | number | `1` | Page number |\n| `limit` | number | `10` | Items per page |\n| `category` | ObjectId string | — | **Collection filter** — pass the `_id` of a Collection from `GET /api/v1/collections/find_all` |\n| `isfeatured` | boolean | — | `true` returns only featured products; `false` returns non-featured |\n| `isAvailable` | boolean | `true` | `false` includes out-of-stock/unavailable products |\n| `searchTerm` | string | — | Searches across `name`, `label`, `description`, and `tags` |\n\n### How to get a Collection ID\n1. Call `GET {{localUrl}}/api/v1/collections/find_all`\n2. Copy the `id` field from the desired collection\n3. Paste it as the `category` query param value here"
           },
-          "response": []
+          "response": [
+            {
+              "name": "200 - All Products (page 1 of 12)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=2",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "find_all"],
+                  "query": [{"key": "page", "value": "1"}, {"key": "limit", "value": "2"}]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"meta\": {\n        \"total\": 24,\n        \"page\": 1,\n        \"limit\": 2,\n        \"totalPages\": 12,\n        \"hasNextPage\": true,\n        \"hasPrevPage\": false\n    },\n    \"data\": [\n        {\n            \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n            \"label\": \"Chateau Rose Mist\",\n            \"name\": \"Chateau Rose Mist\",\n            \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n            \"price\": 85,\n            \"description\": \"A delicate rose mist formulation.\",\n            \"images\": [{\"image\": \"https://res.cloudinary.com/louisianaroma/products/rose_mist.jpg\", \"position\": 0}],\n            \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n            \"tags\": [\"floral\", \"rose\", \"mist\"],\n            \"isAvailable\": true,\n            \"stock\": 95,\n            \"isfeatured\": true,\n            \"hasfreedelivery\": false,\n            \"reviews\": [],\n            \"createdAt\": \"2026-05-22T04:00:00.000Z\",\n            \"updatedAt\": \"2026-05-22T04:00:00.000Z\"\n        },\n        {\n            \"id\": \"683c2a1e9b0d4f001c7e8b33\",\n            \"label\": \"Oud Noir Intense\",\n            \"name\": \"Oud Noir Intense\",\n            \"category\": \"683a1f4c2b9e4d001a3e5f11\",\n            \"price\": 145,\n            \"description\": \"Deep, smoky oud draped in velvety amber and cedar.\",\n            \"images\": [],\n            \"sizes\": [\"50ml\", \"100ml\"],\n            \"tags\": [\"oud\", \"amber\", \"woody\", \"luxury\"],\n            \"isAvailable\": true,\n            \"stock\": 40,\n            \"isfeatured\": true,\n            \"hasfreedelivery\": true,\n            \"reviews\": [],\n            \"createdAt\": \"2026-05-20T10:00:00.000Z\",\n            \"updatedAt\": \"2026-05-20T10:00:00.000Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "200 - Filtered by Collection (category=683a1f4c2b9e4d001a3e5f10)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=10&category=683a1f4c2b9e4d001a3e5f10",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "find_all"],
+                  "query": [
+                    {"key": "page", "value": "1"},
+                    {"key": "limit", "value": "10"},
+                    {"key": "category", "value": "683a1f4c2b9e4d001a3e5f10"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"meta\": {\n        \"total\": 7,\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalPages\": 1,\n        \"hasNextPage\": false,\n        \"hasPrevPage\": false\n    },\n    \"data\": [\n        {\n            \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n            \"label\": \"Chateau Rose Mist\",\n            \"name\": \"Chateau Rose Mist\",\n            \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n            \"price\": 85,\n            \"description\": \"A delicate rose mist formulation.\",\n            \"images\": [{\"image\": \"https://res.cloudinary.com/louisianaroma/products/rose_mist.jpg\", \"position\": 0}],\n            \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n            \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\"],\n            \"isAvailable\": true,\n            \"stock\": 95,\n            \"isfeatured\": true,\n            \"hasfreedelivery\": false,\n            \"reviews\": [],\n            \"createdAt\": \"2026-05-22T04:00:00.000Z\",\n            \"updatedAt\": \"2026-05-22T04:00:00.000Z\"\n        },\n        {\n            \"id\": \"683c2a1e9b0d4f001c7e8c44\",\n            \"label\": \"Petite Fleur Blanche\",\n            \"name\": \"Petite Fleur Blanche\",\n            \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n            \"price\": 72,\n            \"description\": \"Whispers of white florals — jasmine, gardenia, and soft musk.\",\n            \"images\": [],\n            \"sizes\": [\"50ml\", \"100ml\"],\n            \"tags\": [\"floral\", \"jasmine\", \"white\", \"soft\"],\n            \"isAvailable\": true,\n            \"stock\": 120,\n            \"isfeatured\": false,\n            \"hasfreedelivery\": false,\n            \"reviews\": [],\n            \"createdAt\": \"2026-05-18T12:00:00.000Z\",\n            \"updatedAt\": \"2026-05-18T12:00:00.000Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "200 - Filtered by Collection + isfeatured=true",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=10&category=683a1f4c2b9e4d001a3e5f10&isfeatured=true",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "find_all"],
+                  "query": [
+                    {"key": "page", "value": "1"},
+                    {"key": "limit", "value": "10"},
+                    {"key": "category", "value": "683a1f4c2b9e4d001a3e5f10"},
+                    {"key": "isfeatured", "value": "true"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"meta\": {\n        \"total\": 3,\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalPages\": 1,\n        \"hasNextPage\": false,\n        \"hasPrevPage\": false\n    },\n    \"data\": [\n        {\n            \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n            \"label\": \"Chateau Rose Mist\",\n            \"name\": \"Chateau Rose Mist\",\n            \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n            \"price\": 85,\n            \"isfeatured\": true,\n            \"isAvailable\": true,\n            \"stock\": 95,\n            \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\"],\n            \"reviews\": []\n        }\n    ]\n}"
+            }
+          ]
         },
+
         {
-          "name": "find_one",
+          "name": "🌐 [PUBLIC] find_one",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{localUrl}}/api/v1/products/find_one/:id",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "find_one",
-                ":id"
-              ],
+              "host": ["{{localUrl}}"],
+              "path": ["api", "v1", "products", "find_one", ":id"],
               "variable": [
                 {
                   "key": "id",
-                  "value": "65edd4decf2ec0cf59f71fd3"
+                  "value": "{{productId}}",
+                  "description": "MongoDB ObjectId of the product"
                 }
               ]
-            }
+            },
+            "description": "**[PUBLIC]** Returns a single product by its MongoDB ObjectId. Includes all associated reviews with reviewer profile info (id, fullname, image)."
           },
-          "response": []
+          "response": [
+            {
+              "name": "200 - Product Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/find_one/683c2a1e9b0d4f001c7e8a22",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "find_one", "683c2a1e9b0d4f001c7e8a22"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n        \"label\": \"Chateau Rose Mist\",\n        \"name\": \"Chateau Rose Mist\",\n        \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n        \"price\": 85,\n        \"description\": \"A delicate rose mist formulation.\",\n        \"images\": [{\"image\": \"https://res.cloudinary.com/louisianaroma/products/rose_mist.jpg\", \"position\": 0}],\n        \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n        \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\"],\n        \"faqs\": [{\"question\": \"What is the longevity of this mist?\", \"answer\": \"Typically 4-6 hours depending on skin type.\", \"isvisible\": true}],\n        \"sectiontwo\": null,\n        \"isAvailable\": true,\n        \"stock\": 95,\n        \"hasfreedelivery\": false,\n        \"isfeatured\": true,\n        \"reviews\": [\n            {\n                \"id\": \"683d1a2b4c0e5f001d8f9b44\",\n                \"rating\": 5,\n                \"comment\": \"Absolutely divine. My signature scent.\",\n                \"pictures\": [],\n                \"createdAt\": \"2026-05-21T08:00:00.000Z\",\n                \"user\": {\n                    \"id\": \"6a0a4f5db2b50da4fc9f9592\",\n                    \"fullname\": \"Sophie Laurent\",\n                    \"image\": \"https://res.cloudinary.com/louisianaroma/avatars/sophie.jpg\"\n                }\n            }\n        ],\n        \"createdAt\": \"2026-05-22T04:00:00.000Z\",\n        \"updatedAt\": \"2026-05-22T04:00:00.000Z\"\n    }\n}"
+            },
+            {
+              "name": "404 - Product Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/find_one/000000000000000000000000",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "find_one", "000000000000000000000000"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 404,\n        \"message\": \"The premium product you are searching for is not present in our vaults.\"\n    }\n}"
+            }
+          ]
         },
         {
-          "name": "update_product",
+          "name": "🔐 [ADMIN] update_product",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{adminToken}}", "type": "string"}]
+            },
             "method": "PATCH",
             "header": [
               {
                 "key": "Authorization",
                 "value": "{{adminToken}}",
+                "description": "Bearer JWT token for admin/superadmin only",
                 "type": "text"
               }
             ],
@@ -2989,70 +3182,166 @@
               "formdata": [
                 {
                   "key": "data",
-                  "value": "{\n  \"price\": 90.00\n}",
+                  "description": "JSON string with any subset of product fields to update. All fields are optional.",
+                  "value": "{\n  \"price\": 90.00,\n  \"description\": \"Updated: A refined rose mist — now enhanced with white peony and morning dew extracts.\",\n  \"stock\": 80,\n  \"isfeatured\": true,\n  \"isAvailable\": true,\n  \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\", \"signature\"],\n  \"hasfreedelivery\": true\n}",
                   "type": "text"
                 },
                 {
                   "key": "images",
+                  "description": "Upload new image files to replace images array. Leave disabled to keep existing images.",
                   "type": "file",
-                  "src": []
+                  "src": [],
+                  "disabled": true
                 }
               ]
             },
             "url": {
               "raw": "{{localUrl}}/api/v1/products/update_product/:id",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "update_product",
-                ":id"
-              ],
+              "host": ["{{localUrl}}"],
+              "path": ["api", "v1", "products", "update_product", ":id"],
               "variable": [
                 {
                   "key": "id",
-                  "value": "65edd4decf2ec0cf59f71fd3"
+                  "value": "{{productId}}",
+                  "description": "MongoDB ObjectId of the product to update"
                 }
               ]
-            }
+            },
+            "description": "**[ADMIN ONLY]** Partially updates a product. All fields in `data` are optional — include only fields you want to change.\n\nIf `category` is changed, `numberOfProducts` on both the old and new Collection will be updated automatically.\n\nUploading new `images` will replace the existing images array entirely."
           },
-          "response": []
+          "response": [
+            {
+              "name": "200 - Product Updated Successfully",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [{"key": "Authorization", "value": "{{adminToken}}", "type": "text"}],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [{"key": "data", "value": "{\"price\": 90.00, \"stock\": 80}", "type": "text"}]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/update_product/683c2a1e9b0d4f001c7e8a22",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "update_product", "683c2a1e9b0d4f001c7e8a22"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"The olfactory profile of the product has been successfully updated.\",\n    \"data\": {\n        \"id\": \"683c2a1e9b0d4f001c7e8a22\",\n        \"label\": \"Chateau Rose Mist\",\n        \"name\": \"Chateau Rose Mist\",\n        \"category\": \"683a1f4c2b9e4d001a3e5f10\",\n        \"price\": 90,\n        \"description\": \"Updated: A refined rose mist.\",\n        \"images\": [{\"image\": \"https://res.cloudinary.com/louisianaroma/products/rose_mist.jpg\", \"position\": 0}],\n        \"sizes\": [\"30ml\", \"50ml\", \"100ml\"],\n        \"tags\": [\"floral\", \"rose\", \"mist\", \"luxury\", \"signature\"],\n        \"isAvailable\": true,\n        \"stock\": 80,\n        \"isfeatured\": true,\n        \"hasfreedelivery\": true,\n        \"createdAt\": \"2026-05-22T04:00:00.000Z\",\n        \"updatedAt\": \"2026-05-22T05:30:00.000Z\"\n    }\n}"
+            },
+            {
+              "name": "404 - Product Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [{"key": "Authorization", "value": "{{adminToken}}", "type": "text"}],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [{"key": "data", "value": "{\"price\": 90}", "type": "text"}]
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/update_product/000000000000000000000000",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "update_product", "000000000000000000000000"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 404,\n        \"message\": \"The premium product you wish to refine is not present in our vaults.\"\n    }\n}"
+            }
+          ]
         },
         {
-          "name": "delete_product",
+          "name": "🔐 [ADMIN] delete_product",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{adminToken}}", "type": "string"}]
+            },
             "method": "DELETE",
             "header": [
               {
                 "key": "Authorization",
                 "value": "{{adminToken}}",
+                "description": "Bearer JWT token for admin/superadmin only",
                 "type": "text"
               }
             ],
             "url": {
               "raw": "{{localUrl}}/api/v1/products/delete_product/:id",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "delete_product",
-                ":id"
-              ],
+              "host": ["{{localUrl}}"],
+              "path": ["api", "v1", "products", "delete_product", ":id"],
               "variable": [
                 {
                   "key": "id",
-                  "value": "65edd4decf2ec0cf59f71fd3"
+                  "value": "{{productId}}",
+                  "description": "MongoDB ObjectId of the product to permanently delete"
                 }
               ]
-            }
+            },
+            "description": "**[ADMIN ONLY]** Permanently deletes a product from the catalog. This action is irreversible.\n\nAutomatically decrements `numberOfProducts` on the linked Collection."
           },
-          "response": []
+          "response": [
+            {
+              "name": "200 - Product Deleted Successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [{"key": "Authorization", "value": "{{adminToken}}", "type": "text"}],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/delete_product/683c2a1e9b0d4f001c7e8a22",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "delete_product", "683c2a1e9b0d4f001c7e8a22"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Product successfully dissolved and removed from House catalogs.\"\n}"
+            },
+            {
+              "name": "404 - Product Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [{"key": "Authorization", "value": "{{adminToken}}", "type": "text"}],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/delete_product/000000000000000000000000",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "delete_product", "000000000000000000000000"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 404,\n        \"message\": \"The premium product you wish to dissolve is not present in our vaults.\"\n    }\n}"
+            },
+            {
+              "name": "403 - Forbidden (User Role)",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [{"key": "Authorization", "value": "{{buyerToken}}", "type": "text"}],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/products/delete_product/683c2a1e9b0d4f001c7e8a22",
+                  "host": ["{{localUrl}}"],
+                  "path": ["api", "v1", "products", "delete_product", "683c2a1e9b0d4f001c7e8a22"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 403,\n        \"message\": \"Forbidden resource\"\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -3081,7 +3370,7 @@
                 {
                   "key": "image",
                   "type": "file",
-                  "src": []
+                  "value": null
                 }
               ]
             },
@@ -3169,7 +3458,7 @@
                 {
                   "key": "image",
                   "type": "file",
-                  "src": []
+                  "value": null
                 }
               ]
             },
@@ -3640,7 +3929,7 @@
                     {
                       "key": "image",
                       "type": "file",
-                      "src": []
+                      "value": null
                     }
                   ]
                 },
@@ -3682,7 +3971,7 @@
                     {
                       "key": "image",
                       "type": "file",
-                      "src": []
+                      "value": null
                     }
                   ]
                 },
@@ -3873,7 +4162,7 @@
                     {
                       "key": "image",
                       "type": "file",
-                      "src": []
+                      "value": null
                     }
                   ]
                 },

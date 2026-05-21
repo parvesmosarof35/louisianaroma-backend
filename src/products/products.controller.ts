@@ -1,4 +1,17 @@
-import { Controller, Post, Get, Patch, Delete, Body, Param, Query, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseGuards,
+  UseInterceptors,
+  UploadedFiles,
+  BadRequestException,
+} from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ProductsService } from './products.service';
 import { CreateProductDto, CreateProductSchema, UpdateProductDto, UpdateProductSchema } from './products.dto';
@@ -11,6 +24,7 @@ import { uploadBufferToCloudinary } from '../utils/cloudinary';
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  // ─── Admin: Create Product ────────────────────────────────────────────────
   @Post('create_product')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
@@ -55,21 +69,31 @@ export class ProductsController {
     }
   }
 
+  // ─── Public: List All Products (with pagination & filters) ────────────────
   @Get('find_all')
   async findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('category') category?: string,
     @Query('isfeatured') isfeatured?: string,
+    @Query('isAvailable') isAvailable?: string,
     @Query('searchTerm') searchTerm?: string,
   ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
     const isFeaturedBool = isfeatured === 'true' ? true : isfeatured === 'false' ? false : undefined;
-    return this.productsService.findAll(category, isFeaturedBool, searchTerm);
+    const isAvailableBool = isAvailable === 'false' ? false : isAvailable === 'true' ? true : undefined;
+
+    return this.productsService.findAll(category, isFeaturedBool, searchTerm, pageNum, limitNum, isAvailableBool);
   }
 
+  // ─── Public: Get Single Product ───────────────────────────────────────────
   @Get('find_one/:id')
   async findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
   }
 
+  // ─── Admin: Update Product ────────────────────────────────────────────────
   @Patch('update_product/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')
@@ -115,6 +139,7 @@ export class ProductsController {
     }
   }
 
+  // ─── Admin: Delete Product ────────────────────────────────────────────────
   @Delete('delete_product/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'superadmin')

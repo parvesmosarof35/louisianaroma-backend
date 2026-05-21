@@ -24,8 +24,22 @@ export class ProductsService {
     };
   }
 
-  async findAll(category?: string, isfeatured?: boolean, searchTerm?: string) {
-    const whereClause: any = { isAvailable: true };
+  async findAll(
+    category?: string,
+    isfeatured?: boolean,
+    searchTerm?: string,
+    page: number = 1,
+    limit: number = 10,
+    isAvailable?: boolean,
+  ) {
+    const whereClause: any = {};
+
+    // Default: only show available products unless explicitly overridden
+    if (isAvailable !== undefined) {
+      whereClause.isAvailable = isAvailable;
+    } else {
+      whereClause.isAvailable = true;
+    }
 
     if (category) {
       whereClause.category = category;
@@ -40,30 +54,47 @@ export class ProductsService {
         { name: { contains: searchTerm, mode: 'insensitive' } },
         { label: { contains: searchTerm, mode: 'insensitive' } },
         { description: { contains: searchTerm, mode: 'insensitive' } },
+        { tags: { has: searchTerm } },
       ];
     }
 
-    const products = await this.prisma.product.findMany({
-      where: whereClause,
-      include: {
-        reviews: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                fullname: true,
-                image: true,
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await Promise.all([
+      this.prisma.product.findMany({
+        where: whereClause,
+        include: {
+          reviews: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  fullname: true,
+                  image: true,
+                },
               },
             },
           },
         },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.product.count({ where: whereClause }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
 
     return {
       success: true,
-      meta: { count: products.length },
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
       data: products,
     };
   }
