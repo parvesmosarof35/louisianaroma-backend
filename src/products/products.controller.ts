@@ -10,9 +10,11 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFiles,
+  UploadedFile,
   BadRequestException,
+  InternalServerErrorException,
 } from '@nestjs/common';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { ProductsService } from './products.service';
 import { CreateProductDto, CreateProductSchema, UpdateProductDto, UpdateProductSchema } from './products.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -66,6 +68,25 @@ export class ProductsController {
         ? issues.map((err: any) => `${err.path.join('.')}: ${err.message}`).join(', ')
         : error.message;
       throw new BadRequestException(errorMessages);
+    }
+  }
+
+  // ─── Admin: Upload a single image to Cloudinary (for sectiontwo cards) ─────
+  @Post('upload_image')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(@UploadedFile() file?: any) {
+    if (!file) {
+      throw new BadRequestException('No file provided. Send a single file under the "file" field.');
+    }
+    try {
+      const result = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products/sectiontwo');
+      return { success: true, url: result.secure_url };
+    } catch (err: any) {
+      throw new InternalServerErrorException(
+        `Cloudinary upload failed: ${err?.message || 'Unknown error'}`,
+      );
     }
   }
 

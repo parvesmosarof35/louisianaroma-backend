@@ -12,7 +12,7 @@ export const ProductFaqSchema = z.object({
 });
 
 export const SectionTwoCardSchema = z.object({
-  image: z.string().url('Card image must be a valid URL.'),
+  image: z.string().url('Card image must be a valid URL.').or(z.literal('')),
   slogan: z.string().min(2),
   title: z.string().min(2),
   description: z.string().min(5),
@@ -35,7 +35,7 @@ export const CreateProductSchema = z.object({
   sizes: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
   faqs: z.array(ProductFaqSchema).default([]),
-  sectiontwo: SectionTwoSchema.optional(),
+  sectiontwo: SectionTwoSchema.nullable().optional(),
   isAvailable: z.boolean().default(true),
   stock: z.number().int().min(0).optional(),
   hasfreedelivery: z.boolean().default(false),
@@ -59,7 +59,7 @@ export class CreateProductDto {
     title: string;
     description: string;
     cards: { image: string; slogan: string; title: string; description: string }[];
-  };
+  } | null;
   isAvailable?: boolean;
   stock?: number;
   hasfreedelivery?: boolean;
@@ -81,7 +81,7 @@ export class UpdateProductDto {
     title: string;
     description: string;
     cards: { image: string; slogan: string; title: string; description: string }[];
-  };
+  } | null;
   isAvailable?: boolean;
   stock?: number;
   hasfreedelivery?: boolean;

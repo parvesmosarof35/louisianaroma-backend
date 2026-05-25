@@ -89,7 +89,7 @@ model Product {
   name            String
   category        String         // ObjectId reference to Collection
   price           Float
-  images          ProductImage[]
+  images          ProductImage[]  // e.g. [{image: "url", position: 0}, {image: "url", position: 1}, ...]
   sizes           String[]       // e.g. ["30ml", "50ml", "100ml"]
   tags            String[]       // e.g. ["luxury", "floral", "oud"]
   reviews         Review[]
