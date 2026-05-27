@@ -99,13 +99,28 @@ export class ProductsController {
     @Query('isfeatured') isfeatured?: string,
     @Query('isAvailable') isAvailable?: string,
     @Query('searchTerm') searchTerm?: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
+    @Query('sortBy') sortBy?: string,
   ) {
     const pageNum = page ? parseInt(page, 10) : 1;
     const limitNum = limit ? parseInt(limit, 10) : 10;
     const isFeaturedBool = isfeatured === 'true' ? true : isfeatured === 'false' ? false : undefined;
     const isAvailableBool = isAvailable === 'false' ? false : isAvailable === 'true' ? true : undefined;
+    const minPriceNum = minPrice ? parseFloat(minPrice) : undefined;
+    const maxPriceNum = maxPrice ? parseFloat(maxPrice) : undefined;
 
-    return this.productsService.findAll(category, isFeaturedBool, searchTerm, pageNum, limitNum, isAvailableBool);
+    return this.productsService.findAll(
+      category,
+      isFeaturedBool,
+      searchTerm,
+      pageNum,
+      limitNum,
+      isAvailableBool,
+      minPriceNum,
+      maxPriceNum,
+      sortBy,
+    );
   }
 
   // ─── Public: Get Single Product ───────────────────────────────────────────

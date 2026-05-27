@@ -23,13 +23,35 @@ export class CollectionsService {
   }
 
   async findAll() {
-    const collections = await this.prisma.collection.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    const [collections, priceStats] = await Promise.all([
+      this.prisma.collection.findMany({
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.product.aggregate({
+        where: {
+          isAvailable: true,
+        },
+        _max: {
+          price: true,
+        },
+        _min: {
+          price: true,
+        },
+      }),
+    ]);
+
+    const maxPrice = priceStats._max?.price ?? 0;
+    const minPrice = priceStats._min?.price ?? 0;
 
     return {
       success: true,
-      meta: { count: collections.length },
+      meta: {
+        count: collections.length,
+        mostExpensivePrice: maxPrice,
+        mostCheapestPrice: minPrice,
+        maxPrice,
+        minPrice,
+      },
       data: collections,
     };
   }

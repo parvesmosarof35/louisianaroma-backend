@@ -31,6 +31,9 @@ export class ProductsService {
     page: number = 1,
     limit: number = 10,
     isAvailable?: boolean,
+    minPrice?: number,
+    maxPrice?: number,
+    sortBy?: string,
   ) {
     const whereClause: any = {};
 
@@ -49,6 +52,16 @@ export class ProductsService {
       whereClause.isfeatured = isfeatured;
     }
 
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      whereClause.price = {};
+      if (minPrice !== undefined) {
+        whereClause.price.gte = minPrice;
+      }
+      if (maxPrice !== undefined) {
+        whereClause.price.lte = maxPrice;
+      }
+    }
+
     if (searchTerm) {
       whereClause.OR = [
         { name: { contains: searchTerm, mode: 'insensitive' } },
@@ -56,6 +69,15 @@ export class ProductsService {
         { description: { contains: searchTerm, mode: 'insensitive' } },
         { tags: { has: searchTerm } },
       ];
+    }
+
+    let orderBy: any = { createdAt: 'desc' };
+    if (sortBy === 'price_asc' || sortBy === 'price-asc' || sortBy === 'asc') {
+      orderBy = { price: 'asc' };
+    } else if (sortBy === 'price_desc' || sortBy === 'price-desc' || sortBy === 'desc') {
+      orderBy = { price: 'desc' };
+    } else if (sortBy === 'oldest') {
+      orderBy = { createdAt: 'asc' };
     }
 
     const skip = (page - 1) * limit;
@@ -76,7 +98,7 @@ export class ProductsService {
             },
           },
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         skip,
         take: limit,
       }),

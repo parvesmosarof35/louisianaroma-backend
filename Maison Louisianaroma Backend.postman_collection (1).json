@@ -2992,9 +2992,16 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=10&category={{collectionId}}",
-              "host": ["{{localUrl}}"],
-              "path": ["api", "v1", "products", "find_all"],
+              "raw": "{{localUrl}}/api/v1/products/find_all?page=1&limit=10&category={{collectionId}}&minPrice=25&maxPrice=75&searchTerm=rose&sortBy=price_asc",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "find_all"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -3024,14 +3031,32 @@
                   "disabled": true
                 },
                 {
+                  "key": "minPrice",
+                  "value": "25",
+                  "description": "Filter by minimum price",
+                  "disabled": true
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "75",
+                  "description": "Filter by maximum price",
+                  "disabled": true
+                },
+                {
                   "key": "searchTerm",
                   "value": "rose",
                   "description": "Full-text search across name, label, description, and tags",
                   "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "price_asc",
+                  "description": "Sort products: price_asc (low to high), price_desc (high to low), oldest",
+                  "disabled": true
                 }
               ]
             },
-            "description": "**[PUBLIC]** Returns a paginated list of products. All filters are **optional and combinable**.\n\n### Filter Reference\n\n| Param | Type | Default | Description |\n|---|---|---|---|\n| `page` | number | `1` | Page number |\n| `limit` | number | `10` | Items per page |\n| `category` | ObjectId string | — | **Collection filter** — pass the `_id` of a Collection from `GET /api/v1/collections/find_all` |\n| `isfeatured` | boolean | — | `true` returns only featured products; `false` returns non-featured |\n| `isAvailable` | boolean | `true` | `false` includes out-of-stock/unavailable products |\n| `searchTerm` | string | — | Searches across `name`, `label`, `description`, and `tags` |\n\n### How to get a Collection ID\n1. Call `GET {{localUrl}}/api/v1/collections/find_all`\n2. Copy the `id` field from the desired collection\n3. Paste it as the `category` query param value here"
+            "description": "**[PUBLIC]** Returns a paginated list of products. All filters are **optional and combinable**.\n\n### Filter Reference\n\n| Param | Type | Default | Description |\n|---|---|---|---|\n| `page` | number | `1` | Page number |\n| `limit` | number | `10` | Items per page |\n| `category` | ObjectId string | — | **Collection filter** — pass the `_id` of a Collection from `GET /api/v1/collections/find_all` |\n| `isfeatured` | boolean | — | `true` returns only featured products; `false` returns non-featured |\n| `isAvailable` | boolean | `true` | `false` includes out-of-stock/unavailable products |\n| `minPrice` | number | — | **Min price filter** — returns products with price >= value |\n| `maxPrice` | number | — | **Max price filter** — returns products with price <= value |\n| `searchTerm` | string | — | Searches across `name`, `label`, `description`, and `tags` |\n| `sortBy` | string | — | **Sorting** — `price_asc` (price low to high), `price_desc` (price high to low), `oldest` (chronological) |\n\n### How to get a Collection ID\n1. Call `GET {{localUrl}}/api/v1/collections/find_all`\n2. Copy the `id` field from the desired collection\n3. Paste it as the `category` query param value here"
           },
           "response": [
             {
