@@ -1,4 +1,4 @@
-name: Deploy NestJS Backend
+name: Deploy NestJS Backend (Dockerized)
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: SSH and Deploy to Lightsail
+      - name: SSH and Deploy via Docker
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -22,46 +22,36 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            # ১. এনভায়রনমেন্ট পাথ লোড করা (NVM, Node, pnpm নিশ্চিত করতে)
-            export NVM_DIR="$HOME/.nvm"
-            if [ -s "$NVM_DIR/nvm.sh" ]; then
-                source "$NVM_DIR/nvm.sh"
-            fi
-            
-            # গিটহাব স্ক্রিনে দেখার জন্য পাথ চেক
-            echo "Current Node version: $(node -v 2>&1)"
-            echo "Current pnpm version: $(pnpm -v 2>&1)"
-
-            # ২. ব্যাকএন্ড প্রোজেক্ট ফোল্ডারে প্রবেশ
+            # ১. ব্যাকএন্ড প্রোজেক্ট ফোল্ডারে প্রবেশ
             cd /home/ubuntu/louisianaroma-backend || exit 1
 
-            # ৩. গিট থেকে লেটেস্ট কোড নিয়ে আসা
-            echo "Fetching and pulling code from GitHub..."
+            # ২. গিট থেকে লেটেস্ট কোড নিয়ে আসা
+            echo "Fetching and pulling latest code..."
             git fetch --all
             git reset --hard origin/main
-            
-            # ৪. ডিপেনডেন্সি ইনস্টল করা
-            echo "Running pnpm install..."
-            pnpm install --no-frozen-lockfile
 
-            # ৫. প্রিজমা ক্লায়েন্ট জেনারেট করা
-            echo "Generating Prisma Client..."
-            pnpm prisma generate
+            # ৩. সার্ভারে যদি অলরেডি কোনো .env ফাইল থাকে তা ডকার কন্টেইনারে পাস করার প্রস্তুতি
+            # (ডকার বিল্ড ও রান করার কমান্ড)
+            echo "Building new Docker image..."
+            docker build -t louisiana-api-image .
 
-            # ৬. প্রজেক্ট বিল্ড করা
-            echo "Building the NestJS application..."
-            pnpm build
+            # ৪. পুরাতন কন্টেইনার যদি সচল থাকে, তবে তা বন্ধ ও রিমুভ করা (যাতে পোর্ট খালি হয়)
+            echo "Stopping old container if exists..."
+            docker stop louisiana-api-container || true
+            docker rm louisiana-api-container || true
 
-            # ৭. PM2 প্রসেস (louisiana-api) রিস্টার্ট করা
-            echo "Managing PM2 process..."
-            if pm2 describe louisiana-api > /dev/null 2>&1; then
-              echo "Restarting existing PM2 process: louisiana-api"
-              pm2 restart louisiana-api --update-env
-            else
-              echo "Starting new PM2 process..."
-              pm2 start dist/main.js --name "louisiana-api"
-            fi
+            # ৫. নতুন ডকার কন্টেইনার রান করা (পোর্ট ৫০০৩ বা আপনার পছন্দমতো সেট করতে পারেন)
+            # এখানে আপনার অ্যাপের রিয়েল পোর্ট অনুযায়ী ম্যাপ করবেন (যেমন: -p <সার্ভার_পোর্ট>:<ডকার_এক্সপোজ_পোর্ট>)
+            echo "Starting new Docker container..."
+            docker run -d \
+              --name louisiana-api-container \
+              -p 5000:5000 \
+              --restart always \
+              --env-file .env \
+              louisiana-api-image
 
-            # ৮. কনফিগারেশন সেভ রাখা
-            pm2 save
-            echo "Deployment completed successfully!"
+            # ৬. অব্যবহৃত পুরাতন ডকার ইমেজ ক্লিন করা (যাতে সার্ভারের স্টোরেজ ফুল না হয়)
+            echo "Cleaning up unused Docker images..."
+            docker image prune -f
+
+            echo "Backend Docker Deployment completed successfully!"
