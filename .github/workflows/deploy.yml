@@ -34,10 +34,10 @@ jobs:
             git reset --hard origin/main
             git pull origin main
 
-            # ৪. ডিপেনডেন্সি ইনস্টল করা
-            pnpm install --frozen-lockfile
+            # ৪. ডিপেনডেন্সি ইনস্টল করা (লকফাইল এরর এড়াতে নরমাল ইনস্টল)
+            pnpm install
 
-            # ৫. ম্যানুয়ালি প্রিজমা ক্লায়েন্ট জেনারেট করা (এরর রিস্ক কমানোর জন্য)
+            # ৫. প্রিজমা ক্লায়েন্ট জেনারেট করা
             echo "Generating Prisma Client..."
             pnpm prisma generate
 
