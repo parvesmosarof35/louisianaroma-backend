@@ -22,29 +22,36 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            # ১. আপনার সঠিক প্রোজেক্ট ফোল্ডারে প্রবেশ
-            cd ~/louisianaroma-backend
-
-            # ২. গিট থেকে লেটেস্ট কোড নিয়ে আসা
-            git reset --hard origin/main
-            git pull origin/main
-
-            # ৩. Node.js এবং pnpm এনভায়রনমেন্ট সচল করা
+            # ১. Node.js এবং pnpm এনভায়রনমেন্ট শুরুতেই সচল করা
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            # ৪. ডিপেনডেন্সি ইনস্টল, প্রিজমা জেনারেট এবং বিল্ড করা
+            # ২. ব্যাকএন্ড প্রোজেক্ট ফোল্ডারে প্রবেশ
+            cd ~/louisianaroma-backend
+
+            # ৩. গিট থেকে লেটেস্ট কোড নিয়ে আসা
+            git fetch origin main
+            git reset --hard origin/main
+            git pull origin main
+
+            # ৪. ডিপেনডেন্সি ইনস্টল করা
             pnpm install --frozen-lockfile
+
+            # ৫. ম্যানুয়ালি প্রিজমা ক্লায়েন্ট জেনারেট করা (এরর রিস্ক কমানোর জন্য)
+            echo "Generating Prisma Client..."
             pnpm prisma generate
+
+            # ৬. প্রজেক্ট বিল্ড করা
             pnpm build
 
-            # ৫. PM2 প্রসেস রিস্টার্ট (PM2-তে আপনার প্রসেসের নাম 'backend' ধরে নেওয়া হয়েছে, প্রয়োজনে পরিবর্তন করুন)
-            pm2 describe backend > /dev/null 2>&1
-            if [ $? -ne 0 ]; then
-              pm2 start dist/main.js --name "backend"
+            # ৭. PM2 প্রসেস (louisiana-api) রিস্টার্ট করা
+            if pm2 describe louisiana-api > /dev/null 2>&1; then
+              echo "Restarting existing PM2 process: louisiana-api"
+              pm2 restart louisiana-api --update-env
             else
-              pm2 restart backend --update-env
+              echo "Starting new PM2 process..."
+              pm2 start dist/main.js --name "louisiana-api"
             fi
 
-            # ৬. কনফিগারেশন সেভ
+            # ৮. কনফিগারেশন সেভ রাখা
             pm2 save
