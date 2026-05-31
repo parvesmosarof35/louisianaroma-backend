@@ -22,29 +22,38 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            # ১. Node.js এবং pnpm এনভায়রনমেন্ট শুরুতেই সচল করা
+            # ১. এনভায়রনমেন্ট পাথ লোড করা (NVM, Node, pnpm নিশ্চিত করতে)
             export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            if [ -s "$NVM_DIR/nvm.sh" ]; then
+                source "$NVM_DIR/nvm.sh"
+            fi
+            
+            # গিটহাব স্ক্রিনে দেখার জন্য পাথ চেক
+            echo "Current Node version: $(node -v 2>&1)"
+            echo "Current pnpm version: $(pnpm -v 2>&1)"
 
             # ২. ব্যাকএন্ড প্রোজেক্ট ফোল্ডারে প্রবেশ
-            cd ~/louisianaroma-backend
+            cd /home/ubuntu/louisianaroma-backend || exit 1
 
             # ৩. গিট থেকে লেটেস্ট কোড নিয়ে আসা
-            git fetch origin main
+            echo "Fetching and pulling code from GitHub..."
+            git fetch --all
             git reset --hard origin/main
-            git pull origin main
-
-            # ৪. ডিপেনডেন্সি ইনস্টল করা (লকফাইল এরর এড়াতে নরমাল ইনস্টল)
-            pnpm install
+            
+            # ৪. ডিপেনডেন্সি ইনস্টল করা
+            echo "Running pnpm install..."
+            pnpm install --no-frozen-lockfile
 
             # ৫. প্রিজমা ক্লায়েন্ট জেনারেট করা
             echo "Generating Prisma Client..."
             pnpm prisma generate
 
             # ৬. প্রজেক্ট বিল্ড করা
+            echo "Building the NestJS application..."
             pnpm build
 
             # ৭. PM2 প্রসেস (louisiana-api) রিস্টার্ট করা
+            echo "Managing PM2 process..."
             if pm2 describe louisiana-api > /dev/null 2>&1; then
               echo "Restarting existing PM2 process: louisiana-api"
               pm2 restart louisiana-api --update-env
@@ -55,3 +64,4 @@ jobs:
 
             # ৮. কনফিগারেশন সেভ রাখা
             pm2 save
+            echo "Deployment completed successfully!"
