@@ -38,6 +38,8 @@ model User {
   role                    String        @default("user") // superadmin, admin, user
   gender                  String? // Male, Female
   address                 String?
+  city                    String?
+  postalCode              String?
   status                  String        @default("isProgress") // isProgress, active, blocked
   isDelete                Boolean       @default(false)
   passwordChangedAt       DateTime?

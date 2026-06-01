@@ -126,6 +126,8 @@ export class AuthService {
         photo: user.image,
         gender: user.gender,
         address: user.address,
+        city: user.city,
+        postalCode: user.postalCode,
         createdAt: user.createdAt,
       },
     };
@@ -146,7 +148,9 @@ export class AuthService {
       updateData.name = data.fullname;
     }
     if (data.phoneNumber) updateData.phoneNumber = data.phoneNumber;
-    if (data.address) updateData.address = data.address;
+    if (data.address !== undefined) updateData.address = data.address;
+    if (data.city !== undefined) updateData.city = data.city;
+    if (data.postalCode !== undefined) updateData.postalCode = data.postalCode;
     if (data.gender || data.male) {
       updateData.gender = data.gender || data.male;
     }
