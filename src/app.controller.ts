@@ -225,7 +225,7 @@ export class AppController {
 <body>
     <header>
         <div class="brand-subtitle">Maison Louisianaroma</div>
-        <h1>Telemetry & Real-Time Diagnostics nows today update again 2</h1>
+        <h1>Telemetry & Real-Time Diagnostics</h1>
         <div class="status-badge-container">
             <div class="status-dot"></div>
             <div class="status-text">Server Active & Healthy</div>
@@ -236,7 +236,7 @@ export class AppController {
         <!-- RAM -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">RAM Allocation</div>
+                <div class="card-title">RAM Allocations</div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon" style="color: var(--color-gold)"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
             </div>
             <div class="metric-value" id="ram-val">0.00 GB</div>
