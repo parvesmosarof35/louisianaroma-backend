@@ -130,6 +130,24 @@ model Ingredient {
   blends      BlendIngredient[]
 }
 
+model PreviousCustomizedProduct {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   
+  title       String   
+  image       String  
+  createdAt   DateTime @default(now())
+}
+
+
+model Formula {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   
+  description String   
+  title       String
+  image       String   
+  createdAt   DateTime @default(now())
+}
+
 model CustomBlend {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   userId        String?  @db.ObjectId

@@ -4242,6 +4242,382 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Previous Customized Products",
+      "item": [
+        {
+          "name": "Create Previous Customized Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Chypre Classic\",\n  \"title\": \"Customized Chypre formulation\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/previous-customized-products/create_customized_product",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "previous-customized-products",
+                "create_customized_product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Previous Customized Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/previous-customized-products/find_all?page=1&limit=10&searchTerm=",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "previous-customized-products",
+                "find_all"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "searchTerm",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Previous Customized Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/previous-customized-products/find_one/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "previous-customized-products",
+                "find_one",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Previous Customized Product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Chypre Classic Updated\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/previous-customized-products/update_customized_product/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "previous-customized-products",
+                "update_customized_product",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Previous Customized Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/previous-customized-products/delete_customized_product/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "previous-customized-products",
+                "delete_customized_product",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Formulas",
+      "item": [
+        {
+          "name": "Create Formula",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Chypre Imperiale Recipe\",\n  \"title\": \"Imperial Chypre Secret Formula\",\n  \"description\": \"A masterpiece formulation with Damask Rose, Calabrian Bergamot, and Cambodian Oud.\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/formulas/create_formula",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "formulas",
+                "create_formula"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Formulas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/formulas/find_all?page=1&limit=10&searchTerm=",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "formulas",
+                "find_all"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "searchTerm",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Formula",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/formulas/find_one/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "formulas",
+                "find_one",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Formula",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\n  \"name\": \"Chypre Imperiale Recipe Updated\"\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/formulas/update_formula/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "formulas",
+                "update_formula",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Formula",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/formulas/delete_formula/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "formulas",
+                "delete_formula",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69dd4decf2ec0cf59f71fd34"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
