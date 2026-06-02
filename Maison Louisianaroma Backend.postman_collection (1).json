@@ -8,6 +8,172 @@
   },
   "item": [
     {
+      "name": "promocodes",
+      "item": [
+        {
+          "name": "Create PromoCode",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO10\",\r\n    \"discount\": 10,\r\n    \"description\": \"10% off on all orders\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/promocode/create_promocode",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "promocode",
+                "create_promocode"
+              ]
+            }
+          },
+          "response": [ { "name": "Success", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "header": [], "body": "{ \"message\": \"Success\" }" } ]
+        },
+        {
+          "name": "Find All PromoCodes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/promocode/find_all?page=1&limit=10",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "promocode",
+                "find_all"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find One PromoCode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/promocode/find_one/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "promocode",
+                "find_one",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "68e79b3a054357364468f493"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update PromoCode",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"discount\": 15\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/promocode/update_promocode/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "promocode",
+                "update_promocode",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "68e79b3a054357364468f493"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete PromoCode",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/promocode/delete_promocode/:id",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "promocode",
+                "delete_promocode",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "68e79b3a054357364468f493"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ] 
+    },
+    {
       "name": "users",
       "item": [
         {
@@ -4618,6 +4784,94 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Essencemedium",
+      "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/v1/essencemedium",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "v1", "essencemedium"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/v1/essencemedium/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "v1", "essencemedium", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sample Essence\",\n  \"image\": \"https://example.com/img.jpg\",\n  \"price\": 123\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/v1/essencemedium",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "v1", "essencemedium"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Essence\",\n  \"image\": \"https://example.com/new.jpg\",\n  \"price\": 150\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/v1/essencemedium/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "v1", "essencemedium", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/v1/essencemedium/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "v1", "essencemedium", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
@@ -4627,7 +4881,7 @@
     },
     {
       "key": "localUrl",
-      "value": "http://localhost:5000"
+      "value": "http://localhost:5001"
     }
   ]
 }

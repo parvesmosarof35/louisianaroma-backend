@@ -148,6 +148,15 @@ model Formula {
   createdAt   DateTime @default(now())
 }
 
+model Essencemedium {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  image       String
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model CustomBlend {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   userId        String?  @db.ObjectId
@@ -247,6 +256,14 @@ model Order {
   updatedAt       DateTime    @updatedAt
 
   items OrderItem[]
+}
+
+model Promocode {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  PromoCode       String   @unique
+  reward          Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model OrderItem {

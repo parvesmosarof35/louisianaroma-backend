@@ -18,6 +18,8 @@ import { CustomAtelierModule } from './custom-atelier/custom-atelier.module';
 import { InquiriesModule } from './inquiries/inquiries.module';
 import { PreviousCustomizedProductsModule } from './previous-customized-products/previous-customized-products.module';
 import { FormulasModule } from './formulas/formulas.module';
+import { EssencemediumModule } from './essencemedium/essencemedium.module';
+import { PromocodeModule } from './promocode/promocode.module';
 import { MetricsService } from './common/services/metrics.service';
 import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
@@ -42,6 +44,8 @@ import { RequestLoggerMiddleware } from './common/middleware/request-logger.midd
     InquiriesModule,
     PreviousCustomizedProductsModule,
     FormulasModule,
+    EssencemediumModule,
+    PromocodeModule,
   ],
   controllers: [AppController],
   providers: [
