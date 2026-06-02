@@ -77,23 +77,40 @@ export class OrdersService {
             throw new BadRequestException('One or more selected raw materials for the new custom blend are not available.');
           }
 
+          const targetSize = item.newCustomBlend.bottleSize || '100ml';
+          const targetConcentration = item.newCustomBlend.concentration || '20%';
+
           // Calculate price dynamically based on size & concentration configured
           const sizeConfig = await tx.sizePricing.findUnique({
-            where: { size: item.newCustomBlend.bottleSize },
+            where: { size: targetSize },
           });
-          const concConfig = await tx.concentrationLevel.findUnique({
-            where: { percentage: item.newCustomBlend.concentration },
-          });
+          if (!sizeConfig) {
+            throw new BadRequestException(`Selected bottle size '${targetSize}' configuration does not exist.`);
+          }
 
-          const finalPrice = (sizeConfig?.price || 70.00) + (concConfig?.additionalPrice || 0.00);
+          const concConfig = await tx.concentrationLevel.findUnique({
+            where: { percentage: targetConcentration },
+          });
+          if (!concConfig) {
+            throw new BadRequestException(`Selected concentration level '${targetConcentration}' configuration does not exist.`);
+          }
+
+          const mediumConfig = await tx.essencemedium.findUnique({
+            where: { id: item.newCustomBlend.mediumId },
+          });
+          if (!mediumConfig) {
+            throw new BadRequestException(`Selected essence medium signature '${item.newCustomBlend.mediumId}' does not exist.`);
+          }
+
+          const finalPrice = sizeConfig.price + concConfig.additionalPrice;
 
           const newBlend = await tx.customBlend.create({
             data: {
               userId,
               name: item.newCustomBlend.name,
               price: finalPrice,
-              bottleSize: item.newCustomBlend.bottleSize || '100ml',
-              concentration: item.newCustomBlend.concentration || '20%',
+              bottleSize: targetSize,
+              concentration: targetConcentration,
               mediumId: item.newCustomBlend.mediumId,
               labelBg: item.newCustomBlend.labelBg,
               textColor: item.newCustomBlend.textColor,

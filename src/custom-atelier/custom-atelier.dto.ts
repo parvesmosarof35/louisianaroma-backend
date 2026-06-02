@@ -12,8 +12,8 @@ export const AtelierIngredientSchema = z.object({
 
 export const CreateCustomBlendSchema = z.object({
   name: z.string().min(2, 'Fragrance name must have at least 2 characters of nobility.').max(50, 'Fragrance name must be elegant and concise.'),
-  bottleSize: z.string().min(1, 'Bottle size selection is required.'),
-  concentration: z.string().min(1, 'Concentration level selection is required.'),
+  bottleSize: z.string().optional(),
+  concentration: z.string().optional(),
   mediumId: ObjectIdSchema,
   labelBg: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, 'Label background must be a valid hex color code.'),
   textColor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, 'Text color must be a valid hex color code.'),
@@ -38,8 +38,8 @@ export class AtelierIngredientDto {
 
 export class CreateCustomBlendDto {
   name!: string;
-  bottleSize!: string;
-  concentration!: string;
+  bottleSize?: string;
+  concentration?: string;
   mediumId!: string;
   labelBg!: string;
   textColor!: string;

@@ -28,8 +28,7 @@ export class CustomAtelierService {
   }
 
   async getMediums() {
-    const mediums = await this.prisma.essenceMedium.findMany({
-      where: { isAvailable: true },
+    const mediums = await (this.prisma as any).essencemedium.findMany({
       orderBy: { name: 'asc' },
     });
     return {
@@ -240,28 +239,11 @@ export class CustomAtelierService {
     };
   }
 
-  // 4. Essence Medium Configuration
+  // 4. Essence Medium Configuration (Legacy / Unused)
   async upsertEssenceMedium(dto: AdminEssenceMediumDto) {
-    const medium = await this.prisma.essenceMedium.upsert({
-      where: { code: dto.code },
-      update: {
-        name: dto.name,
-        description: dto.description,
-        icon: dto.icon,
-        isAvailable: dto.isAvailable ?? true,
-      },
-      create: {
-        code: dto.code,
-        name: dto.name,
-        description: dto.description,
-        icon: dto.icon,
-        isAvailable: dto.isAvailable ?? true,
-      },
-    });
-
     return {
       success: true,
-      data: medium,
+      message: 'Legacy essenceMedium configuration bypassed.',
     };
   }
 

@@ -155,6 +155,7 @@ model Essencemedium {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  blends      CustomBlend[]
 }
 
 model CustomBlend {
@@ -168,7 +169,7 @@ model CustomBlend {
   bottleSize    String   @default("100ml") // e.g. "30ml", "50ml", "100ml"
   concentration String   @default("20%")   // e.g. "20%", "30%", "40%"
   mediumId      String?  @db.ObjectId      // Reference to the essence medium
-  medium        EssenceMedium? @relation(fields: [mediumId], references: [id])
+  medium        Essencemedium? @relation(fields: [mediumId], references: [id])
   // Custom physical label styling parameters
   labelBg       String   @default("#F2CA50") // Hex code
   textColor     String   @default("#000000") // Hex code
@@ -178,18 +179,6 @@ model CustomBlend {
   createdAt     DateTime @default(now())
   ingredients   BlendIngredient[]
   orderItems    OrderItem[]
-}
-
-model EssenceMedium {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  code        String   @unique // e.g., "F", "E", "A", "S"
-  name        String   // e.g., "Fragrance", "Essence Oil", "Artisanal Soap", "Shower Gel"
-  description String   // Descriptive subtext (e.g. "Alcohol-free botanical oil blend")
-  icon        String?  // SVG path or character representation
-  isAvailable Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  blends      CustomBlend[]
 }
 
 model SizePricing {
