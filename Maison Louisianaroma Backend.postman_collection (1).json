@@ -7,6 +7,454 @@
     "_collection_link": "https://go.postman.co/collection/51610931-1bd8fc4c-2ebc-4644-92c1-d4743dfcd41f?source=collection_link"
   },
   "item": [
+        {
+      "name": "orders",
+      "item": [
+        {
+          "name": "create_order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"quantity\": 1\n    },\n    {\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentMethod\": \"STRIPE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create_order_success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{buyerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"quantity\": 1\n    },\n    {\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentMethod\": \"STRIPE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/orders",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": \"65edd4decf2ec0cf59f71fda\",\n  \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n  \"totalAmount\": 280,\n  \"status\": \"PENDING\",\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentId\": \"mock_stripe_abc123\",\n  \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n  \"updatedAt\": \"2026-06-03T22:47:49.000Z\",\n  \"items\": [\n    {\n      \"id\": \"65edd4decf2ec0cf59f71fdb\",\n      \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"customBlendId\": null,\n      \"quantity\": 1,\n      \"price\": 140,\n      \"product\": {\n        \"id\": \"65edd4decf2ec0cf59f71fd3\",\n        \"label\": \"Royal Oud\",\n        \"name\": \"Royal Oud\",\n        \"category\": \"65edd4decf2ec0cf59f71fcf\",\n        \"price\": 140,\n        \"images\": [\n          {\n            \"image\": \"/products/royal_oud.png\",\n            \"position\": 0\n          }\n        ],\n        \"sizes\": [\"100ml\"],\n        \"tags\": [\"royal\", \"oud\"],\n        \"description\": \"Rich royal oud scent.\",\n        \"isAvailable\": true,\n        \"stock\": 50,\n        \"hasfreedelivery\": true,\n        \"isfeatured\": true,\n        \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n        \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n      }\n    },\n    {\n      \"id\": \"65edd4decf2ec0cf59f71fdc\",\n      \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n      \"productId\": null,\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2,\n      \"price\": 70,\n      \"customBlend\": {\n        \"id\": \"65edd4decf2ec0cf59f71fd7\",\n        \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n        \"name\": \"Bespoke Elixir\",\n        \"price\": 70,\n        \"bottleSize\": \"100ml\",\n        \"concentration\": \"20%\",\n        \"mediumId\": \"65edd4decf2ec0cf59f71fd6\",\n        \"labelBg\": \"#F2CA50\",\n        \"textColor\": \"#000000\",\n        \"textAlign\": \"center\",\n        \"labelFontSize\": 1,\n        \"productType\": \"Fragrance\",\n        \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n        \"ingredients\": [\n          {\n            \"id\": \"65edd4decf2ec0cf59f71fde\",\n            \"blendId\": \"65edd4decf2ec0cf59f71fd7\",\n            \"ingredientId\": \"65edd4decf2ec0cf59f71fd2\",\n            \"percentage\": 50,\n            \"ingredient\": {\n              \"id\": \"65edd4decf2ec0cf59f71fd2\",\n              \"name\": \"Vanilla Extract\",\n              \"category\": \"Sweet base\",\n              \"type\": \"BASE_NOTE\",\n              \"description\": \"Premium sweet vanilla.\",\n              \"image\": \"/ingredients/vanilla.png\",\n              \"stock\": 1000\n            }\n          }\n        ]\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "get_my_orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/my-orders",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "my-orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get_my_orders_success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{buyerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/orders/my-orders",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders",
+                    "my-orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"meta\": {\n    \"count\": 1\n  },\n  \"data\": [\n    {\n      \"id\": \"65edd4decf2ec0cf59f71fda\",\n      \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n      \"totalAmount\": 280,\n      \"status\": \"PENDING\",\n      \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n      \"paymentId\": \"mock_stripe_abc123\",\n      \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n      \"updatedAt\": \"2026-06-03T22:47:49.000Z\",\n      \"items\": [\n        {\n          \"id\": \"65edd4decf2ec0cf59f71fdb\",\n          \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n          \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n          \"customBlendId\": null,\n          \"quantity\": 1,\n          \"price\": 140,\n          \"product\": {\n            \"id\": \"65edd4decf2ec0cf59f71fd3\",\n            \"label\": \"Royal Oud\",\n            \"name\": \"Royal Oud\",\n            \"category\": \"65edd4decf2ec0cf59f71fcf\",\n            \"price\": 140,\n            \"images\": [\n              {\n                \"image\": \"/products/royal_oud.png\",\n                \"position\": 0\n              }\n            ],\n            \"sizes\": [\"100ml\"],\n            \"tags\": [\"royal\", \"oud\"],\n            \"description\": \"Rich royal oud scent.\",\n            \"isAvailable\": true,\n            \"stock\": 50,\n            \"hasfreedelivery\": true,\n            \"isfeatured\": true,\n            \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n            \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n          }\n        }\n      ]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "get_single_order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{buyerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/orders/65edd4decf2ec0cf59f71fda",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "65edd4decf2ec0cf59f71fda"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get_single_order_success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{buyerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/orders/65edd4decf2ec0cf59f71fda",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders",
+                    "65edd4decf2ec0cf59f71fda"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"65edd4decf2ec0cf59f71fda\",\n    \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n    \"totalAmount\": 280,\n    \"status\": \"PENDING\",\n    \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n    \"paymentId\": \"mock_stripe_abc123\",\n    \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n    \"updatedAt\": \"2026-06-03T22:47:49.000Z\",\n    \"items\": [\n      {\n        \"id\": \"65edd4decf2ec0cf59f71fdb\",\n        \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n        \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n        \"customBlendId\": null,\n        \"quantity\": 1,\n        \"price\": 140,\n        \"product\": {\n          \"id\": \"65edd4decf2ec0cf59f71fd3\",\n          \"label\": \"Royal Oud\",\n          \"name\": \"Royal Oud\",\n          \"category\": \"65edd4decf2ec0cf59f71fcf\",\n          \"price\": 140,\n          \"images\": [\n            {\n              \"image\": \"/products/royal_oud.png\",\n              \"position\": 0\n            }\n          ],\n          \"sizes\": [\"100ml\"],\n          \"tags\": [\"royal\", \"oud\"],\n          \"description\": \"Rich royal oud scent.\",\n          \"isAvailable\": true,\n          \"stock\": 50,\n          \"hasfreedelivery\": true,\n          \"isfeatured\": true,\n          \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n          \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n        }\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "admin_get_all_orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/admin/orders?page=1&limit=10",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "admin_get_all_orders_success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/orders?page=1&limit=10",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"meta\": {\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1\n  },\n  \"data\": [\n    {\n      \"id\": \"65edd4decf2ec0cf59f71fda\",\n      \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n      \"totalAmount\": 280,\n      \"status\": \"PENDING\",\n      \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n      \"paymentId\": \"mock_stripe_abc123\",\n      \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n      \"updatedAt\": \"2026-06-03T22:47:49.000Z\",\n      \"user\": {\n        \"id\": \"65edd4decf2ec0cf59f71fd1\",\n        \"fullname\": \"John Doe\",\n        \"email\": \"johndoe@example.com\"\n      },\n      \"items\": [\n        {\n          \"id\": \"65edd4decf2ec0cf59f71fdb\",\n          \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n          \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n          \"customBlendId\": null,\n          \"quantity\": 1,\n          \"price\": 140,\n          \"product\": {\n            \"id\": \"65edd4decf2ec0cf59f71fd3\",\n            \"label\": \"Royal Oud\",\n            \"name\": \"Royal Oud\",\n            \"category\": \"65edd4decf2ec0cf59f71fcf\",\n            \"price\": 140,\n            \"images\": [\n              {\n                \"image\": \"/products/royal_oud.png\",\n                \"position\": 0\n              }\n            ],\n            \"sizes\": [\"100ml\"],\n            \"tags\": [\"royal\", \"oud\"],\n            \"description\": \"Rich royal oud scent.\",\n            \"isAvailable\": true,\n            \"stock\": 50,\n            \"hasfreedelivery\": true,\n            \"isfeatured\": true,\n            \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n            \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n          }\n        }\n      ]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "admin_get_order_details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{localUrl}}/api/v1/admin/orders/65edd4decf2ec0cf59f71fda",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "orders",
+                "65edd4decf2ec0cf59f71fda"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "admin_get_order_details_success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/orders/65edd4decf2ec0cf59f71fda",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "65edd4decf2ec0cf59f71fda"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"65edd4decf2ec0cf59f71fda\",\n    \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n    \"totalAmount\": 280,\n    \"status\": \"PENDING\",\n    \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n    \"paymentId\": \"mock_stripe_abc123\",\n    \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n    \"updatedAt\": \"2026-06-03T22:47:49.000Z\",\n    \"items\": [\n      {\n        \"id\": \"65edd4decf2ec0cf59f71fdb\",\n        \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n        \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n        \"customBlendId\": null,\n        \"quantity\": 1,\n        \"price\": 140,\n        \"product\": {\n          \"id\": \"65edd4decf2ec0cf59f71fd3\",\n          \"label\": \"Royal Oud\",\n          \"name\": \"Royal Oud\",\n          \"category\": \"65edd4decf2ec0cf59f71fcf\",\n          \"price\": 140,\n          \"images\": [\n            {\n              \"image\": \"/products/royal_oud.png\",\n              \"position\": 0\n            }\n          ],\n          \"sizes\": [\"100ml\"],\n          \"tags\": [\"royal\", \"oud\"],\n          \"description\": \"Rich royal oud scent.\",\n          \"isAvailable\": true,\n          \"stock\": 50,\n          \"hasfreedelivery\": true,\n          \"isfeatured\": true,\n          \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n          \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n        }\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "admin_update_order_status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"PROCESSING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localUrl}}/api/v1/admin/orders/65edd4decf2ec0cf59f71fda/status",
+              "host": [
+                "{{localUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "orders",
+                "65edd4decf2ec0cf59f71fda",
+                "status"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "admin_update_order_status_success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"PROCESSING\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{localUrl}}/api/v1/admin/orders/65edd4decf2ec0cf59f71fda/status",
+                  "host": [
+                    "{{localUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "65edd4decf2ec0cf59f71fda",
+                    "status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Order status updated successfully.\",\n  \"data\": {\n    \"id\": \"65edd4decf2ec0cf59f71fda\",\n    \"userId\": \"65edd4decf2ec0cf59f71fd1\",\n    \"totalAmount\": 280,\n    \"status\": \"PROCESSING\",\n    \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n    \"paymentId\": \"mock_stripe_abc123\",\n    \"createdAt\": \"2026-06-03T22:47:49.000Z\",\n    \"updatedAt\": \"2026-06-03T22:48:10.000Z\",\n    \"items\": [\n      {\n        \"id\": \"65edd4decf2ec0cf59f71fdb\",\n        \"orderId\": \"65edd4decf2ec0cf59f71fda\",\n        \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n        \"customBlendId\": null,\n        \"quantity\": 1,\n        \"price\": 140,\n        \"product\": {\n          \"id\": \"65edd4decf2ec0cf59f71fd3\",\n          \"label\": \"Royal Oud\",\n          \"name\": \"Royal Oud\",\n          \"category\": \"65edd4decf2ec0cf59f71fcf\",\n          \"price\": 140,\n          \"images\": [\n            {\n              \"image\": \"/products/royal_oud.png\",\n              \"position\": 0\n            }\n          ],\n          \"sizes\": [\"100ml\"],\n          \"tags\": [\"royal\", \"oud\"],\n          \"description\": \"Rich royal oud scent.\",\n          \"isAvailable\": true,\n          \"stock\": 50,\n          \"hasfreedelivery\": true,\n          \"isfeatured\": true,\n          \"createdAt\": \"2026-06-03T22:00:00.000Z\",\n          \"updatedAt\": \"2026-06-03T22:00:00.000Z\"\n        }\n      }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
     {
       "name": "promocodes",
       "item": [
@@ -3831,97 +4279,6 @@
                 "v1",
                 "custom-blends",
                 "65edd4decf2ec0cf59f71fd7"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "orders",
-      "item": [
-        {
-          "name": "create_order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{buyerToken}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"65edd4decf2ec0cf59f71fd3\",\n      \"quantity\": 1\n    },\n    {\n      \"customBlendId\": \"65edd4decf2ec0cf59f71fd7\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": \"456 Luxury Lane, Beverly Hills, CA 90210\",\n  \"paymentMethod\": \"STRIPE\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{localUrl}}/api/v1/orders",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_my_orders",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{buyerToken}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{localUrl}}/api/v1/orders/my-orders",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders",
-                "my-orders"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_single_order",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{buyerToken}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{localUrl}}/api/v1/orders/65edd4decf2ec0cf59f71fda",
-              "host": [
-                "{{localUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders",
-                "65edd4decf2ec0cf59f71fda"
               ]
             }
           },

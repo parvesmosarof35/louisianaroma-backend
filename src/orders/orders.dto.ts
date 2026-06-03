@@ -31,3 +31,14 @@ export class CreateOrderDto {
   paymentId?: string;
   items!: OrderItemInputDto[];
 }
+
+export const UpdateOrderStatusSchema = z.object({
+  status: z.enum(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'], {
+    message: 'Invalid order status value.',
+  }),
+});
+
+export class UpdateOrderStatusDto {
+  status!: 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+}
+

@@ -1,4 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { OrderStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CustomBlendsService } from '../custom-blends/custom-blends.service';
 import { CreateOrderDto } from './orders.dto';
@@ -308,6 +309,94 @@ export class OrdersService {
     return {
       success: true,
       data: order,
+    };
+  }
+
+  async getAllOrders(status?: OrderStatus, page = 1, limit = 10) {
+    const skip = (page - 1) * limit;
+    const take = limit;
+
+    const whereCondition: any = {};
+    if (status) {
+      whereCondition.status = status;
+    }
+
+    const total = await this.prisma.order.count({ where: whereCondition });
+    const orders = await this.prisma.order.findMany({
+      where: whereCondition,
+      skip,
+      take,
+      include: {
+        user: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+          },
+        },
+        items: {
+          include: {
+            product: true,
+            customBlend: {
+              include: {
+                ingredients: {
+                  include: {
+                    ingredient: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return {
+      success: true,
+      meta: {
+        page,
+        limit,
+        total,
+      },
+      data: orders,
+    };
+  }
+
+  async updateOrderStatus(id: string, status: OrderStatus) {
+    const order = await this.prisma.order.findUnique({
+      where: { id },
+    });
+
+    if (!order) {
+      throw new NotFoundException(`The order with ID '${id}' was not found.`);
+    }
+
+    const updatedOrder = await this.prisma.order.update({
+      where: { id },
+      data: { status },
+      include: {
+        items: {
+          include: {
+            product: true,
+            customBlend: {
+              include: {
+                ingredients: {
+                  include: {
+                    ingredient: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Order status updated successfully.',
+      data: updatedOrder,
     };
   }
 }
