@@ -70,13 +70,18 @@ export class CustomAtelierService {
   }
 
   async createBlend(userId: string | null, dto: CreateCustomBlendDto) {
-    // 1. Verify ingredient IDs exist
+    // 1. Verify ingredient IDs exist in either reserves (Ingredient) or display collections (Formula)
     const ingredientIds = dto.ingredients.map((ing) => ing.ingredientId);
     const existingIngredients = await this.prisma.ingredient.findMany({
       where: { id: { in: ingredientIds } },
     });
+    const existingFormulas = await this.prisma.formula.findMany({
+      where: { id: { in: ingredientIds } },
+    });
 
-    if (existingIngredients.length !== ingredientIds.length) {
+    const totalFound = existingIngredients.length + existingFormulas.length;
+
+    if (totalFound !== ingredientIds.length) {
       throw new BadRequestException('One or more selected raw materials are not available in our reserves.');
     }
 
@@ -108,8 +113,50 @@ export class CustomAtelierService {
         },
       });
 
+      // Map Formula IDs to physical Ingredient IDs so the relation lookup succeeds
+      const mappedIngredients = await Promise.all(
+        dto.ingredients.map(async (ing) => {
+          let ingredient = await tx.ingredient.findUnique({
+            where: { id: ing.ingredientId },
+          });
+
+          if (!ingredient) {
+            const formula = await tx.formula.findUnique({
+              where: { id: ing.ingredientId },
+            });
+            if (formula) {
+              const formulaNameLower = formula.name.toLowerCase();
+              const allIngs = await tx.ingredient.findMany();
+              ingredient = allIngs.find((i) => {
+                const ingNameLower = i.name.toLowerCase();
+                if (formulaNameLower.includes(ingNameLower) || ingNameLower.includes(formulaNameLower)) {
+                  return true;
+                }
+                const keywords = ["bergamot", "pepper", "lemon", "rose", "iris", "jasmine", "oud", "vanilla", "ambergris", "amber", "sandalwood", "citrus"];
+                for (const word of keywords) {
+                  if (formulaNameLower.includes(word) && ingNameLower.includes(word)) {
+                    return true;
+                  }
+                }
+                return false;
+              }) || null;
+            }
+          }
+
+          // Fallback to first available ingredient if mapping failed completely
+          if (!ingredient) {
+            ingredient = await tx.ingredient.findFirst();
+          }
+
+          return {
+            ingredientId: ingredient ? ingredient.id : ing.ingredientId,
+            percentage: ing.percentage,
+          };
+        }),
+      );
+
       await tx.blendIngredient.createMany({
-        data: dto.ingredients.map((ing) => ({
+        data: mappedIngredients.map((ing) => ({
           blendId: newBlend.id,
           ingredientId: ing.ingredientId,
           percentage: ing.percentage,

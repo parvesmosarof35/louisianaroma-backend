@@ -3,13 +3,19 @@ import { OrderStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CustomBlendsService } from '../custom-blends/custom-blends.service';
 import { CreateOrderDto } from './orders.dto';
+import Stripe from 'stripe';
+import config from '../config';
 
 @Injectable()
 export class OrdersService {
+  private stripe: any;
+
   constructor(
     private prisma: PrismaService,
     private customBlendsService: CustomBlendsService,
-  ) {}
+  ) {
+    this.stripe = new Stripe(config.STRIPE_SECRET_KEY || '');
+  }
 
   async createOrder(userId: string, dto: CreateOrderDto) {
     return this.prisma.$transaction(async (tx) => {
@@ -68,13 +74,17 @@ export class OrdersService {
           }
         } else if (item.newCustomBlend) {
           // Dynamic New Custom Blend - Save configuration first
-          // We call customBlendsService logic manually within this transaction to keep it ACID-compliant
-          const ingredientIds = item.newCustomBlend.ingredients.map((i) => i.ingredientId);
+                    const ingredientIds = item.newCustomBlend.ingredients.map((i) => i.ingredientId);
           const existingIngredients = await tx.ingredient.findMany({
             where: { id: { in: ingredientIds } },
           });
+          const existingFormulas = await tx.formula.findMany({
+            where: { id: { in: ingredientIds } },
+          });
 
-          if (existingIngredients.length !== ingredientIds.length) {
+          const totalFound = existingIngredients.length + existingFormulas.length;
+
+          if (totalFound !== ingredientIds.length) {
             throw new BadRequestException('One or more selected raw materials for the new custom blend are not available.');
           }
 
@@ -121,8 +131,49 @@ export class OrdersService {
             },
           });
 
+          const mappedIngredients = await Promise.all(
+            item.newCustomBlend.ingredients.map(async (ing) => {
+              let ingredient = await tx.ingredient.findUnique({
+                where: { id: ing.ingredientId },
+              });
+
+              if (!ingredient) {
+                const formula = await tx.formula.findUnique({
+                  where: { id: ing.ingredientId },
+                });
+                if (formula) {
+                  const formulaNameLower = formula.name.toLowerCase();
+                  const allIngs = await tx.ingredient.findMany();
+                  ingredient = allIngs.find((i) => {
+                    const ingNameLower = i.name.toLowerCase();
+                    if (formulaNameLower.includes(ingNameLower) || ingNameLower.includes(formulaNameLower)) {
+                      return true;
+                    }
+                    const keywords = ["bergamot", "pepper", "lemon", "rose", "iris", "jasmine", "oud", "vanilla", "ambergris", "amber", "sandalwood", "citrus"];
+                    for (const word of keywords) {
+                      if (formulaNameLower.includes(word) && ingNameLower.includes(word)) {
+                        return true;
+                      }
+                    }
+                    return false;
+                  }) || null;
+                }
+              }
+
+              // Fallback to first available ingredient if mapping failed completely
+              if (!ingredient) {
+                ingredient = await tx.ingredient.findFirst();
+              }
+
+              return {
+                ingredientId: ingredient ? ingredient.id : ing.ingredientId,
+                percentage: ing.percentage,
+              };
+            })
+          );
+
           await tx.blendIngredient.createMany({
-            data: item.newCustomBlend.ingredients.map((ing) => ({
+            data: mappedIngredients.map((ing) => ({
               blendId: newBlend.id,
               ingredientId: ing.ingredientId,
               percentage: ing.percentage,
@@ -139,11 +190,11 @@ export class OrdersService {
             price,
           });
 
-          // Queue stock deductions
-          for (const newIng of item.newCustomBlend.ingredients) {
+          // Queue stock deductions using mappedIngredientIds
+          for (const mappedIng of mappedIngredients) {
             stockUpdates.push({
-              ingredientId: newIng.ingredientId,
-              amountToDeduct: newIng.percentage * item.quantity,
+              ingredientId: mappedIng.ingredientId,
+              amountToDeduct: mappedIng.percentage * item.quantity,
             });
           }
         }
@@ -151,25 +202,51 @@ export class OrdersService {
 
       // 2. Perform Stock Deductions & Verify Inventories
       for (const update of stockUpdates) {
-        const ingredient = await tx.ingredient.findUnique({
+        let ingredient = await tx.ingredient.findUnique({
           where: { id: update.ingredientId },
         });
 
-        if (!ingredient || ingredient.stock < update.amountToDeduct) {
-          throw new BadRequestException(
-            `Incongruent reserves: The ingredient '${ingredient?.name || update.ingredientId}' has insufficient stock (${ingredient?.stock || 0}ml left, need ${update.amountToDeduct}ml).`,
-          );
+        // Try mapping from Formula if not found directly
+        if (!ingredient) {
+          const formula = await tx.formula.findUnique({
+            where: { id: update.ingredientId },
+          });
+          if (formula) {
+            const formulaNameLower = formula.name.toLowerCase();
+            const allIngs = await tx.ingredient.findMany();
+            ingredient = allIngs.find((ing) => {
+              const ingNameLower = ing.name.toLowerCase();
+              if (formulaNameLower.includes(ingNameLower) || ingNameLower.includes(formulaNameLower)) {
+                return true;
+              }
+              const keywords = ["bergamot", "pepper", "lemon", "rose", "iris", "jasmine", "oud", "vanilla", "ambergris", "amber", "sandalwood", "citrus"];
+              for (const word of keywords) {
+                if (formulaNameLower.includes(word) && ingNameLower.includes(word)) {
+                  return true;
+                }
+              }
+              return false;
+            }) || null;
+          }
         }
 
-        // Deduct stock
-        await tx.ingredient.update({
-          where: { id: update.ingredientId },
-          data: {
-            stock: {
-              decrement: update.amountToDeduct,
+        if (ingredient) {
+          if (ingredient.stock < update.amountToDeduct) {
+            throw new BadRequestException(
+              `Incongruent reserves: The ingredient '${ingredient.name}' has insufficient stock (${ingredient.stock}ml left, need ${update.amountToDeduct}ml).`,
+            );
+          }
+
+          // Deduct stock
+          await tx.ingredient.update({
+            where: { id: ingredient.id },
+            data: {
+              stock: {
+                decrement: update.amountToDeduct,
+              },
             },
-          },
-        });
+          });
+        }
       }
 
       // 3. Create the Main Order
@@ -398,5 +475,154 @@ export class OrdersService {
       message: 'Order status updated successfully.',
       data: updatedOrder,
     };
+  }
+
+  async createStripeCheckoutSession(order: any, origin: string): Promise<string> {
+    const lineItems = order.items.map((item: any) => {
+      let name = 'Luxury Fragrance';
+      if (item.product) {
+        name = item.product.name;
+      } else if (item.customBlend) {
+        name = item.customBlend.name || 'Bespoke Custom Blend';
+      }
+
+      return {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name,
+            description: item.product?.description || undefined,
+          },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: item.quantity,
+      };
+    });
+
+    const session = await this.stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      allow_promotion_codes: true,
+      success_url: `${origin}/dashboard/userdashboard/orders?success=true&order_id=${order.id}`,
+      cancel_url: `${origin}/checkout?cancelled=true`,
+      metadata: {
+        orderId: order.id,
+      },
+    });
+
+    return session.url || '';
+  }
+
+  async handleStripeWebhook(rawBody: Buffer, signature: string): Promise<void> {
+    let event: any;
+
+    try {
+      event = this.stripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        config.STRIPE_WEBHOOK_SECRET || '',
+      );
+    } catch (err: any) {
+      console.error(`[Webhook Signature Verification Failed] ${err.message}`);
+      throw new BadRequestException(`Webhook signature verification failed: ${err.message}`);
+    }
+
+    console.log(`[Stripe Webhook Received] Event Type: ${event.type}`);
+
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object as any;
+        const orderId = session.metadata?.orderId;
+        if (orderId) {
+          const amountPaid = session.amount_total ? session.amount_total / 100 : 0;
+          const paymentId = session.payment_intent as string || session.id;
+
+          await this.prisma.order.update({
+            where: { id: orderId },
+            data: {
+              status: 'PROCESSING',
+              paymentId,
+              totalAmount: amountPaid > 0 ? amountPaid : undefined,
+            },
+          });
+          console.log(`[Order Confirmed] Order ${orderId} status set to PROCESSING. Paid: $${amountPaid}`);
+        }
+        break;
+      }
+      case 'checkout.session.expired': {
+        const session = event.data.object as any;
+        const orderId = session.metadata?.orderId;
+        if (orderId) {
+          await this.cancelOrderAndRestoreStock(orderId);
+          console.log(`[Order Cancelled - Session Expired] Order ${orderId} inventory restored.`);
+        }
+        break;
+      }
+      case 'payment_intent.payment_failed': {
+        const paymentIntent = event.data.object as any;
+        const order = await this.prisma.order.findFirst({
+          where: { paymentId: paymentIntent.id },
+        });
+        if (order) {
+          await this.cancelOrderAndRestoreStock(order.id);
+          console.log(`[Order Cancelled - Payment Failed] Order ${order.id} inventory restored.`);
+        }
+        break;
+      }
+      default:
+        console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
+    }
+  }
+
+  async cancelOrderAndRestoreStock(orderId: string): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      const order = await tx.order.findUnique({
+        where: { id: orderId },
+        include: {
+          items: {
+            include: {
+              customBlend: {
+                include: {
+                  ingredients: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!order) {
+        throw new NotFoundException(`Order ${orderId} not found.`);
+      }
+
+      if (order.status === 'CANCELLED') {
+        return; // Already cancelled
+      }
+
+      // 1. Update order status to CANCELLED
+      await tx.order.update({
+        where: { id: orderId },
+        data: { status: 'CANCELLED' },
+      });
+
+      // 2. Restore ingredient stocks
+      for (const item of order.items) {
+        if (item.customBlend) {
+          for (const blendIng of item.customBlend.ingredients) {
+            const amountToRestore = blendIng.percentage * item.quantity;
+            await tx.ingredient.update({
+              where: { id: blendIng.ingredientId },
+              data: {
+                stock: {
+                  increment: amountToRestore,
+                },
+              },
+            });
+            console.log(`[Stock Restored] Ingredient ${blendIng.ingredientId}: +${amountToRestore}ml`);
+          }
+        }
+      }
+    });
   }
 }

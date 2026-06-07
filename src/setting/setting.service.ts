@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto } from './setting.dto';
+import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto, ShutdownDto } from './setting.dto';
 
 @Injectable()
 export class SettingService {
@@ -33,6 +33,8 @@ export class SettingService {
         email: { url: '', isActive: false },
         website: { url: '', isActive: false },
         appName: { url: '', isActive: false },
+        isShutdown: false,
+        shutdownMessage: 'The website is currently undergoing maintenance. Please return later.',
       },
     });
   }
@@ -170,6 +172,34 @@ export class SettingService {
       success: true,
       data: {
         TermsConditions: setting?.termsConditions || '',
+      },
+    };
+  }
+
+  async saveShutdown(dto: ShutdownDto) {
+    const setting = await this.getOrCreateSetting();
+    const updated = await this.prisma.setting.update({
+      where: { id: setting.id },
+      data: {
+        isShutdown: dto.isShutdown,
+        shutdownMessage: dto.shutdownMessage,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Successfully updated Website Shutdown configuration.',
+      data: updated,
+    };
+  }
+
+  async getShutdown() {
+    const setting = await this.prisma.setting.findFirst();
+    return {
+      success: true,
+      data: {
+        isShutdown: setting?.isShutdown ?? false,
+        shutdownMessage: setting?.shutdownMessage || 'The website is currently undergoing maintenance. Please return later.',
       },
     };
   }

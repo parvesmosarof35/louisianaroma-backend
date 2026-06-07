@@ -280,6 +280,9 @@ model Setting {
   privacyPolicy   String?
   termsConditions String?
 
+  isShutdown      Boolean  @default(false)
+  shutdownMessage String?  @default("The website is currently undergoing maintenance. Please return later.")
+
   // Brand Logo Information
   navbarLogo      String?
   footerLogo      String?

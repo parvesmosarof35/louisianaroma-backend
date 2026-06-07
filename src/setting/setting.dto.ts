@@ -78,3 +78,14 @@ export class BrandingSocialsDto {
   appName?: SiteConfigFieldDto | null;
 }
 
+export const ShutdownSchema = z.object({
+  isShutdown: z.boolean(),
+  shutdownMessage: z.string().optional().nullable(),
+});
+
+export class ShutdownDto {
+  isShutdown!: boolean;
+  shutdownMessage?: string | null;
+}
+
+
