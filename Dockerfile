@@ -25,29 +25,27 @@ RUN pnpm prisma generate
 # Compile the production bundle
 RUN pnpm build
 
-# Prune development packages to minimize final container footprint
-RUN pnpm prune --prod
-
-
 # --- Stage 2: Runtime Runner ---
 FROM node:20-slim AS runner
 
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
 
-# Install runtime OpenSSL dependencies for Prisma query engines
+# Install runtime OpenSSL dependencies
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Copy compiled assets, production modules, and configuration from builder
+# Copy only the necessary artifacts from the builder
 COPY --from=builder /usr/src/app/dist ./dist
-COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY --from=builder /usr/src/app/prisma ./prisma
 
-# Expose luxury server listening port
+# Install ONLY production dependencies to ensure correct symlinks/paths
+RUN pnpm install --prod --frozen-lockfile
+
+# Expose server port
 EXPOSE 5000
 
 # Start NestJS application
