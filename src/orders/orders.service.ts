@@ -131,11 +131,12 @@ export class OrdersService {
             },
           });
 
+          const allIngs = await tx.ingredient.findMany();
+          const fallbackIngredient = allIngs[0] || null;
+
           const mappedIngredients = await Promise.all(
             item.newCustomBlend.ingredients.map(async (ing) => {
-              let ingredient = await tx.ingredient.findUnique({
-                where: { id: ing.ingredientId },
-              });
+              let ingredient = allIngs.find((i) => i.id === ing.ingredientId) || null;
 
               if (!ingredient) {
                 const formula = await tx.formula.findUnique({
@@ -143,7 +144,6 @@ export class OrdersService {
                 });
                 if (formula) {
                   const formulaNameLower = formula.name.toLowerCase();
-                  const allIngs = await tx.ingredient.findMany();
                   ingredient = allIngs.find((i) => {
                     const ingNameLower = i.name.toLowerCase();
                     if (formulaNameLower.includes(ingNameLower) || ingNameLower.includes(formulaNameLower)) {
@@ -162,7 +162,7 @@ export class OrdersService {
 
               // Fallback to first available ingredient if mapping failed completely
               if (!ingredient) {
-                ingredient = await tx.ingredient.findFirst();
+                ingredient = fallbackIngredient;
               }
 
               return {
@@ -290,6 +290,8 @@ export class OrdersService {
           },
         },
       });
+    }, {
+      timeout: 20000,
     });
   }
 
