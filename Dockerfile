@@ -37,9 +37,10 @@ RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Copy only the necessary artifacts from the builder
+# Copy compiled assets, package.json, lockfile, and prisma from builder
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
+COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /usr/src/app/prisma ./prisma
 
 # Install ONLY production dependencies to ensure correct symlinks/paths
