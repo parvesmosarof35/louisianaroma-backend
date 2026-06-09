@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto, ShutdownDto } from './setting.dto';
+import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto, ShutdownDto, DeliveryPriceDto } from './setting.dto';
 
 @Injectable()
 export class SettingService {
@@ -201,6 +201,47 @@ export class SettingService {
         isShutdown: setting?.isShutdown ?? false,
         shutdownMessage: setting?.shutdownMessage || 'The website is currently undergoing maintenance. Please return later.',
       },
+    };
+  }
+
+  async getDeliveryPrice() {
+    let price = await this.prisma.delivaryPrice.findFirst();
+    if (!price) {
+      price = await this.prisma.delivaryPrice.create({
+        data: {
+          insideusa: 20,
+          outsideusa: 30,
+        },
+      });
+    }
+    return {
+      success: true,
+      data: price,
+    };
+  }
+
+  async saveDeliveryPrice(dto: DeliveryPriceDto) {
+    let price = await this.prisma.delivaryPrice.findFirst();
+    if (!price) {
+      price = await this.prisma.delivaryPrice.create({
+        data: {
+          insideusa: dto.insideusa,
+          outsideusa: dto.outsideusa,
+        },
+      });
+    } else {
+      price = await this.prisma.delivaryPrice.update({
+        where: { id: price.id },
+        data: {
+          insideusa: dto.insideusa,
+          outsideusa: dto.outsideusa,
+        },
+      });
+    }
+    return {
+      success: true,
+      message: 'Successfully updated delivery price configurations.',
+      data: price,
     };
   }
 }

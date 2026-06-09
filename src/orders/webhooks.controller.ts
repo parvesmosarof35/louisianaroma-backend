@@ -1,4 +1,4 @@
-import { Controller, Post, Headers, Req, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Headers, Req, Body, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
 import * as express from 'express';
 import { OrdersService } from './orders.service';
 
@@ -23,6 +23,13 @@ export class WebhooksController {
 
     await this.ordersService.handleStripeWebhook(rawBody, signature);
 
+    return { received: true };
+  }
+
+  @Post('shippo')
+  @HttpCode(HttpStatus.OK)
+  async handleShippoWebhook(@Body() body: any) {
+    await this.ordersService.handleShippoWebhook(body);
     return { received: true };
   }
 }

@@ -244,6 +244,14 @@ model Order {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
+  // Shipping and tracking info
+  deliveryCharge   Float      @default(0)
+  shippingLabelUrl String?
+  trackingNumber   String?
+  trackingUrl      String?
+  shippoShipmentId String?
+  shippoError      String?
+
   items OrderItem[]
 }
 
@@ -269,6 +277,12 @@ model OrderItem {
 
   quantity Int   @default(1)
   price    Float // Price at time of purchase
+}
+
+model delivaryPrice {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  insideusa  Float  @default(20)
+  outsideusa Float  @default(30)
 }
 
 model Setting {

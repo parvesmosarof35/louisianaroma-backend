@@ -5,6 +5,8 @@ import { CustomBlendsService } from '../custom-blends/custom-blends.service';
 import { CreateOrderDto } from './orders.dto';
 import Stripe from 'stripe';
 import config from '../config';
+import { MailerService } from '../common/services/mailer.service';
+import { ShippoService } from '../common/services/shippo.service';
 
 @Injectable()
 export class OrdersService {
@@ -13,6 +15,8 @@ export class OrdersService {
   constructor(
     private prisma: PrismaService,
     private customBlendsService: CustomBlendsService,
+    private mailerService: MailerService,
+    private shippoService: ShippoService,
   ) {
     this.stripe = new Stripe(config.STRIPE_SECRET_KEY || '');
   }
@@ -249,11 +253,42 @@ export class OrdersService {
         }
       }
 
+      // 2.5 Calculate Promo Discount, Tax, and Delivery Charge
+      const subtotal = totalAmount;
+      let discount = 0;
+
+      if (dto.promoCode) {
+        const codeUpper = dto.promoCode.trim().toUpperCase();
+        const promo = await tx.promocode.findUnique({
+          where: { PromoCode: codeUpper },
+        });
+        if (!promo) {
+          throw new BadRequestException(`The promotional code '${dto.promoCode}' is invalid.`);
+        }
+        const discountFactor = promo.reward > 1 ? promo.reward / 100 : promo.reward;
+        discount = subtotal * discountFactor;
+      }
+
+      const tax = subtotal * 0.08;
+
+      let deliveryCharge = 0;
+      if (subtotal <= 50) {
+        const deliveryConfig = await tx.delivaryPrice.findFirst();
+        const insideUsa = deliveryConfig?.insideusa ?? 20;
+        const outsideUsa = deliveryConfig?.outsideusa ?? 30;
+
+        const isUsa = /usa|us|united states/i.test(dto.shippingAddress);
+        deliveryCharge = isUsa ? insideUsa : outsideUsa;
+      }
+
+      totalAmount = Math.max(0, subtotal - discount + tax + deliveryCharge);
+
       // 3. Create the Main Order
       const order = await tx.order.create({
         data: {
           userId,
           totalAmount,
+          deliveryCharge,
           shippingAddress: dto.shippingAddress,
           paymentId: dto.paymentId || `mock_stripe_${Math.random().toString(36).substring(7)}`,
           status: 'PENDING',
@@ -455,6 +490,7 @@ export class OrdersService {
       where: { id },
       data: { status },
       include: {
+        user: true,
         items: {
           include: {
             product: true,
@@ -472,6 +508,21 @@ export class OrdersService {
       },
     });
 
+    // Send status change email
+    if (status === 'DELIVERED' || status === 'SHIPPED') {
+      await this.mailerService.sendOrderNotificationEmail(
+        updatedOrder.user.email,
+        updatedOrder,
+        'DELIVERED',
+      );
+    } else if (status === 'CANCELLED') {
+      await this.mailerService.sendOrderNotificationEmail(
+        updatedOrder.user.email,
+        updatedOrder,
+        'CANCELLED',
+      );
+    }
+
     return {
       success: true,
       message: 'Order status updated successfully.',
@@ -480,6 +531,11 @@ export class OrdersService {
   }
 
   async createStripeCheckoutSession(order: any, origin: string): Promise<string> {
+    const subtotal = order.items?.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0) || 0;
+    const taxAmount = subtotal * 0.08;
+    const discountAmount = Math.max(0, subtotal + taxAmount + (order.deliveryCharge || 0) - order.totalAmount);
+    const discountFactor = subtotal > 0 ? Math.max(0, subtotal - discountAmount) / subtotal : 1;
+
     const lineItems = order.items.map((item: any) => {
       let name = 'Luxury Fragrance';
       if (item.product) {
@@ -495,11 +551,41 @@ export class OrdersService {
             name,
             description: item.product?.description || undefined,
           },
-          unit_amount: Math.round(item.price * 100),
+          unit_amount: Math.round(item.price * discountFactor * 100),
         },
         quantity: item.quantity,
       };
     });
+
+    // Add sales tax line item
+    if (taxAmount > 0) {
+      lineItems.push({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Estimated Sales Tax',
+            description: 'State and local sales tax (8%)',
+          },
+          unit_amount: Math.round(taxAmount * 100),
+        },
+        quantity: 1,
+      });
+    }
+
+    // Add shipping cost if greater than 0
+    if (order.deliveryCharge > 0) {
+      lineItems.push({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Shipping & Delivery Fee',
+            description: 'Shipping charges based on destination address',
+          },
+          unit_amount: Math.round(order.deliveryCharge * 100),
+        },
+        quantity: 1,
+      });
+    }
 
     const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -540,15 +626,58 @@ export class OrdersService {
           const amountPaid = session.amount_total ? session.amount_total / 100 : 0;
           const paymentId = session.payment_intent as string || session.id;
 
-          await this.prisma.order.update({
+          const updatedOrder = await this.prisma.order.update({
             where: { id: orderId },
             data: {
               status: 'PROCESSING',
               paymentId,
               totalAmount: amountPaid > 0 ? amountPaid : undefined,
             },
+            include: {
+              user: true,
+              items: {
+                include: {
+                  product: true,
+                  customBlend: true,
+                },
+              },
+            },
           });
           console.log(`[Order Confirmed] Order ${orderId} status set to PROCESSING. Paid: $${amountPaid}`);
+
+          // AUTOMATED SHIPPO: Create shipment and label!
+          const shippoResult = await this.shippoService.createShipmentAndLabel(
+            updatedOrder.shippingAddress,
+            updatedOrder.user.email,
+          );
+
+          // Update order with Shippo transaction info
+          const finalOrder = await this.prisma.order.update({
+            where: { id: orderId },
+            data: {
+              trackingNumber: shippoResult.trackingNumber,
+              shippingLabelUrl: shippoResult.shippingLabelUrl,
+              trackingUrl: shippoResult.trackingUrl,
+              shippoShipmentId: shippoResult.shippoShipmentId,
+              shippoError: shippoResult.error,
+            },
+            include: {
+              user: true,
+              items: {
+                include: {
+                  product: true,
+                  customBlend: true,
+                },
+              },
+            },
+          });
+
+          // DISPATCH EMAIL
+          await this.mailerService.sendOrderNotificationEmail(
+            updatedOrder.user.email,
+            finalOrder,
+            'PURCHASE',
+          );
         }
         break;
       }
@@ -626,5 +755,73 @@ export class OrdersService {
         }
       }
     });
+
+    try {
+      const order = await this.prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+          user: true,
+          items: {
+            include: {
+              product: true,
+              customBlend: true,
+            },
+          },
+        },
+      });
+      if (order && order.user) {
+        await this.mailerService.sendOrderNotificationEmail(
+          order.user.email,
+          order,
+          'CANCELLED',
+        );
+      }
+    } catch (err) {
+      console.error('Failed to send order cancellation email:', err);
+    }
+  }
+
+  async handleShippoWebhook(body: any): Promise<void> {
+    console.log(`[Shippo Webhook Received] Event Type: ${body?.event}`);
+
+    if (body?.event !== 'track_updated') {
+      console.log(`[Shippo Webhook] Event ignored (not track_updated)`);
+      return;
+    }
+
+    const trackingNumber = body.data?.tracking_number;
+    const shippoStatus = body.data?.tracking_status?.status;
+
+    if (!trackingNumber || !shippoStatus) {
+      console.error(`[Shippo Webhook Error] Missing tracking number or status details.`);
+      return;
+    }
+
+    console.log(`[Shippo Webhook] Tracking ${trackingNumber} status updated to: ${shippoStatus}`);
+
+    const order = await this.prisma.order.findFirst({
+      where: { trackingNumber },
+    });
+
+    if (!order) {
+      console.warn(`[Shippo Webhook Warning] No order found with tracking number: ${trackingNumber}`);
+      return;
+    }
+
+    let targetStatus: OrderStatus | null = null;
+    if (shippoStatus === 'TRANSIT') {
+      targetStatus = 'SHIPPED';
+    } else if (shippoStatus === 'DELIVERED') {
+      targetStatus = 'DELIVERED';
+    } else if (shippoStatus === 'RETURNED' || shippoStatus === 'FAILURE') {
+      targetStatus = 'CANCELLED';
+    }
+
+    if (targetStatus && order.status !== targetStatus) {
+      console.log(`[Shippo Webhook Status Update] Transitioning order ${order.id} status from ${order.status} to ${targetStatus}`);
+      await this.updateOrderStatus(order.id, targetStatus);
+    } else {
+      console.log(`[Shippo Webhook No-Op] Order ${order.id} status is already ${order.status}`);
+    }
   }
 }

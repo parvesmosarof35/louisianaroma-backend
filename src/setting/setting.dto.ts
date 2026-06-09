@@ -88,4 +88,14 @@ export class ShutdownDto {
   shutdownMessage?: string | null;
 }
 
+export const DeliveryPriceSchema = z.object({
+  insideusa: z.number().min(0, 'Inside USA delivery charge must be non-negative.'),
+  outsideusa: z.number().min(0, 'Outside USA delivery charge must be non-negative.'),
+});
+
+export class DeliveryPriceDto {
+  insideusa!: number;
+  outsideusa!: number;
+}
+
 

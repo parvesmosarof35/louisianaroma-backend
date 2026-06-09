@@ -336,17 +336,20 @@ async function main() {
   // ─── Seed Essence Mediums ──────────────────────────────────────────
   console.log('Seeding essence mediums...');
   const mediums = [
-    { code: 'F', name: 'Fragrance', description: 'Premium spray in denatured alcohol.' },
-    { code: 'E', name: 'Essence Oil', description: 'Pure botanical roll-on oil concentrate.' },
-    { code: 'A', name: 'Artisanal Soap', description: 'Handcrafted luxury cold-pressed soap bar.' },
-    { code: 'S', name: 'Shower Gel', description: 'Nourishing, fragrant body wash absolute.' },
+    { name: 'Fragrance', image: '/images/mediums/fragrance.jpg', price: 0.00 },
+    { name: 'Essence Oil', image: '/images/mediums/essence-oil.jpg', price: 15.00 },
+    { name: 'Artisanal Soap', image: '/images/mediums/artisanal-soap.jpg', price: 10.00 },
+    { name: 'Shower Gel', image: '/images/mediums/shower-gel.jpg', price: 12.00 },
   ];
   for (const medium of mediums) {
-    await prisma.essenceMedium.upsert({
-      where: { code: medium.code },
-      update: {},
-      create: medium,
+    const existing = await prisma.essencemedium.findFirst({
+      where: { name: medium.name },
     });
+    if (!existing) {
+      await prisma.essencemedium.create({
+        data: medium,
+      });
+    }
   }
 
   // ─── Seed Sizing Pricing ───────────────────────────────────────────
@@ -376,6 +379,18 @@ async function main() {
       where: { percentage: c.percentage },
       update: { additionalPrice: c.additionalPrice },
       create: c,
+    });
+  }
+
+  // ─── Seed Delivery Price ──────────────────────────────────────────
+  console.log('Seeding delivery price...');
+  const dpCount = await prisma.delivaryPrice.count();
+  if (dpCount === 0) {
+    await prisma.delivaryPrice.create({
+      data: {
+        insideusa: 20,
+        outsideusa: 30,
+      },
     });
   }
 

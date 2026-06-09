@@ -17,6 +17,7 @@ export const CreateOrderSchema = z.object({
   shippingAddress: z.string().min(10, 'Please provide a comprehensive shipping address for secure fragrance delivery.'),
   paymentId: z.string().min(1, 'Payment reference required to confirm the checkout transactions.').optional(),
   items: z.array(OrderItemInputSchema).min(1, 'Your selection must contain at least one fine product to initiate checkout.'),
+  promoCode: z.string().optional(),
 });
 
 export class OrderItemInputDto {
@@ -30,6 +31,7 @@ export class CreateOrderDto {
   shippingAddress!: string;
   paymentId?: string;
   items!: OrderItemInputDto[];
+  promoCode?: string;
 }
 
 export const UpdateOrderStatusSchema = z.object({

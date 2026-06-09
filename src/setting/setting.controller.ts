@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, UsePipes, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { SettingService } from './setting.service';
-import { AboutUsDto, AboutUsSchema, PrivacyPolicyDto, PrivacyPolicySchema, TermsConditionsDto, TermsConditionsSchema, BrandingSocialsDto, BrandingSocialsSchema, ShutdownDto, ShutdownSchema } from './setting.dto';
+import { AboutUsDto, AboutUsSchema, PrivacyPolicyDto, PrivacyPolicySchema, TermsConditionsDto, TermsConditionsSchema, BrandingSocialsDto, BrandingSocialsSchema, ShutdownDto, ShutdownSchema, DeliveryPriceDto, DeliveryPriceSchema } from './setting.dto';
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -157,6 +157,19 @@ export class SettingController {
   @Get('find_by_shutdown')
   async getShutdown() {
     return this.settingService.getShutdown();
+  }
+
+  @Get('delivery-price')
+  async getDeliveryPrice() {
+    return this.settingService.getDeliveryPrice();
+  }
+
+  @Post('delivery-price')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
+  @UsePipes(new ZodValidationPipe(DeliveryPriceSchema))
+  async saveDeliveryPrice(@Body() dto: DeliveryPriceDto) {
+    return this.settingService.saveDeliveryPrice(dto);
   }
 }
 

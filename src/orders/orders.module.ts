@@ -4,11 +4,13 @@ import { OrdersController } from './orders.controller';
 import { AdminOrdersController } from './admin-orders.controller';
 import { WebhooksController } from './webhooks.controller';
 import { CustomBlendsModule } from '../custom-blends/custom-blends.module';
+import { MailerService } from '../common/services/mailer.service';
+import { ShippoService } from '../common/services/shippo.service';
 
 @Module({
   imports: [CustomBlendsModule],
   controllers: [OrdersController, AdminOrdersController, WebhooksController],
-  providers: [OrdersService],
+  providers: [OrdersService, MailerService, ShippoService],
   exports: [OrdersService],
 })
 export class OrdersModule {}
