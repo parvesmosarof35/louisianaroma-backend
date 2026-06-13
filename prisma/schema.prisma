@@ -113,10 +113,14 @@ model Review { // users can only review a product if they have purchased it
   user        User     @relation(fields: [userId], references: [id])
   productId   String   @db.ObjectId
   product     Product  @relation(fields: [productId], references: [id])
+  orderId     String?  @db.ObjectId
   rating      Int
+  title       String?
   comment     String
   pictures    String[]
   createdAt   DateTime @default(now())
+
+  @@unique([userId, productId, orderId])
 }
 
 model Ingredient {

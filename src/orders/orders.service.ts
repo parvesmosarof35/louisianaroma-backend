@@ -259,8 +259,8 @@ export class OrdersService {
 
       if (dto.promoCode) {
         const codeUpper = dto.promoCode.trim().toUpperCase();
-        const promo = await tx.promocode.findUnique({
-          where: { PromoCode: codeUpper },
+        const promo = await tx.promocode.findFirst({
+          where: { PromoCode: { equals: codeUpper, mode: 'insensitive' } },
         });
         if (!promo) {
           throw new BadRequestException(`The promotional code '${dto.promoCode}' is invalid.`);
