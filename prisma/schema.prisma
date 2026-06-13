@@ -301,6 +301,9 @@ model Setting {
   isShutdown      Boolean  @default(false)
   shutdownMessage String?  @default("The website is currently undergoing maintenance. Please return later.")
 
+  isCreateFragranceDisabled Boolean  @default(false)
+  createFragranceMessage    String?  @default("Create Your Fragrance is currently undergoing maintenance. Please return later.")
+
   // Brand Logo Information
   navbarLogo      String?
   footerLogo      String?

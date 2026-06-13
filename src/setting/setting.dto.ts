@@ -98,4 +98,14 @@ export class DeliveryPriceDto {
   outsideusa!: number;
 }
 
+export const CreateFragranceStatusSchema = z.object({
+  isCreateFragranceDisabled: z.boolean(),
+  createFragranceMessage: z.string().optional().nullable(),
+});
+
+export class CreateFragranceStatusDto {
+  isCreateFragranceDisabled!: boolean;
+  createFragranceMessage?: string | null;
+}
+
 
