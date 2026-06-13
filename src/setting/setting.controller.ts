@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, UsePipes, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { SettingService } from './setting.service';
-import { AboutUsDto, AboutUsSchema, PrivacyPolicyDto, PrivacyPolicySchema, TermsConditionsDto, TermsConditionsSchema, BrandingSocialsDto, BrandingSocialsSchema, ShutdownDto, ShutdownSchema, DeliveryPriceDto, DeliveryPriceSchema } from './setting.dto';
+import { AboutUsDto, AboutUsSchema, PrivacyPolicyDto, PrivacyPolicySchema, TermsConditionsDto, TermsConditionsSchema, BrandingSocialsDto, BrandingSocialsSchema, ShutdownDto, ShutdownSchema, DeliveryPriceDto, DeliveryPriceSchema, CreateFragranceStatusDto, CreateFragranceStatusSchema } from './setting.dto';
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -170,6 +170,19 @@ export class SettingController {
   @UsePipes(new ZodValidationPipe(DeliveryPriceSchema))
   async saveDeliveryPrice(@Body() dto: DeliveryPriceDto) {
     return this.settingService.saveDeliveryPrice(dto);
+  }
+
+  @Post('create_fragrance_status')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
+  @UsePipes(new ZodValidationPipe(CreateFragranceStatusSchema))
+  async saveCreateFragranceStatus(@Body() dto: CreateFragranceStatusDto) {
+    return this.settingService.saveCreateFragranceStatus(dto);
+  }
+
+  @Get('find_by_create_fragrance_status')
+  async getCreateFragranceStatus() {
+    return this.settingService.getCreateFragranceStatus();
   }
 }
 

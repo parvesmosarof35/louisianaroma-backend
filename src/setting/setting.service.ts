@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto, ShutdownDto, DeliveryPriceDto } from './setting.dto';
+import { AboutUsDto, PrivacyPolicyDto, TermsConditionsDto, BrandingSocialsDto, ShutdownDto, DeliveryPriceDto, CreateFragranceStatusDto } from './setting.dto';
 
 @Injectable()
 export class SettingService {
@@ -35,6 +35,8 @@ export class SettingService {
         appName: { url: '', isActive: false },
         isShutdown: false,
         shutdownMessage: 'The website is currently undergoing maintenance. Please return later.',
+        isCreateFragranceDisabled: false,
+        createFragranceMessage: 'Create Your Fragrance is currently undergoing maintenance. Please return later.',
       },
     });
   }
@@ -242,6 +244,34 @@ export class SettingService {
       success: true,
       message: 'Successfully updated delivery price configurations.',
       data: price,
+    };
+  }
+
+  async saveCreateFragranceStatus(dto: CreateFragranceStatusDto) {
+    const setting = await this.getOrCreateSetting();
+    const updated = await this.prisma.setting.update({
+      where: { id: setting.id },
+      data: {
+        isCreateFragranceDisabled: dto.isCreateFragranceDisabled,
+        createFragranceMessage: dto.createFragranceMessage,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Successfully updated Create Your Fragrance configuration.',
+      data: updated,
+    };
+  }
+
+  async getCreateFragranceStatus() {
+    const setting = await this.prisma.setting.findFirst();
+    return {
+      success: true,
+      data: {
+        isCreateFragranceDisabled: setting?.isCreateFragranceDisabled ?? false,
+        createFragranceMessage: setting?.createFragranceMessage || 'Create Your Fragrance is currently undergoing maintenance. Please return later.',
+      },
     };
   }
 }

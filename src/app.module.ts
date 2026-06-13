@@ -23,6 +23,7 @@ import { PromocodeModule } from './promocode/promocode.module';
 import { MetricsService } from './common/services/metrics.service';
 import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
+import { DashboardStatsModule } from './dashboardstats/dashboardstats.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { RequestLoggerMiddleware } from './common/middleware/request-logger.midd
     FormulasModule,
     EssencemediumModule,
     PromocodeModule,
+    DashboardStatsModule,
   ],
   controllers: [AppController],
   providers: [
