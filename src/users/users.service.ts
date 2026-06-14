@@ -19,7 +19,7 @@ export class UsersService {
     });
 
     if (existing) {
-      throw new BadRequestException('Email credentials are already enrolled in our catalog.');
+      throw new BadRequestException('Email is already used.');
     }
 
     const saltRounds = 12;
