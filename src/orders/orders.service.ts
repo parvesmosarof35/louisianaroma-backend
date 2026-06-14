@@ -39,6 +39,23 @@ export class OrdersService {
             throw new BadRequestException(`Standard formulation '${product?.name || item.productId}' is currently unavailable.`);
           }
 
+          // Validate and decrement stock for standard product
+          if (product.stock !== null) {
+            if (product.stock < item.quantity) {
+              throw new BadRequestException(
+                `Insufficient stock: Only ${product.stock} units of '${product.name}' are available in our reserves.`,
+              );
+            }
+            await tx.product.update({
+              where: { id: product.id },
+              data: {
+                stock: {
+                  decrement: item.quantity,
+                },
+              },
+            });
+          }
+
           const price = product.price;
           const subtotal = price * item.quantity;
           totalAmount += subtotal;
@@ -737,7 +754,7 @@ export class OrdersService {
         data: { status: 'CANCELLED' },
       });
 
-      // 2. Restore ingredient stocks
+      // 2. Restore ingredient stocks & product stocks
       for (const item of order.items) {
         if (item.customBlend) {
           for (const blendIng of item.customBlend.ingredients) {
@@ -751,6 +768,22 @@ export class OrdersService {
               },
             });
             console.log(`[Stock Restored] Ingredient ${blendIng.ingredientId}: +${amountToRestore}ml`);
+          }
+        }
+        if (item.productId) {
+          const product = await tx.product.findUnique({
+            where: { id: item.productId },
+          });
+          if (product && product.stock !== null) {
+            await tx.product.update({
+              where: { id: item.productId },
+              data: {
+                stock: {
+                  increment: item.quantity,
+                },
+              },
+            });
+            console.log(`[Stock Restored] Product ${item.productId}: +${item.quantity}`);
           }
         }
       }
