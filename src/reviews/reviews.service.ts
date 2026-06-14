@@ -172,4 +172,51 @@ export class ReviewsService {
       data: reviews,
     };
   }
+
+  async findAll() {
+    const reviews = await this.prisma.review.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            fullname: true,
+            image: true,
+            email: true,
+          },
+        },
+        product: {
+          select: {
+            id: true,
+            name: true,
+            images: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return {
+      success: true,
+      data: reviews,
+    };
+  }
+
+  async delete(id: string) {
+    const existing = await this.prisma.review.findUnique({
+      where: { id },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('The review you wish to delete does not exist.');
+    }
+
+    await this.prisma.review.delete({
+      where: { id },
+    });
+
+    return {
+      success: true,
+      message: 'The review has been successfully deleted.',
+    };
+  }
 }

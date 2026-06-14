@@ -1,8 +1,10 @@
-import { Controller, Post, Patch, Get, Body, Param, Query, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Patch, Get, Delete, Body, Param, Query, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto, CreateReviewSchema, UpdateReviewDto, UpdateReviewSchema } from './reviews.dto';
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { uploadBufferToCloudinary } from '../utils/cloudinary';
@@ -109,5 +111,19 @@ export class ReviewsController {
   @Get('product/:productId')
   async findByProduct(@Param('productId') productId: string) {
     return this.reviewsService.findByProduct(productId);
+  }
+
+  @Get('all_reviews')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
+  async getAllReviews() {
+    return this.reviewsService.findAll();
+  }
+
+  @Delete('delete_review/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
+  async deleteReview(@Param('id') id: string) {
+    return this.reviewsService.delete(id);
   }
 }
