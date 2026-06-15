@@ -25,6 +25,11 @@ export const SectionTwoSchema = z.object({
   cards: z.array(SectionTwoCardSchema).default([]),
 });
 
+export const SizePriceSchema = z.object({
+  size: z.string().min(1, 'Size must not be empty.'),
+  price: z.number().positive('Price must be greater than zero.'),
+});
+
 export const CreateProductSchema = z.object({
   label: z.string().min(2, 'Label must have at least 2 characters.'),
   name: z.string().min(2, 'Name must have at least 2 characters.'),
@@ -33,6 +38,7 @@ export const CreateProductSchema = z.object({
   description: z.string().optional(),
   images: z.array(ProductImageSchema).default([]),
   sizes: z.array(z.string()).default([]),
+  sizePrices: z.array(SizePriceSchema).default([]),
   tags: z.array(z.string()).default([]),
   faqs: z.array(ProductFaqSchema).default([]),
   sectiontwo: SectionTwoSchema.nullable().optional(),
@@ -52,6 +58,7 @@ export class CreateProductDto {
   description?: string;
   images?: { image: string; position: number }[];
   sizes?: string[];
+  sizePrices?: { size: string; price: number }[];
   tags?: string[];
   faqs?: { question: string; answer: string; isvisible?: boolean }[];
   sectiontwo?: {
@@ -74,6 +81,7 @@ export class UpdateProductDto {
   description?: string;
   images?: { image: string; position: number }[];
   sizes?: string[];
+  sizePrices?: { size: string; price: number }[];
   tags?: string[];
   faqs?: { question: string; answer: string; isvisible?: boolean }[];
   sectiontwo?: {

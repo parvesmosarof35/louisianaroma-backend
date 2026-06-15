@@ -6,6 +6,7 @@ export const OrderItemInputSchema = z.object({
   customBlendId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Custom blend reference must be a valid 24-character hex ObjectId signature.').optional(),
   newCustomBlend: CreateCustomBlendSchema.optional(),
   quantity: z.number().int().min(1, 'Quantity must be at least 1.'),
+  size: z.string().optional(),
 }).refine((data) => {
   const count = [data.productId, data.customBlendId, data.newCustomBlend].filter(Boolean).length;
   return count === 1;
@@ -25,6 +26,7 @@ export class OrderItemInputDto {
   customBlendId?: string;
   newCustomBlend?: CreateCustomBlendDto;
   quantity!: number;
+  size?: string;
 }
 
 export class CreateOrderDto {

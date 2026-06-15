@@ -85,6 +85,11 @@ type SectionTwo {
   cards       SectionTwoCard[]
 }
 
+type SizePrice {
+  size  String
+  price Float
+}
+
 model Product {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
   label           String
@@ -93,6 +98,7 @@ model Product {
   price           Float
   images          ProductImage[]  // e.g. [{image: "url", position: 0}, {image: "url", position: 1}, ...]
   sizes           String[]       // e.g. ["30ml", "50ml", "100ml"]
+  sizePrices      SizePrice[]
   tags            String[]       // e.g. ["luxury", "floral", "oud"]
   reviews         Review[]
   description     String?
@@ -279,6 +285,7 @@ model OrderItem {
   customBlendId String?      @db.ObjectId
   customBlend   CustomBlend? @relation(fields: [customBlendId], references: [id])
 
+  size     String?
   quantity Int   @default(1)
   price    Float // Price at time of purchase
 }

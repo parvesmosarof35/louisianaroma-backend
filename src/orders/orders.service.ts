@@ -56,7 +56,16 @@ export class OrdersService {
             });
           }
 
-          const price = product.price;
+          let price = product.price;
+          const itemSize = item.size;
+          if (itemSize && (product as any).sizePrices && (product as any).sizePrices.length > 0) {
+            const sizeMatch = (product as any).sizePrices.find(
+              (sp: any) => sp.size.toLowerCase().replace(/\s/g, "") === itemSize.toLowerCase().replace(/\s/g, "")
+            );
+            if (sizeMatch) {
+              price = sizeMatch.price;
+            }
+          }
           const subtotal = price * item.quantity;
           totalAmount += subtotal;
 
@@ -64,6 +73,7 @@ export class OrdersService {
             productId: item.productId,
             quantity: item.quantity,
             price,
+            size: item.size || null,
           });
         } else if (item.customBlendId) {
           // Existing Custom Blend
