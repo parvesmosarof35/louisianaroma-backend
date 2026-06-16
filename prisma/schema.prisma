@@ -102,6 +102,7 @@ model Product {
   tags            String[]       // e.g. ["luxury", "floral", "oud"]
   reviews         Review[]
   description     String?
+  video           String?        // optional video URL (YouTube, Vimeo, or direct link)
   isAvailable     Boolean        @default(true)
   stock           Int?           // numeric stock quantity
   orderItems      OrderItem[]

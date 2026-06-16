@@ -20,7 +20,7 @@ import { CreateProductDto, CreateProductSchema, UpdateProductDto, UpdateProductS
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
-import { uploadBufferToCloudinary } from '../utils/cloudinary';
+import { uploadBufferToCloudinary, uploadVideoBufferToCloudinary } from '../utils/cloudinary';
 
 @Controller('products')
 export class ProductsController {
@@ -47,16 +47,26 @@ export class ProductsController {
     }
 
     if (files && files.length > 0) {
-      const uploadedImages = await Promise.all(
-        files.map(async (file, idx) => {
-          const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
-          return {
-            image: uploadResult.secure_url,
-            position: idx,
-          };
-        }),
-      );
-      parsedData.images = uploadedImages;
+      const videoFile = files.find((file) => file.mimetype?.startsWith('video/') || file.fieldname === 'video');
+      const imageFiles = files.filter((file) => file.mimetype?.startsWith('image/'));
+
+      if (videoFile) {
+        const uploadResult = await uploadVideoBufferToCloudinary(videoFile.buffer, 'louisianaroma/products/videos');
+        parsedData.video = uploadResult.secure_url;
+      }
+
+      if (imageFiles.length > 0) {
+        const uploadedImages = await Promise.all(
+          imageFiles.map(async (file, idx) => {
+            const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
+            return {
+              image: uploadResult.secure_url,
+              position: idx,
+            };
+          }),
+        );
+        parsedData.images = uploadedImages;
+      }
     }
 
     try {
@@ -151,16 +161,26 @@ export class ProductsController {
     }
 
     if (files && files.length > 0) {
-      const uploadedImages = await Promise.all(
-        files.map(async (file, idx) => {
-          const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
-          return {
-            image: uploadResult.secure_url,
-            position: idx,
-          };
-        }),
-      );
-      parsedData.images = uploadedImages;
+      const videoFile = files.find((file) => file.mimetype?.startsWith('video/') || file.fieldname === 'video');
+      const imageFiles = files.filter((file) => file.mimetype?.startsWith('image/'));
+
+      if (videoFile) {
+        const uploadResult = await uploadVideoBufferToCloudinary(videoFile.buffer, 'louisianaroma/products/videos');
+        parsedData.video = uploadResult.secure_url;
+      }
+
+      if (imageFiles.length > 0) {
+        const uploadedImages = await Promise.all(
+          imageFiles.map(async (file, idx) => {
+            const uploadResult = await uploadBufferToCloudinary(file.buffer, 'louisianaroma/products');
+            return {
+              image: uploadResult.secure_url,
+              position: idx,
+            };
+          }),
+        );
+        parsedData.images = uploadedImages;
+      }
     }
 
     try {

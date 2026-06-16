@@ -36,6 +36,7 @@ export const CreateProductSchema = z.object({
   category: z.string().min(1, 'Category (Collection ID) is required.'),
   price: z.number().positive('Price must be greater than zero.'),
   description: z.string().optional(),
+  video: z.string().optional(),
   images: z.array(ProductImageSchema).default([]),
   sizes: z.array(z.string()).default([]),
   sizePrices: z.array(SizePriceSchema).default([]),
@@ -56,6 +57,7 @@ export class CreateProductDto {
   category!: string;
   price!: number;
   description?: string;
+  video?: string;
   images?: { image: string; position: number }[];
   sizes?: string[];
   sizePrices?: { size: string; price: number }[];
@@ -79,6 +81,7 @@ export class UpdateProductDto {
   category?: string;
   price?: number;
   description?: string;
+  video?: string;
   images?: { image: string; position: number }[];
   sizes?: string[];
   sizePrices?: { size: string; price: number }[];

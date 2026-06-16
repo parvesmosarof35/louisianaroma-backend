@@ -186,6 +186,62 @@ export const uploadBufferToCloudinary = async (
   });
 };
 
+export const uploadVideoBufferToCloudinary = async (
+  buffer: Buffer,
+  folder: string,
+): Promise<CloudinaryUploadResult> => {
+  if (
+    !config.Cloudinary?.CLOUDINARY_CLOUD_NAME ||
+    !config.Cloudinary?.CLOUDINARY_API_KEY ||
+    !config.Cloudinary?.CLOUDINARY_API_SECRET
+  ) {
+    throw new Error('Cloudinary credentials are not configured');
+  }
+
+  const fileSize = buffer.length;
+
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder,
+        resource_type: 'video',
+      },
+      (error, result) => {
+        if (error) {
+          console.error('Cloudinary video upload error:', error);
+          return reject(error);
+        }
+        if (!result) {
+          return reject(new Error('Cloudinary video upload result is undefined'));
+        }
+
+        // WhatsApp-like aggressive optimization:
+        // - q_auto:low: aggressive low quality/highest compression for buffer-free playback
+        // - f_auto: choose the most efficient container/codec for the client
+        // - w_854,h_480,c_limit: limit resolution to 480p maximum for fast mobile loading
+        let optimizedUrl = result.secure_url;
+        if (optimizedUrl.includes('/upload/')) {
+          optimizedUrl = optimizedUrl.replace(
+            '/upload/',
+            '/upload/q_auto:low,f_auto,w_854,h_480,c_limit/',
+          );
+        }
+
+        console.log(
+          `Buffer video uploaded and optimized: ${optimizedUrl}, Original Size: ${(fileSize / 1024 / 1024).toFixed(2)}MB`,
+        );
+
+        resolve({
+          secure_url: optimizedUrl,
+          public_id: result.public_id,
+        });
+      },
+    );
+
+    uploadStream.end(buffer);
+  });
+};
+
 export const deleteFromCloudinary = async (publicId: string) => {
   if (!publicId) return;
 

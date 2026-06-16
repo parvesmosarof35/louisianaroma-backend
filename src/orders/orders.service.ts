@@ -296,7 +296,7 @@ export class OrdersService {
         discount = subtotal * discountFactor;
       }
 
-      const tax = subtotal * 0.08;
+      const tax = 0;
 
       let deliveryCharge = 0;
       if (subtotal <= 50) {
@@ -559,7 +559,7 @@ export class OrdersService {
 
   async createStripeCheckoutSession(order: any, origin: string): Promise<string> {
     const subtotal = order.items?.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0) || 0;
-    const taxAmount = subtotal * 0.08;
+    const taxAmount = 0;
     const discountAmount = Math.max(0, subtotal + taxAmount + (order.deliveryCharge || 0) - order.totalAmount);
     const discountFactor = subtotal > 0 ? Math.max(0, subtotal - discountAmount) / subtotal : 1;
 
@@ -576,7 +576,9 @@ export class OrdersService {
           currency: 'usd',
           product_data: {
             name,
-            description: item.product?.description || undefined,
+            description: item.product?.description
+              ? item.product.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim()
+              : undefined,
           },
           unit_amount: Math.round(item.price * discountFactor * 100),
         },
