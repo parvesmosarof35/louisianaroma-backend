@@ -223,7 +223,7 @@ export const uploadVideoBufferToCloudinary = async (
         if (optimizedUrl.includes('/upload/')) {
           optimizedUrl = optimizedUrl.replace(
             '/upload/',
-            '/upload/q_auto:low,f_auto,w_854,h_480,c_limit/',
+            '/upload/q_auto:good,f_auto,w_1280,h_720,c_limit/',
           );
         }
 
