@@ -663,7 +663,7 @@ export class OrdersService {
     }
 
     const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'paypal'],
+      payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true,
