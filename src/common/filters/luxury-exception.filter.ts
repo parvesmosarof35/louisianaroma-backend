@@ -6,7 +6,7 @@ export class LuxuryExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    
+
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'An unexpected elegance divergence occurred in the olfactory chamber.';
     let details: any = null;
@@ -24,7 +24,7 @@ export class LuxuryExceptionFilter implements ExceptionFilter {
     response.status(status).json({
       success: false,
       meta: {
-        brand: 'Maison Louisianaroma',
+        brand: 'Louisianaroma',
         curator: 'Atelier Olfactif Support',
         timestamp: new Date().toISOString(),
       },

@@ -24,7 +24,7 @@ const prisma = new PrismaClient();
 async function main() {
   // ─── Super Admin (upsert — safe to re-run) ──────────────────────────────
   const superAdminEmail = process.env.SUPER_ADMIN_EMAIL;
-  const superAdminPass  = process.env.SUPER_ADMIN_PASS;
+  const superAdminPass = process.env.SUPER_ADMIN_PASS;
 
   if (!superAdminEmail || !superAdminPass) {
     throw new Error(
@@ -74,7 +74,7 @@ async function main() {
     update: { password: adminPassword, role: 'admin' },
     create: {
       email: 'admin@louisianaroma.com',
-      name: 'Maison Louisianaroma',
+      name: 'Louisianaroma',
       password: adminPassword,
       role: 'admin',
     },

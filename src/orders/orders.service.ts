@@ -21,7 +21,7 @@ export class OrdersService {
     this.stripe = new Stripe(config.STRIPE_SECRET_KEY || '');
   }
 
-  async createOrder(userId: string, dto: CreateOrderDto) {
+  async createOrder(userId: string | null, dto: CreateOrderDto) {
     return this.prisma.$transaction(async (tx) => {
       let totalAmount = 0;
       const orderItemsData: any[] = [];
@@ -148,7 +148,7 @@ export class OrdersService {
 
           const newBlend = await tx.customBlend.create({
             data: {
-              userId,
+              userId: userId || undefined,
               name: item.newCustomBlend.name,
               price: finalPrice,
               bottleSize: targetSize,
@@ -311,14 +311,15 @@ export class OrdersService {
       totalAmount = Math.max(0, subtotal - discount + tax + deliveryCharge);
 
       // 3. Create the Main Order
+      const orderStatus = dto.paymentMethod === 'paypal' ? 'PROCESSING' : 'PENDING';
       const order = await tx.order.create({
         data: {
-          userId,
+          userId: userId || undefined,
           totalAmount,
           deliveryCharge,
           shippingAddress: dto.shippingAddress,
           paymentId: dto.paymentId || `mock_stripe_${Math.random().toString(36).substring(7)}`,
-          status: 'PENDING',
+          status: orderStatus,
         },
       });
 
@@ -332,10 +333,11 @@ export class OrdersService {
         });
       }
 
-      // Return complete order details
-      return tx.order.findUnique({
+      // Fetch complete order details
+      const finalOrder = await tx.order.findUnique({
         where: { id: order.id },
         include: {
+          user: true,
           items: {
             include: {
               product: true,
@@ -352,6 +354,44 @@ export class OrdersService {
           },
         },
       });
+
+      if (dto.paymentMethod === 'paypal' && finalOrder) {
+        // AUTOMATED SHIPPO: Create Order!
+        let trackingData = {};
+        const emailMatch = finalOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
+        const guestEmail = emailMatch ? emailMatch[1].trim() : 'guest@example.com';
+        const emailToUse = finalOrder.user?.email || guestEmail;
+
+        if (emailToUse || finalOrder.shippingAddress) {
+          const shippoResult = await this.shippoService.createOrder(
+            finalOrder,
+            finalOrder.shippingAddress,
+            emailToUse
+          );
+          trackingData = {
+            shippoShipmentId: shippoResult.shippoOrderId,
+            shippoError: shippoResult.error,
+          };
+        }
+
+        if (Object.keys(trackingData).length > 0) {
+          await tx.order.update({
+            where: { id: finalOrder.id },
+            data: trackingData,
+          });
+        }
+
+        // DISPATCH EMAIL
+        if (emailToUse) {
+          await this.mailerService.sendOrderNotificationEmail(
+            emailToUse,
+            finalOrder,
+            'PURCHASE',
+          );
+        }
+      }
+
+      return finalOrder;
     }, {
       timeout: 20000,
     });
@@ -536,18 +576,24 @@ export class OrdersService {
     });
 
     // Send status change email
-    if (status === 'DELIVERED' || status === 'SHIPPED') {
-      await this.mailerService.sendOrderNotificationEmail(
-        updatedOrder.user.email,
-        updatedOrder,
-        'DELIVERED',
-      );
-    } else if (status === 'CANCELLED') {
-      await this.mailerService.sendOrderNotificationEmail(
-        updatedOrder.user.email,
-        updatedOrder,
-        'CANCELLED',
-      );
+    const emailMatch = updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
+    const guestEmail = emailMatch ? emailMatch[1].trim() : null;
+    const finalEmail = updatedOrder.user?.email || guestEmail;
+
+    if (finalEmail) {
+      if (status === 'DELIVERED' || status === 'SHIPPED') {
+        await this.mailerService.sendOrderNotificationEmail(
+          finalEmail,
+          updatedOrder,
+          'DELIVERED',
+        );
+      } else if (status === 'CANCELLED') {
+        await this.mailerService.sendOrderNotificationEmail(
+          finalEmail,
+          updatedOrder,
+          'CANCELLED',
+        );
+      }
     }
 
     return {
@@ -617,7 +663,7 @@ export class OrdersService {
     }
 
     const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal'],
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true,
@@ -674,22 +720,28 @@ export class OrdersService {
           });
           console.log(`[Order Confirmed] Order ${orderId} status set to PROCESSING. Paid: $${amountPaid}`);
 
-          // AUTOMATED SHIPPO: Create shipment and label!
-          const shippoResult = await this.shippoService.createShipmentAndLabel(
-            updatedOrder.shippingAddress,
-            updatedOrder.user.email,
-          );
+          // AUTOMATED SHIPPO: Create Order!
+          let trackingData = {};
+          const emailMatch = updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
+          const guestEmail = emailMatch ? emailMatch[1].trim() : 'guest@example.com';
+          const emailToUse = updatedOrder.user?.email || guestEmail;
+
+          if (emailToUse || updatedOrder.shippingAddress) {
+            const shippoResult = await this.shippoService.createOrder(
+              updatedOrder,
+              updatedOrder.shippingAddress,
+              emailToUse
+            );
+            trackingData = {
+              shippoShipmentId: shippoResult.shippoOrderId,
+              shippoError: shippoResult.error,
+            };
+          }
 
           // Update order with Shippo transaction info
           const finalOrder = await this.prisma.order.update({
             where: { id: orderId },
-            data: {
-              trackingNumber: shippoResult.trackingNumber,
-              shippingLabelUrl: shippoResult.shippingLabelUrl,
-              trackingUrl: shippoResult.trackingUrl,
-              shippoShipmentId: shippoResult.shippoShipmentId,
-              shippoError: shippoResult.error,
-            },
+            data: trackingData,
             include: {
               user: true,
               items: {
@@ -702,11 +754,14 @@ export class OrdersService {
           });
 
           // DISPATCH EMAIL
-          await this.mailerService.sendOrderNotificationEmail(
-            updatedOrder.user.email,
-            finalOrder,
-            'PURCHASE',
-          );
+          const finalEmail = updatedOrder.user?.email || (updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i)?.[1]?.trim());
+          if (finalEmail) {
+            await this.mailerService.sendOrderNotificationEmail(
+              finalEmail,
+              finalOrder,
+              'PURCHASE',
+            );
+          }
         }
         break;
       }

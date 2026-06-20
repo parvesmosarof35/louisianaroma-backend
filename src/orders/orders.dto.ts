@@ -19,6 +19,7 @@ export const CreateOrderSchema = z.object({
   paymentId: z.string().min(1, 'Payment reference required to confirm the checkout transactions.').optional(),
   items: z.array(OrderItemInputSchema).min(1, 'Your selection must contain at least one fine product to initiate checkout.'),
   promoCode: z.string().optional(),
+  paymentMethod: z.string().optional(),
 });
 
 export class OrderItemInputDto {
@@ -34,6 +35,7 @@ export class CreateOrderDto {
   paymentId?: string;
   items!: OrderItemInputDto[];
   promoCode?: string;
+  paymentMethod?: string;
 }
 
 export const UpdateOrderStatusSchema = z.object({

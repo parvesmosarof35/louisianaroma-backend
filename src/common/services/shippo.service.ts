@@ -61,106 +61,69 @@ export class ShippoService {
     };
   }
 
-  async createShipmentAndLabel(shippingAddress: string, customerEmail: string) {
+  async createOrder(orderData: any, shippingAddress: string, customerEmail: string) {
     const addressTo = this.parseAddress(shippingAddress);
 
-    const addressFrom = {
-      name: 'Louisianaroma',
-      street1: '123 Fragrance Way',
-      city: 'New Orleans',
-      state: 'LA',
-      zip: '70112',
-      country: 'US',
-      phone: '+15553332222',
-      email: 'atelier@louisianaroma.com',
-    };
+    const lineItems = orderData.items?.map((item: any) => {
+      let title = 'Luxury Product';
+      let sku = 'SKU-000';
+      if (item.product) {
+        title = item.product.name;
+        sku = item.product.id;
+      } else if (item.customBlend) {
+        title = item.customBlend.name || 'Bespoke Custom Blend';
+        sku = item.customBlend.id;
+      }
 
-    const parcel = {
-      length: '5',
-      width: '5',
-      height: '5',
-      distance_unit: 'in',
-      weight: '1',
-      mass_unit: 'lb',
-    };
+      return {
+        quantity: item.quantity || 1,
+        sku,
+        title,
+        total_price: item.price ? item.price.toString() : '0.00',
+        currency: 'USD',
+        weight: '1.00', // Default weight
+        weight_unit: 'lb',
+      };
+    }) || [];
 
     try {
-      this.logger.log(`Creating Shippo shipment for ${addressTo.name} in ${addressTo.country}`);
+      this.logger.log(`Creating Shippo Order for ${addressTo.name} in ${addressTo.country}`);
 
-      const shipmentResponse = await fetch('https://api.goshippo.com/shipments/', {
+      const orderResponse = await fetch('https://api.goshippo.com/orders/', {
         method: 'POST',
         headers: {
           Authorization: `ShippoToken ${this.apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          address_from: addressFrom,
-          address_to: {
+          to_address: {
             ...addressTo,
             email: customerEmail,
           },
-          parcels: [parcel],
-          async: false,
+          line_items: lineItems,
+          placed_at: new Date().toISOString(),
+          order_number: orderData.id,
+          order_status: 'PAID',
+          total_price: orderData.totalAmount?.toString() || '0.00',
+          currency: 'USD',
         }),
       });
 
-      if (!shipmentResponse.ok) {
-        const errText = await shipmentResponse.text();
-        throw new Error(`Shippo shipment creation failed: ${errText}`);
+      if (!orderResponse.ok) {
+        const errText = await orderResponse.text();
+        throw new Error(`Shippo order creation failed: ${errText}`);
       }
 
-      const shipment = await shipmentResponse.json();
-      const rates = shipment.rates || [];
-
-      if (rates.length === 0) {
-        throw new Error('No shipping rates returned from Shippo.');
-      }
-
-      const sortedRates = [...rates].sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
-      const cheapestRate = sortedRates[0];
-
-      this.logger.log(`Purchasing Shippo label for rate: ${cheapestRate.object_id} ($${cheapestRate.amount} via ${cheapestRate.provider})`);
-
-      const transactionResponse = await fetch('https://api.goshippo.com/transactions/', {
-        method: 'POST',
-        headers: {
-          Authorization: `ShippoToken ${this.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          rate: cheapestRate.object_id,
-          async: false,
-        }),
-      });
-
-      if (!transactionResponse.ok) {
-        const errText = await transactionResponse.text();
-        throw new Error(`Shippo label purchase failed: ${errText}`);
-      }
-
-      const transaction = await transactionResponse.json();
-
-      if (transaction.status === 'ERROR') {
-        const errorMsg = transaction.messages?.[0]?.text || 'Unknown error';
-        throw new Error(`Shippo transaction error: ${errorMsg}`);
-      }
+      const shippoOrder = await orderResponse.json();
 
       return {
-        shippoShipmentId: shipment.object_id,
-        shippoTransactionId: transaction.object_id,
-        trackingNumber: transaction.tracking_number,
-        trackingUrl: transaction.tracking_url_provider,
-        shippingLabelUrl: transaction.label_url,
+        shippoOrderId: shippoOrder.object_id,
         error: null,
       };
     } catch (error: any) {
-      this.logger.error(`Shippo automated shipping failed: ${error.message}`);
+      this.logger.error(`Shippo automated order creation failed: ${error.message}`);
       return {
-        shippoShipmentId: null,
-        shippoTransactionId: null,
-        trackingNumber: null,
-        trackingUrl: null,
-        shippingLabelUrl: null,
+        shippoOrderId: null,
         error: error.message || 'Unknown Shippo error',
       };
     }

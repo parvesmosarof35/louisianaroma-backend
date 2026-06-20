@@ -3,21 +3,21 @@ import { MetricsService } from './common/services/metrics.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly metricsService: MetricsService) {}
+    constructor(private readonly metricsService: MetricsService) { }
 
-  @Get('monitor/metrics')
-  async getMetrics() {
-    return this.metricsService.getMetrics();
-  }
+    @Get('monitor/metrics')
+    async getMetrics() {
+        return this.metricsService.getMetrics();
+    }
 
-  @Get()
-  getHello(): string {
-    return `<!DOCTYPE html>
+    @Get()
+    getHello(): string {
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison Louisianaroma — Telemetry & Diagnostics</title>
+    <title>Louisianaroma — Telemetry & Diagnostics</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -224,7 +224,7 @@ export class AppController {
 </head>
 <body>
     <header>
-        <div class="brand-subtitle">Maison Louisianaroma</div>
+        <div class="brand-subtitle">Louisianaroma</div>
         <h1>Telemetry & Real-Time Diagnostics</h1>
         <div class="status-badge-container">
             <div class="status-dot"></div>
@@ -341,7 +341,7 @@ export class AppController {
     </main>
 
     <footer>
-        ⚜️ Powered by Maison Louisianaroma ⚜️
+        ⚜️ Powered by Louisianaroma ⚜️
     </footer>
 
     <script>
@@ -393,5 +393,5 @@ export class AppController {
     </script>
 </body>
 </html>`;
-  }
+    }
 }
