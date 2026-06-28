@@ -24,7 +24,7 @@ export class OrdersController {
     if (dto.paymentMethod === 'paypal') {
       return {
         success: true,
-        message: 'Luxury order initiated and paid via PayPal.',
+        message: 'Luxury order initiated via PayPal. Awaiting payment verification.',
         data: order,
       };
     }

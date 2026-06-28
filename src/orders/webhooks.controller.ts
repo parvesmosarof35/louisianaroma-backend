@@ -33,3 +33,26 @@ export class WebhooksController {
     return { received: true };
   }
 }
+
+@Controller('webhooks')
+export class PaypalWebhooksController {
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Post('paypal')
+  @HttpCode(HttpStatus.OK)
+  async handlePaypalWebhook(
+    @Req() req: express.Request,
+    @Headers() headers: Record<string, string>,
+  ) {
+    const rawBody = (req as any).rawBody;
+    if (!rawBody) {
+      throw new BadRequestException('Raw body is missing. Ensure rawBody is enabled in NestFactory options.');
+    }
+
+    const payloadStr = Buffer.isBuffer(rawBody) ? rawBody.toString('utf8') : rawBody;
+
+    await this.ordersService.handlePaypalWebhook(headers, payloadStr);
+
+    return { received: true };
+  }
+}

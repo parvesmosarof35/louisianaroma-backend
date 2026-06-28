@@ -311,7 +311,6 @@ export class OrdersService {
       totalAmount = Math.max(0, subtotal - discount + tax + deliveryCharge);
 
       // 3. Create the Main Order
-      const orderStatus = dto.paymentMethod === 'paypal' ? 'PROCESSING' : 'PENDING';
       const order = await tx.order.create({
         data: {
           userId: userId || undefined,
@@ -319,7 +318,7 @@ export class OrdersService {
           deliveryCharge,
           shippingAddress: dto.shippingAddress,
           paymentId: dto.paymentId || `mock_stripe_${Math.random().toString(36).substring(7)}`,
-          status: orderStatus,
+          status: 'PENDING',
         },
       });
 
@@ -354,42 +353,6 @@ export class OrdersService {
           },
         },
       });
-
-      if (dto.paymentMethod === 'paypal' && finalOrder) {
-        // AUTOMATED SHIPPO: Create Order!
-        let trackingData = {};
-        const emailMatch = finalOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
-        const guestEmail = emailMatch ? emailMatch[1].trim() : 'guest@example.com';
-        const emailToUse = finalOrder.user?.email || guestEmail;
-
-        if (emailToUse || finalOrder.shippingAddress) {
-          const shippoResult = await this.shippoService.createOrder(
-            finalOrder,
-            finalOrder.shippingAddress,
-            emailToUse
-          );
-          trackingData = {
-            shippoShipmentId: shippoResult.shippoOrderId,
-            shippoError: shippoResult.error,
-          };
-        }
-
-        if (Object.keys(trackingData).length > 0) {
-          await tx.order.update({
-            where: { id: finalOrder.id },
-            data: trackingData,
-          });
-        }
-
-        // DISPATCH EMAIL
-        if (emailToUse) {
-          await this.mailerService.sendOrderNotificationEmail(
-            emailToUse,
-            finalOrder,
-            'PURCHASE',
-          );
-        }
-      }
 
       return finalOrder;
     }, {
@@ -677,6 +640,224 @@ export class OrdersService {
     return session.url || '';
   }
 
+  async fulfillConfirmedOrder(orderId: string, paymentId: string, amountPaid?: number): Promise<void> {
+    const order = await this.prisma.order.findUnique({
+      where: { id: orderId },
+    });
+
+    if (!order) {
+      console.warn(`[Order Fulfillment Warning] No order found with ID: ${orderId}`);
+      return;
+    }
+
+    // If order is already PROCESSING, SHIPPED, or DELIVERED, avoid duplicate fulfillment
+    if (order.status !== 'PENDING') {
+      console.log(`[Order Fulfillment No-Op] Order ${orderId} is already in ${order.status} status.`);
+      return;
+    }
+
+    const updatedOrder = await this.prisma.order.update({
+      where: { id: orderId },
+      data: {
+        status: 'PROCESSING',
+        paymentId,
+        totalAmount: amountPaid !== undefined && amountPaid > 0 ? amountPaid : undefined,
+      },
+      include: {
+        user: true,
+        items: {
+          include: {
+            product: true,
+            customBlend: true,
+          },
+        },
+      },
+    });
+    console.log(`[Order Confirmed] Order ${orderId} status set to PROCESSING. Paid: $${amountPaid ?? updatedOrder.totalAmount}`);
+
+    // AUTOMATED SHIPPO: Create Order!
+    let trackingData = {};
+    const emailMatch = updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
+    const guestEmail = emailMatch ? emailMatch[1].trim() : 'guest@example.com';
+    const emailToUse = updatedOrder.user?.email || guestEmail;
+
+    if (emailToUse || updatedOrder.shippingAddress) {
+      try {
+        const shippoResult = await this.shippoService.createOrder(
+          updatedOrder,
+          updatedOrder.shippingAddress,
+          emailToUse
+        );
+        trackingData = {
+          shippoShipmentId: shippoResult.shippoOrderId,
+          shippoError: shippoResult.error,
+        };
+      } catch (shippoErr: any) {
+        console.error(`[Shippo Integration Error] Failed to create shippo order: ${shippoErr.message}`);
+        trackingData = {
+          shippoError: shippoErr.message,
+        };
+      }
+    }
+
+    // Update order with Shippo transaction info
+    const finalOrder = await this.prisma.order.update({
+      where: { id: orderId },
+      data: trackingData,
+      include: {
+        user: true,
+        items: {
+          include: {
+            product: true,
+            customBlend: true,
+          },
+        },
+      },
+    });
+
+    // DISPATCH EMAIL
+    const finalEmail = updatedOrder.user?.email || (updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i)?.[1]?.trim());
+    if (finalEmail) {
+      try {
+        await this.mailerService.sendOrderNotificationEmail(
+          finalEmail,
+          finalOrder,
+          'PURCHASE',
+        );
+      } catch (mailErr: any) {
+        console.error(`[Mailer Error] Failed to send order notification email: ${mailErr.message}`);
+      }
+    }
+  }
+
+  async getPaypalAccessToken(): Promise<string> {
+    const clientId = config.PAYPAL_CLIENT_ID || '';
+    const secret = config.PAYPAL_SECRET || '';
+    const mode = config.PAYPAL_MODE || 'sandbox';
+    const baseUrl = mode === 'live' 
+      ? 'https://api-m.paypal.com' 
+      : 'https://api-m.sandbox.paypal.com';
+
+    const auth = Buffer.from(`${clientId}:${secret}`).toString('base64');
+    const response = await fetch(`${baseUrl}/v1/oauth2/token`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'grant_type=client_credentials',
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch PayPal Access Token: ${response.statusText} - ${errorText}`);
+    }
+
+    const data: any = await response.json();
+    return data.access_token;
+  }
+
+  async handlePaypalWebhook(headers: Record<string, string>, rawBody: string): Promise<void> {
+    const webhookId = config.PAYPAL_WEBHOOK_ID;
+    if (!webhookId) {
+      console.warn('[PayPal Webhook Warning] PAYPAL_WEBHOOK_ID is not configured in environment.');
+      throw new BadRequestException('PayPal webhook integration is not fully configured.');
+    }
+
+    let bodyJson: any;
+    try {
+      bodyJson = JSON.parse(rawBody);
+    } catch (err: any) {
+      throw new BadRequestException(`Invalid JSON payload: ${err.message}`);
+    }
+
+    const mode = config.PAYPAL_MODE || 'sandbox';
+    const baseUrl = mode === 'live' 
+      ? 'https://api-m.paypal.com' 
+      : 'https://api-m.sandbox.paypal.com';
+
+    try {
+      const accessToken = await this.getPaypalAccessToken();
+
+      // Normalize headers (case-insensitive keys)
+      const getHeader = (name: string): string => {
+        const key = Object.keys(headers).find(k => k.toLowerCase() === name.toLowerCase());
+        return key ? headers[key] : '';
+      };
+
+      const verificationPayload = {
+        auth_algo: getHeader('paypal-auth-algo'),
+        cert_url: getHeader('paypal-cert-url'),
+        transmission_id: getHeader('paypal-transmission-id'),
+        transmission_sig: getHeader('paypal-transmission-sig'),
+        transmission_time: getHeader('paypal-transmission-time'),
+        webhook_id: webhookId,
+        webhook_event: bodyJson,
+      };
+
+      const verifyResponse = await fetch(`${baseUrl}/v1/notifications/verify-webhook-signature`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(verificationPayload),
+      });
+
+      if (!verifyResponse.ok) {
+        const errorText = await verifyResponse.text();
+        throw new Error(`Signature verification endpoint failed: ${verifyResponse.statusText} - ${errorText}`);
+      }
+
+      const verifyResult: any = await verifyResponse.json();
+      const isSignatureValid = verifyResult.verification_status === 'SUCCESS';
+
+      if (!isSignatureValid) {
+        console.error('[PayPal Webhook Verification Failed] Signature is invalid according to PayPal.');
+        throw new BadRequestException('Webhook signature verification failed.');
+      }
+
+      console.log(`[PayPal Webhook Verified] Event Type: ${bodyJson.event_type}`);
+
+      // We handle PAYMENT.CAPTURE.COMPLETED and CHECKOUT.ORDER.APPROVED
+      const allowedEvents = ['PAYMENT.CAPTURE.COMPLETED', 'CHECKOUT.ORDER.APPROVED'];
+      if (!allowedEvents.includes(bodyJson.event_type)) {
+        console.log(`[PayPal Webhook] Event type ${bodyJson.event_type} is not configured to trigger fulfillment.`);
+        return;
+      }
+
+      const resource = bodyJson.resource;
+      const paypalOrderId = resource.id; // e.g., Order ID or Capture ID
+      const relatedOrderId = resource.supplementary_data?.related_ids?.order_id;
+      const parentPayment = resource.parent_payment;
+      const customId = resource.custom_id || resource.custom;
+
+      // Find the corresponding order in our DB
+      const searchIdentifiers = [paypalOrderId, relatedOrderId, parentPayment, customId].filter(Boolean) as string[];
+      
+      let order = await this.prisma.order.findFirst({
+        where: {
+          OR: [
+            { paymentId: { in: searchIdentifiers } },
+            { id: { in: searchIdentifiers } }
+          ]
+        }
+      });
+
+      if (!order) {
+        console.warn(`[PayPal Webhook Warning] No matching order found in database for identifiers: ${JSON.stringify(searchIdentifiers)}`);
+        return;
+      }
+
+      const amountPaid = parseFloat(resource.amount?.value || '0');
+      await this.fulfillConfirmedOrder(order.id, paypalOrderId, amountPaid);
+
+    } catch (error: any) {
+      console.error(`[PayPal Webhook Error] Failed to process webhook: ${error.message}`);
+      throw new BadRequestException(`PayPal Webhook handling failed: ${error.message}`);
+    }
+  }
+
   async handleStripeWebhook(rawBody: Buffer, signature: string): Promise<void> {
     let event: any;
 
@@ -700,68 +881,7 @@ export class OrdersService {
         if (orderId) {
           const amountPaid = session.amount_total ? session.amount_total / 100 : 0;
           const paymentId = session.payment_intent as string || session.id;
-
-          const updatedOrder = await this.prisma.order.update({
-            where: { id: orderId },
-            data: {
-              status: 'PROCESSING',
-              paymentId,
-              totalAmount: amountPaid > 0 ? amountPaid : undefined,
-            },
-            include: {
-              user: true,
-              items: {
-                include: {
-                  product: true,
-                  customBlend: true,
-                },
-              },
-            },
-          });
-          console.log(`[Order Confirmed] Order ${orderId} status set to PROCESSING. Paid: $${amountPaid}`);
-
-          // AUTOMATED SHIPPO: Create Order!
-          let trackingData = {};
-          const emailMatch = updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i);
-          const guestEmail = emailMatch ? emailMatch[1].trim() : 'guest@example.com';
-          const emailToUse = updatedOrder.user?.email || guestEmail;
-
-          if (emailToUse || updatedOrder.shippingAddress) {
-            const shippoResult = await this.shippoService.createOrder(
-              updatedOrder,
-              updatedOrder.shippingAddress,
-              emailToUse
-            );
-            trackingData = {
-              shippoShipmentId: shippoResult.shippoOrderId,
-              shippoError: shippoResult.error,
-            };
-          }
-
-          // Update order with Shippo transaction info
-          const finalOrder = await this.prisma.order.update({
-            where: { id: orderId },
-            data: trackingData,
-            include: {
-              user: true,
-              items: {
-                include: {
-                  product: true,
-                  customBlend: true,
-                },
-              },
-            },
-          });
-
-          // DISPATCH EMAIL
-          const finalEmail = updatedOrder.user?.email || (updatedOrder.shippingAddress.match(/\(Email:\s*([^\)]+)\)/i)?.[1]?.trim());
-          if (finalEmail) {
-            await this.mailerService.sendOrderNotificationEmail(
-              finalEmail,
-              finalOrder,
-              'PURCHASE',
-            );
-          }
+          await this.fulfillConfirmedOrder(orderId, paymentId, amountPaid);
         }
         break;
       }
