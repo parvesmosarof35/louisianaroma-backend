@@ -25,6 +25,9 @@ RUN pnpm prisma generate
 # Compile the production bundle
 RUN pnpm build
 
+# Prune development dependencies to keep node_modules minimal for production
+RUN pnpm prune --prod
+
 # --- Stage 2: Runtime Runner ---
 FROM node:20-slim AS runner
 
@@ -34,17 +37,11 @@ WORKDIR /usr/src/app
 # Install runtime OpenSSL dependencies
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
-# Install pnpm globally
-RUN npm install -g pnpm
-
-# Copy compiled assets, package.json, lockfile, and prisma from builder
+# Copy compiled assets, package.json, pruned node_modules, and prisma from builder
 COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/package.json ./package.json
-COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /usr/src/app/prisma ./prisma
-
-# Install ONLY production dependencies to ensure correct symlinks/paths
-RUN pnpm install --prod --frozen-lockfile
 
 # Expose server port
 EXPOSE 5000

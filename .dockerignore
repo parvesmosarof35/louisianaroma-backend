@@ -1,6 +1,8 @@
 node_modules
 dist
 .git
+.github
+test
 .gitignore
 .env
 Dockerfile
@@ -10,4 +12,5 @@ pnpm-debug.log
 yarn-debug.log
 .pnpm-store
 README.md
+*.postman_collection.json
 louisianaroma-backend.json
